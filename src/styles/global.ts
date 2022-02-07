@@ -56,7 +56,7 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         max-width: 576px;
         background-color: white;
-        padding: 3rem;
+        padding: 1.5rem;
         position: relative;
         border-radius: 0.60rem;
     }
@@ -69,7 +69,7 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
 
         :hover{
-            background-color:#ff4d4d;
+            background-color:#ff4d4d
         }
     }
 

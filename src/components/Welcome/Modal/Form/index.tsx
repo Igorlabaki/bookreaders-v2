@@ -42,8 +42,8 @@ export default function Form({title} : FormProps) {
                 <Input label="Confirm Password" type="password" onChange={setpasswordConfirmInput}  value={passworConfirmdInput} required noRender={title === 'Login'}/>
             </div>
             {renderText(title)}
-            <Button text={title} submit={handleSubmit}></Button>
-            <Button text={title} submit={handleSubmit} googleButton><FcGoogle fontSize={25}/></Button>
+            <Button  submit={handleSubmit}></Button>
+            <Button  submit={handleSubmit} googleButton><FcGoogle fontSize={25}/></Button>
         </FormContainer>
     )
 }
