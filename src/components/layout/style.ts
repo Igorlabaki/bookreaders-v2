@@ -5,7 +5,6 @@ export const LayoutContainer = styled.div`
     height: 100vh;
     width: 80%;
     margin:auto;
-    background-color: blue;
     padding: 20px;
 
     div{

@@ -13,9 +13,9 @@ export function Layout({children} : LayoutProps){
             <Header/>
             <div>
                 <Aside/>
-                <div>
+                <section>
                     {children}
-                </div>
+                </section>
             </div>
         </LayoutContainer>
     )

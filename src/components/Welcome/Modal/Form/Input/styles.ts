@@ -13,7 +13,7 @@ export const InputContainer = styled.div`
 
     input{
         outline: none;
-        border: 0;
+        border: 1px solid gray;
         border-radius:0.25rem;
         line-height: 2rem;
         font-size: 1.1rem;
