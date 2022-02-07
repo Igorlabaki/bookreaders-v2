@@ -7,6 +7,9 @@ export const FormContainer = styled.form`
         color: rgba(29, 78, 216);
         font-size: 1.5rem;
         font-weight: 700;
+        font-size: 2rem;
+        text-align: start;
+        margin-bottom: 50px;
     }
 
     .close-button{
@@ -28,12 +31,6 @@ export const FormContainer = styled.form`
         display: flex;
         flex-direction: column;
         margin-top: 20px;
-    }
-    
-    h1{
-        font-size: 2rem;
-        text-align: center;
-        margin-bottom: 50px;
     }
 
     .redirect-text{

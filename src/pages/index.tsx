@@ -1,4 +1,4 @@
-import { Container, ContainerIntroText, ContainerSocialLinks } from "./style";
+import { WelcomeContainer, ContainerIntroText, ContainerSocialLinks } from "./style";
 import { ContextProvider }  from "../Context/Home/HomeContext";
 import Icon                 from "../components/Welcome/Footer/Icon";
 import Header               from "../components/Welcome/Header";
@@ -7,7 +7,7 @@ import ModalComponent from "../components/Welcome/Modal";
 export default function Home() {
   return (
     <ContextProvider>
-      <Container>
+      <WelcomeContainer>
         <Header/>
         <ContainerIntroText>
           <h1>Welcome to the BookReaders</h1>
@@ -26,7 +26,7 @@ export default function Home() {
           </div>
         </ContainerSocialLinks>
         <ModalComponent/>
-      </Container>
+      </WelcomeContainer>
     </ContextProvider>
   )
 }

@@ -14,7 +14,7 @@ export default function Button({text,submit,children,googleButton}: ButtonProps)
             onClick={submit}
             className={`${googleButton ? "google-button" : ""}`}
         >
-            <p>{googleButton ? 'Sing in with Google' : text}</p>
+            <p>{googleButton ? 'Sing in with ' : text}</p>
             {children}
         </ButtonContainer>)
 }
