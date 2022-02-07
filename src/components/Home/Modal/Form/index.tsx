@@ -1,7 +1,8 @@
 import Input from './Input';
 import { useState } from 'react';
 import { FormContainer } from './styles';
-import {AiOutlineClose,AiFillGooglePlusSquare} from "react-icons/ai"
+import {AiOutlineClose} from "react-icons/ai"
+import {FcGoogle} from "react-icons/fc"
 import useHomeContext from '../../../../hook/useHomeContext';
 import Button from './Button';
 
@@ -42,7 +43,7 @@ export default function Form({title} : FormProps) {
             </div>
             {renderText(title)}
             <Button text={title} submit={handleSubmit}></Button>
-            <Button text={title} submit={handleSubmit} googleButton><AiFillGooglePlusSquare fontSize={25}/></Button>
+            <Button text={title} submit={handleSubmit} googleButton><FcGoogle fontSize={25}/></Button>
         </FormContainer>
     )
 }

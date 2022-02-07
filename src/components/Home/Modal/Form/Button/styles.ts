@@ -15,5 +15,9 @@ export const ButtonContainer = styled.button`
     :hover{
         background-color:rgba(59, 130, 246);
     }
+
+    p{
+        margin-right: 5px;
+    }
 `
 
