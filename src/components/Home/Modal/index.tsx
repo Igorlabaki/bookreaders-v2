@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import useHomeContext from '../../../Context/Home/hook/useHomeContext';
+import useHomeContext from '../../../hook/useHomeContext';
 import { ModalContainer } from './style';
 import Form from '../Form';
 

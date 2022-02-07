@@ -49,7 +49,7 @@ export const ContainerSocialLinks = styled.div`
     div{
         padding: 10px;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
     }
 `

@@ -1,4 +1,4 @@
-import useHomeContext from "../../../Context/Home/hook/useHomeContext";
+import useHomeContext from "../../../hook/useHomeContext";
 import { Button } from "../Button";
 import { Container } from "./style";
 

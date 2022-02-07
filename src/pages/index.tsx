@@ -2,7 +2,7 @@ import { Container, ContainerIntroText, ContainerSocialLinks } from "./style";
 import { ContextProvider }  from "../Context/Home/HomeContext";
 import Icon                 from "../components/Home/Icon";
 import Header               from "../components/Home/Header";
-import useHomeContext from "../Context/Home/hook/useHomeContext";
+import useHomeContext from "../hook/useHomeContext";
 import ModalComponent from "../components/Home/Modal";
 
 export default function Home() {

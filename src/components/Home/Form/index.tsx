@@ -2,12 +2,16 @@ import Input from '../Input';
 import { useState } from 'react';
 import { FormContainer } from './styles';
 import {AiOutlineClose} from "react-icons/ai"
+import useHomeContext from '../../../hook/useHomeContext';
 
 interface FormProps{
     title:string
 }
 
+
 export default function Form({title} : FormProps) {
+    
+    const {handleCloseLoginModal,handleCloseRegisterModal} = useHomeContext()
 
     const [nameInput, setNameInput]                         = useState("")
     const [passwordInput, setpasswordInput]                 = useState("")
@@ -18,7 +22,11 @@ export default function Form({title} : FormProps) {
 
     return (
         <FormContainer>
-            <button className='close-button'><AiOutlineClose/></button>
+            {title === "Login" ? 
+               <button className='close-button' onClick={handleCloseLoginModal}><AiOutlineClose/></button>
+               :
+               <button className='close-button' onClick={handleCloseRegisterModal}><AiOutlineClose/></button>
+            }
             <h1>{title}</h1>
             <div>
                 <Input label="Email"            type="email"    onChange={setemailInput}            value={emailInput}           required/>
