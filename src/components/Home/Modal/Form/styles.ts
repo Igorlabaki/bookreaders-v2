@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.form`
+    background-color: transparent;
+
     h1{
-        --tw-text-opacity: 1;
-        color: rgba(29, 78, 216, var(--tw-text-opacity));
+        color: rgba(29, 78, 216);
         font-size: 1.5rem;
         font-weight: 700;
     }
@@ -27,13 +28,29 @@ export const FormContainer = styled.form`
         display: flex;
         flex-direction: column;
         margin-top: 20px;
-        label{
-            font-size: 1.2rem;
-            font-weight: 700;
-            color:rgba(75, 85, 99)
-        }
-        input{
-            outline: none;
+    }
+    
+    h1{
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .redirect-text{
+        margin: 10px 5px;
+        font-size: 1.05rem;
+
+        button{
+            border:0;
+            background-color: transparent;
+            color: rgba(29, 78, 216);
+            font-size: 1.05rem;
+            padding-left: 5px;
+            transition: font-weight 0.25s;
+            
+            :hover{
+                font-weight: 700;
+            }
         }
     }
 `

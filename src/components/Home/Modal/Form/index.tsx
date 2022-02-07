@@ -1,8 +1,10 @@
-import Input from '../Input';
+import Input from './Input';
 import { useState } from 'react';
 import { FormContainer } from './styles';
-import {AiOutlineClose} from "react-icons/ai"
-import useHomeContext from '../../../hook/useHomeContext';
+import {AiOutlineClose,AiFillGooglePlusSquare} from "react-icons/ai"
+import useHomeContext from '../../../../hook/useHomeContext';
+import Button from './Button';
+
 
 interface FormProps{
     title:string
@@ -11,7 +13,7 @@ interface FormProps{
 
 export default function Form({title} : FormProps) {
     
-    const {handleCloseLoginModal,handleCloseRegisterModal} = useHomeContext()
+    const {renderText,handleCloseLoginModal,handleCloseRegisterModal,handleOpenLoginModal,handleOpenRegisterModal} = useHomeContext()
 
     const [nameInput, setNameInput]                         = useState("")
     const [passwordInput, setpasswordInput]                 = useState("")
@@ -19,6 +21,10 @@ export default function Form({title} : FormProps) {
     const [emailInput, setemailInput]                       = useState("")
 
     const [error, seterror] = useState(null)
+
+    function handleSubmit(){
+
+    }
 
     return (
         <FormContainer>
@@ -34,6 +40,9 @@ export default function Form({title} : FormProps) {
                 <Input label="Password"         type="password" onChange={setpasswordInput}         value={passwordInput}        required/>
                 <Input label="Confirm Password" type="password" onChange={setpasswordConfirmInput}  value={passworConfirmdInput} required noRender={title === 'Login'}/>
             </div>
+            {renderText(title)}
+            <Button text={title} submit={handleSubmit}></Button>
+            <Button text={title} submit={handleSubmit} googleButton><AiFillGooglePlusSquare fontSize={25}/></Button>
         </FormContainer>
     )
 }

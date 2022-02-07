@@ -4,15 +4,14 @@ import ModalComponent from '../../components/Home/Modal';
 interface ContextProvider {
     children: ReactNode
 }
-
-
 interface HomeContext{
     isLoginModalOpen        : boolean,
     isRegisterModalOpen     : boolean,
     handleOpenLoginModal    ?:() => void,
     handleCloseLoginModal   ?:() => void,
     handleOpenRegisterModal ?:() => void,
-    handleCloseRegisterModal?:() => void
+    handleCloseRegisterModal?:() => void,
+    renderText              ?:(title:string) => void
 }
 
 const initialState: HomeContext = {
@@ -42,6 +41,38 @@ export function ContextProvider( {children}: ContextProvider){
         setisRegisterModalOpen(false)
     }
 
+    function renderText(title: string){
+        if(title == "Login"){
+            return(
+                <div className='redirect-text'>
+                <p className="mt-8">
+                Are you new here? 
+                <button  onClick={(e) => {
+                    e.preventDefault() 
+                    handleCloseLoginModal()
+                    handleOpenRegisterModal()
+                }}>Create a account here.
+                </button>
+                </p>
+            </div>
+            )
+        }else{
+            return(
+            <div className='redirect-text'>
+            <p className="mt-8">
+            Do you already have an account?
+            <button onClick={(e) => {
+                e.preventDefault() 
+                handleCloseRegisterModal()
+                handleOpenLoginModal()
+                console.log(isLoginModalOpen)
+            }}> Click here.</button>
+            </p>
+            </div>
+            )
+        }
+    }
+
     return(
         <HomeContext.Provider value={{
             isLoginModalOpen,
@@ -50,6 +81,7 @@ export function ContextProvider( {children}: ContextProvider){
             handleCloseLoginModal,
             handleOpenRegisterModal,
             handleCloseRegisterModal,
+            renderText
         }}>
             {children}
         </HomeContext.Provider>

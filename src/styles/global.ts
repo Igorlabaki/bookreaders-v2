@@ -39,6 +39,7 @@ export const GlobalStyle = createGlobalStyle`
         cursor: pointer;
     }
 
+        
     .react-modal-overlay{
         background-color: rgba(0,0,0,0.5);
         position:fixed;
@@ -57,6 +58,19 @@ export const GlobalStyle = createGlobalStyle`
         background-color: white;
         padding: 3rem;
         position: relative;
-        border-radius: 0.24rem;
+        border-radius: 0.60rem;
     }
+
+    .google-button{
+        background-color: red;
+        transition: background-color 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        :hover{
+            background-color:#ff4d4d;
+        }
+    }
+
 `
