@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SerachInputContainer = styled.div`
+
     display: flex;
     justify-content: center;
     align-items:center;
@@ -13,13 +14,14 @@ export const SerachInputContainer = styled.div`
         justify-content: center;
         align-items: center;
         background-color: rgba(29, 78, 216);
+        border-radius: 0.25rem;
         height: 100%;
-        padding:5px;
+        padding:10px;
         transition: background-color 0.2s;
         cursor: pointer;
 
         :hover{
-            background-color: rgba(147, 197, 253);
+            filter: brightness(1.2);
         }
     }
 

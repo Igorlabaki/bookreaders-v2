@@ -55,12 +55,13 @@ export const GlobalStyle = createGlobalStyle`
     .react-modal-content{
         width: 100%;
         max-width: 576px;
-        background-color: white;
+        background-color: rgb(235, 229, 228);
         padding: 1.5rem;
         position: relative;
         border-radius: 0.60rem;
     }
 
+    
     .google-button{
         background-color: red;
         transition: background-color 0.2s;
@@ -72,5 +73,4 @@ export const GlobalStyle = createGlobalStyle`
             background-color:#ff4d4d
         }
     }
-
 `

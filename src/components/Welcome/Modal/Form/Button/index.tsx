@@ -1,3 +1,4 @@
+import useFireBaseContext from "../../../../../hook/useFirebaseContext";
 import { ButtonContainer } from "./styles";
 
 interface ButtonProps {
@@ -8,12 +9,27 @@ interface ButtonProps {
 
 export default function Button({submit,children,googleButton}: ButtonProps) {
 
+    const {loginGoogle} = useFireBaseContext()
+
     return (
-        <ButtonContainer
+        <>
+        { googleButton ? 
+            <ButtonContainer
+            onClick={loginGoogle}
+            className="google-button"
+            >
+                <p>Sing in with</p>
+                {children}
+            </ButtonContainer>
+            :
+            <ButtonContainer
             onClick={submit}
-            className={`${googleButton ? "google-button" : ""}`}
         >
-            <p>{googleButton ? 'Sing in with ' : 'Confirm'}</p>
+            <p>{'Confirm'}</p>
             {children}
-        </ButtonContainer>)
+        </ButtonContainer>
+            
+        }
+        </>
+    )
 }

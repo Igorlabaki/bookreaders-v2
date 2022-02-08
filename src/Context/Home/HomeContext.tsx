@@ -1,7 +1,5 @@
 import {createContext,ReactNode,useState} from 'react'
-import ModalComponent from '../../components/Home/Modal';
-
-interface ContextProvider {
+interface HomeContextProvider {
     children: ReactNode
 }
 interface HomeContext{
@@ -20,7 +18,7 @@ const initialState: HomeContext = {
 }
 export const HomeContext = createContext<HomeContext>(initialState)
 
-export function ContextProvider( {children}: ContextProvider){
+export function HomeContextProvider( {children}: HomeContextProvider){
  
     const [isLoginModalOpen,    setisLoginModalOpen]    = useState(Boolean);
     const [isRegisterModalOpen, setisRegisterModalOpen] = useState(Boolean);

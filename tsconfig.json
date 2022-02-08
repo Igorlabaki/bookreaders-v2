@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/service/firebase.js"  ],
   "exclude": [
     "node_modules"
   ]

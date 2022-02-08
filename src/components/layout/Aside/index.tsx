@@ -1,5 +1,10 @@
+import {Nav} from "./Nav";
+import { ContainerAside } from "./style";
+
 export function Aside(){
     return(
-        <h1>Aside</h1>
+        <ContainerAside>
+            <Nav/>
+        </ContainerAside>
     )
 }
