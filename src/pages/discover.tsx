@@ -1,5 +1,5 @@
-import { Layout } from "../components/layout";
-import { DiscoverComponent } from "../components/layout/Content/DiscoverComponent";
+import { Layout } from "../components/Layout";
+import { DiscoverComponent } from "../components/Layout/Content/DiscoverComponent";
 
 export default function Home(){
    return(

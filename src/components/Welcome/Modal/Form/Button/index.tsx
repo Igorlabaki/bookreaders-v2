@@ -2,14 +2,17 @@ import useFireBaseContext from "../../../../../hook/useFirebaseContext";
 import { ButtonContainer } from "./styles";
 
 interface ButtonProps {
-    submit: (event: any) => void
-    children?: JSX.Element
-    googleButton?: boolean
+    email               ?: string
+    password            ?: string
+    googleButton        ?: boolean
+    registerButton      ?: boolean
+    loginButton         ?: boolean
+    children            ?: JSX.Element
 }
 
-export default function Button({submit,children,googleButton}: ButtonProps) {
+export default function Button({children,googleButton,registerButton,email,password}: ButtonProps) {
 
-    const {loginGoogle} = useFireBaseContext()
+    const {loginGoogle,register,login} = useFireBaseContext()
 
     return (
         <>
@@ -22,13 +25,20 @@ export default function Button({submit,children,googleButton}: ButtonProps) {
                 {children}
             </ButtonContainer>
             :
+            registerButton ?
             <ButtonContainer
-            onClick={submit}
-        >
+            onClick={() => register(email,password)}
+            >
             <p>{'Confirm'}</p>
             {children}
-        </ButtonContainer>
-            
+            </ButtonContainer>      
+            :
+            <ButtonContainer
+            onClick={() => login(email,password)}
+            >
+            <p>{'Confirm'}</p>
+            {children}
+            </ButtonContainer>    
         }
         </>
     )

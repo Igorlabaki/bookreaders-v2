@@ -14,8 +14,8 @@ export default function ModalComponent() {
                 <Modal 
                     isOpen={isLoginModalOpen}  
                     onRequestClose={handleCloseLoginModal}
-                    overlayClassName="react-modal-overlay"
-                    className="react-modal-content"
+                    overlayClassName="react-modal-auth-overlay"
+                    className="react-modal-auth-content"
                     ariaHideApp={false}
                 >
                     <Form title="Login"/>
@@ -27,8 +27,8 @@ export default function ModalComponent() {
                 <Modal 
                     isOpen={isRegisterModalOpen}  
                     onRequestClose={handleCloseRegisterModal}
-                    overlayClassName="react-modal-overlay"
-                    className="react-modal-content"
+                    overlayClassName="react-modal-auth-overlay"
+                    className="react-modal-auth-content"
                     ariaHideApp={false}
                 >
                     <Form title="Register"/>

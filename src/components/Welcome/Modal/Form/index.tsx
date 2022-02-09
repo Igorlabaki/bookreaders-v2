@@ -16,7 +16,6 @@ export default function Form({title} : FormProps) {
     
     const {renderText,handleCloseLoginModal,handleCloseRegisterModal} = useModalContext()
 
-    const [nameInput            , setNameInput]                         = useState("")
     const [passwordInput        , setpasswordInput]                     = useState("")
     const [passworConfirmdInput , setpasswordConfirmInput]              = useState("")
     const [emailInput           , setemailInput]                        = useState("")
@@ -37,13 +36,16 @@ export default function Form({title} : FormProps) {
             <h1>{title}</h1>
             <div>
                 <Input label="Email"            type="email"    onChange={setemailInput}            value={emailInput}           required/>
-                <Input label="Username"         type="text"     onChange={setNameInput}             value={nameInput}            required  noRender={title === 'Login'}/>
                 <Input label="Password"         type="password" onChange={setpasswordInput}         value={passwordInput}        required/>
-                <Input label="Confirm Password" type="password" onChange={setpasswordConfirmInput}  value={passworConfirmdInput} required noRender={title === 'Login'}/>
             </div>
             {renderText(title)}
-            <Button  submit={handleSubmit}></Button>
-            <Button  submit={handleSubmit} googleButton><FcGoogle fontSize={25}/></Button>
+
+            { title === "Login" ?
+                <Button loginButton password={passwordInput} email={emailInput}/>
+            :
+                <Button registerButton password={passwordInput} email={emailInput}/>
+            }
+            <Button googleButton><FcGoogle fontSize={25}/></Button>
         </FormContainer>
     )
 }

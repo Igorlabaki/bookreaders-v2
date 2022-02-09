@@ -8,7 +8,7 @@ export const ButtonContainer = styled.button`
     border:0;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     width: 100%;
-    background-color: rgba(29, 78, 216);
+    background-color: var(--blue-button);
     transition: background-color 400ms;
     margin-bottom: 5px;
     

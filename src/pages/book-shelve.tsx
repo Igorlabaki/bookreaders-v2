@@ -1,5 +1,5 @@
-import { Layout } from "../components/layout";
-import { BookshelveComponent } from "../components/layout/Content/Bookshelve";
+import { Layout } from "../components/Layout";
+import { BookshelveComponent } from "../components/Layout/Content/Bookshelve";
 
 export default function Home(){
    return(

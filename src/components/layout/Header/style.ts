@@ -5,6 +5,7 @@ export const HeaderComponent = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
+    he
 
     h1{
         font-family: 'Lora', serif;;
@@ -23,5 +24,10 @@ export const HeaderComponent = styled.div`
     button{
         border: 0;
         background-color: transparent;
+    }
+
+    img{
+        width:3rem;
+        border-radius:50%;
     }
 `

@@ -1,6 +1,6 @@
-import {Header} from "../layout/Header";
-import {Aside} from "../layout/Aside";
-import { LayoutContainer } from "./style";
+import {Header} from "./Header";
+import {Aside} from "./Aside";
+import { LayoutContainer } from './style';
 import { ReactNode } from "react";
 interface LayoutProps{
     children: ReactNode;

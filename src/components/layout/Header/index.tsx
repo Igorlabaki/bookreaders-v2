@@ -6,6 +6,7 @@ import {IoIosArrowDown} from 'react-icons/io'
 import useFireBaseContext from '../../../hook/useFirebaseContext'
 import useModalContext from '../../../hook/useModalContext'
 import ModalComponent from './Modal'
+import Image from 'next/image'
 
 export function Header(){
 
@@ -18,7 +19,12 @@ export function Header(){
            <SearchInput/>
            <div>
                 <p>{user?.displayName}</p>
+                { user?.photoURL ? 
+                    <img src={user.photoURL} alt="" />
+                :
                 <CgProfile fontSize={40}/>
+                }
+                
                 <button onClick={handleOpenConfigModal}>
                     <IoIosArrowDown/>
                 </button>

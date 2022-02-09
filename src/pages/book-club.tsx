@@ -1,5 +1,5 @@
-import { Layout } from "../components/layout";
-import { BookClubComponent } from "../components/layout/Content/BookClub";
+import { Layout } from "../components/Layout";
+import { BookClubComponent } from "../components/Layout/Content/BookClub";
 
 export default function Home(){
    return(

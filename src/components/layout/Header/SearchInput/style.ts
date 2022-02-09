@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SerachInputContainer = styled.div`
+export const SerachInputContainer = styled.form`
 
     display: flex;
     justify-content: center;
@@ -14,7 +14,8 @@ export const SerachInputContainer = styled.div`
         justify-content: center;
         align-items: center;
         background-color: rgba(29, 78, 216);
-        border-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+        border-top-left-radius: 0.25rem;
         height: 100%;
         padding:10px;
         transition: background-color 0.2s;

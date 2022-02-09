@@ -5,14 +5,17 @@ interface ModalContextProvider {
 }
 interface ModalContext{
     isLoginModalOpen        : boolean,
-    isRegisterModalOpen     : boolean,
-    isConfigModalOpen       : boolean,
     handleOpenLoginModal    ?:() => void,
     handleCloseLoginModal   ?:() => void,
+
+    isRegisterModalOpen     : boolean,
     handleOpenRegisterModal ?:() => void,
     handleCloseRegisterModal?:() => void,
-    handleCloseConfigModal  ?:() => void,
+
+    isConfigModalOpen       : boolean,
     handleOpenConfigModal   ?:() => void,
+    handleCloseConfigModal  ?:() => void,
+
     renderText              ?:(title:string) => void
 }
 
@@ -21,6 +24,7 @@ const initialState: ModalContext = {
     isRegisterModalOpen     : false,
     isConfigModalOpen       : false
 }
+
 export const ModalContext = createContext<ModalContext>(initialState)
 
 export function ModalContextProvider( {children}: ModalContextProvider){
@@ -89,14 +93,17 @@ export function ModalContextProvider( {children}: ModalContextProvider){
     return(
         <ModalContext.Provider value={{
             isLoginModalOpen,
-            isRegisterModalOpen,
-            isConfigModalOpen,
             handleOpenLoginModal,
             handleCloseLoginModal,
+
+            isRegisterModalOpen,
             handleOpenRegisterModal,
             handleCloseRegisterModal,
+
+            isConfigModalOpen,
             handleCloseConfigModal,
             handleOpenConfigModal,
+            
             renderText
         }}>
             {children}
