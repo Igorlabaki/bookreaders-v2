@@ -1,27 +1,34 @@
 import {createContext,ReactNode,useState} from 'react'
-interface HomeContextProvider {
+
+interface ModalContextProvider {
     children: ReactNode
 }
-interface HomeContext{
+interface ModalContext{
     isLoginModalOpen        : boolean,
     isRegisterModalOpen     : boolean,
+    isConfigModalOpen       : boolean,
     handleOpenLoginModal    ?:() => void,
     handleCloseLoginModal   ?:() => void,
     handleOpenRegisterModal ?:() => void,
     handleCloseRegisterModal?:() => void,
+    handleCloseConfigModal  ?:() => void,
+    handleOpenConfigModal   ?:() => void,
     renderText              ?:(title:string) => void
 }
 
-const initialState: HomeContext = {
-    isLoginModalOpen: false,
-    isRegisterModalOpen:false
+const initialState: ModalContext = {
+    isLoginModalOpen        : false,
+    isRegisterModalOpen     : false,
+    isConfigModalOpen       : false
 }
-export const HomeContext = createContext<HomeContext>(initialState)
+export const ModalContext = createContext<ModalContext>(initialState)
 
-export function HomeContextProvider( {children}: HomeContextProvider){
+export function ModalContextProvider( {children}: ModalContextProvider){
  
-    const [isLoginModalOpen,    setisLoginModalOpen]    = useState(Boolean);
-    const [isRegisterModalOpen, setisRegisterModalOpen] = useState(Boolean);
+    const [isLoginModalOpen,        setisLoginModalOpen]        = useState(Boolean);
+    const [isRegisterModalOpen,     setisRegisterModalOpen]     = useState(Boolean);
+    const [isConfigModalOpen,       setisConfigModalOpen]       = useState(Boolean);
+
     
     function handleOpenLoginModal(){
         setisLoginModalOpen(true)
@@ -37,6 +44,14 @@ export function HomeContextProvider( {children}: HomeContextProvider){
 
     function handleCloseRegisterModal(){
         setisRegisterModalOpen(false)
+    }
+
+    function handleOpenConfigModal(){
+        setisConfigModalOpen(true)
+    }
+
+    function handleCloseConfigModal(){
+        setisConfigModalOpen(false)
     }
 
     function renderText(title: string){
@@ -72,16 +87,19 @@ export function HomeContextProvider( {children}: HomeContextProvider){
     }
 
     return(
-        <HomeContext.Provider value={{
+        <ModalContext.Provider value={{
             isLoginModalOpen,
             isRegisterModalOpen,
+            isConfigModalOpen,
             handleOpenLoginModal,
             handleCloseLoginModal,
             handleOpenRegisterModal,
             handleCloseRegisterModal,
+            handleCloseConfigModal,
+            handleOpenConfigModal,
             renderText
         }}>
             {children}
-        </HomeContext.Provider>
+        </ModalContext.Provider>
     )
 }

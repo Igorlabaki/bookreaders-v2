@@ -1,11 +1,11 @@
-import useHomeContext from "../../../hook/useHomeContext";
+import useModalContext from "../../../hook/useModalContext";
 import { Button } from "./Button";
 import { Container } from "./style";
 
 
 export default function Header() {
 
-  const {handleOpenLoginModal,handleOpenRegisterModal} = useHomeContext()
+  const {handleOpenLoginModal,handleOpenRegisterModal} = useModalContext()
 
   return (
     <Container>

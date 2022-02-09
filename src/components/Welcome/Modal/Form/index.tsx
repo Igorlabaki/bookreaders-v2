@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FormContainer } from './styles';
 import {AiOutlineClose} from "react-icons/ai"
 import {FcGoogle} from "react-icons/fc"
-import useHomeContext from '../../../../hook/useHomeContext';
+import useModalContext from '../../../../hook/useModalContext';
 import Button from './Button';
 
 
@@ -14,12 +14,12 @@ interface FormProps{
 
 export default function Form({title} : FormProps) {
     
-    const {renderText,handleCloseLoginModal,handleCloseRegisterModal,handleOpenLoginModal,handleOpenRegisterModal} = useHomeContext()
+    const {renderText,handleCloseLoginModal,handleCloseRegisterModal} = useModalContext()
 
-    const [nameInput, setNameInput]                         = useState("")
-    const [passwordInput, setpasswordInput]                 = useState("")
-    const [passworConfirmdInput, setpasswordConfirmInput]   = useState("")
-    const [emailInput, setemailInput]                       = useState("")
+    const [nameInput            , setNameInput]                         = useState("")
+    const [passwordInput        , setpasswordInput]                     = useState("")
+    const [passworConfirmdInput , setpasswordConfirmInput]              = useState("")
+    const [emailInput           , setemailInput]                        = useState("")
 
     const [error, seterror] = useState(null)
 

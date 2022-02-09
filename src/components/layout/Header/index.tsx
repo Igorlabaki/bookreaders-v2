@@ -4,27 +4,25 @@ import { SearchInput } from './SearchInput'
 import {CgProfile} from 'react-icons/cg'
 import {IoIosArrowDown} from 'react-icons/io'
 import useFireBaseContext from '../../../hook/useFirebaseContext'
-import DropDown from './dropDown'
-import MenuItem from './dropDown/menuItem'
-
+import useModalContext from '../../../hook/useModalContext'
+import ModalComponent from './Modal'
 
 export function Header(){
 
-    const {logout,user} = useFireBaseContext()
+    const {user} = useFireBaseContext()
+    const {handleOpenConfigModal} = useModalContext()
 
     return(
         <HeaderComponent>
            <Link href="/home"><h1>BookReaders</h1></Link>
            <SearchInput/>
            <div>
-                <p>{user.displayName}</p>
+                <p>{user?.displayName}</p>
                 <CgProfile fontSize={40}/>
-                <button onClick={logout}>
+                <button onClick={handleOpenConfigModal}>
                     <IoIosArrowDown/>
                 </button>
-                <DropDown>
-                    <MenuItem text='Logout'/>
-                </DropDown>
+                <ModalComponent/>
            </div>
         </HeaderComponent>
     )

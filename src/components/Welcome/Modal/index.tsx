@@ -1,11 +1,11 @@
 import Modal from 'react-modal';
-import useHomeContext from '../../../hook/useHomeContext';
+import useModalContext from '../../../hook/useModalContext';
 import { ModalContainer } from './style';
 import Form from './Form';
 
 export default function ModalComponent() {
 
-    const {isLoginModalOpen,isRegisterModalOpen,handleCloseLoginModal,handleCloseRegisterModal} = useHomeContext()
+    const {isLoginModalOpen,isRegisterModalOpen,handleCloseLoginModal,handleCloseRegisterModal} = useModalContext()
 
     return (
         <>
