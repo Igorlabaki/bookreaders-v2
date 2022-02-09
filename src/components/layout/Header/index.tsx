@@ -11,7 +11,7 @@ import Image from 'next/image'
 export function Header(){
 
     const {user} = useFireBaseContext()
-    const {handleOpenConfigModal} = useModalContext()
+    const {handleOpenConfigModal, isConfigModalOpen} = useModalContext()
 
     return(
         <HeaderComponent>
@@ -25,7 +25,7 @@ export function Header(){
                 <CgProfile fontSize={40}/>
                 }
                 
-                <button onClick={handleOpenConfigModal}>
+                <button onClick={handleOpenConfigModal }>
                     <IoIosArrowDown/>
                 </button>
                 <ModalComponent/>
