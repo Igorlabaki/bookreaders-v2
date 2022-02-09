@@ -22,29 +22,39 @@ export default function Form({title} : FormProps) {
 
     const [error, seterror] = useState(null)
 
-    function handleSubmit(){
-
+    function handleCloseModal(){
+        return(
+            <>
+                {title === "Login" ? 
+               <button className='close-button' onClick={handleCloseLoginModal}><AiOutlineClose/></button>
+               :
+               <button className='close-button' onClick={handleCloseRegisterModal}><AiOutlineClose/></button>
+                }
+            </>
+        )
+    }
+    function handleButtonsAuth(){
+        return (
+            <>
+                { title === "Login" ?
+                    <Button loginButton password={passwordInput} email={emailInput}/>
+                :
+                    <Button registerButton password={passwordInput} email={emailInput}/>
+                }
+            </>
+        )
     }
 
     return (
         <FormContainer>
-            {title === "Login" ? 
-               <button className='close-button' onClick={handleCloseLoginModal}><AiOutlineClose/></button>
-               :
-               <button className='close-button' onClick={handleCloseRegisterModal}><AiOutlineClose/></button>
-            }
+            {handleCloseModal()}
             <h1>{title}</h1>
             <div>
                 <Input label="Email"            type="email"    onChange={setemailInput}            value={emailInput}           required/>
                 <Input label="Password"         type="password" onChange={setpasswordInput}         value={passwordInput}        required/>
             </div>
             {renderText(title)}
-
-            { title === "Login" ?
-                <Button loginButton password={passwordInput} email={emailInput}/>
-            :
-                <Button registerButton password={passwordInput} email={emailInput}/>
-            }
+            {handleButtonsAuth}
             <Button googleButton><FcGoogle fontSize={25}/></Button>
         </FormContainer>
     )

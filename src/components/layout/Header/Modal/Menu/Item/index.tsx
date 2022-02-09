@@ -13,16 +13,24 @@ export function ItemComponent({text, href,svg, onClick}:ItemProps){
 
     const {logout} = useFireBaseContext()
 
-    return(
-        <ItemContainer>
-            {svg}
-            {href ? (
+    function handleItemMenu(){
+        return(
+            <>
+                {href ? (
                 <Link href={href}>
                     <p>{text}</p>
                 </Link>
             ):
                 <p onClick={logout}>{text}</p>
             }
+            </>
+        )
+    }
+
+    return(
+        <ItemContainer>
+            {svg}
+            {handleItemMenu()}
         </ItemContainer>
     )
 }

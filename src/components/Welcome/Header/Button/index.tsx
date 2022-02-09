@@ -5,11 +5,11 @@ interface ButtonProps{
     onClick: (event: any) => void
 }
   
-export function Button(props: ButtonProps) {
+export function Button({text, onClick}: ButtonProps) {
 
     return(
-        <ButtonContainer  onClick={props.onClick}>
-            {props.text}
+        <ButtonContainer  onClick={onClick}>
+            {text}
         </ButtonContainer>
     )
 }
