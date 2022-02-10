@@ -65,7 +65,35 @@ export const GlobalStyle = createGlobalStyle`
 
     ///////Modal Config
         .react-modal-config-overlay{
-            background-color: transparent;
+            position:fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: start;
+            justify-content: end;
+        }
+
+        .react-modal-config-content{
+            width: 100%;
+            max-width:180px;
+            background-color: white;
+            padding: 0;
+            top:3.5rem;
+            right: 11rem;
+            position: absolute;
+            overflow: hidden;
+            border-top-left-radius: 0.60rem;
+            border-bottom-right-radius: 0.60rem;
+            border-bottom-left-radius: 0.60rem;
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+    
+    ///////Modal Photo
+
+        .react-modal-photo-overlay{
+            position:fixed;
             top: 0;
             left: 0;
             bottom: 0;
@@ -75,18 +103,13 @@ export const GlobalStyle = createGlobalStyle`
             justify-content: center;
         }
 
-        .react-modal-config-content{
+        .react-modal-photo-content{
             width: 100%;
-            max-width: 190px;
+            max-width: 576px;
             background-color: white;
-            padding: 0;
-            position: absolute;
-            top: 50px;
-            right: 180px;
-            overflow: hidden;
-            border-top-left-radius: 0.60rem;
-            border-bottom-right-radius: 0.60rem;
-            border-bottom-left-radius: 0.60rem;
+            padding: 1.5rem;
+            position: relative;
+            border-radius: 0.60rem;
             box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
         }
         
@@ -102,4 +125,35 @@ export const GlobalStyle = createGlobalStyle`
             background-color:#ff4d4d
         }
     }
+
+    // Slider
+
+    //padding das setas
+    .swiper-button-next {
+        right: 20px;
+    }
+    .swiper-button-prev {
+        left: 20px;
+    }
+
+    //cor das setas
+    .swiper-button-prev:after, .swiper-button-next:after{
+        color: #FFBA08;
+    }
+  
+    //bolinhas de página
+    .swiper-pagination-bullet{
+        width:10px;
+        height:10px;
+        background:#999999;
+        opacity:1;
+    }
+  
+    //cor da bolinha ativa
+    .swiper-pagination-bullet-active{
+        background:#FFBA08 ;
+    }
+  
+
 `
+

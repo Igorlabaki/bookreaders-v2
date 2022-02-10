@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
 export const NavItemContainer = styled.div`
+    display: flex;
+    justify-content:start;
+    align-items:center;
+    gap:1rem;
+    cursor: pointer;
     line-height: 1.25rem;
     font-size: 1.5rem;
-    cursor: pointer;
     transition: background-color 0.3s;
     padding: 1.5rem;
 

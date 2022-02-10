@@ -5,9 +5,9 @@ export const HeaderComponent = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
-    he
 
     h1{
+        cursor:pointer;
         font-family: 'Lora', serif;;
     }
 
@@ -22,6 +22,7 @@ export const HeaderComponent = styled.div`
     }
 
     button{
+        cursor: pointer;
         border: 0;
         background-color: transparent;
     }

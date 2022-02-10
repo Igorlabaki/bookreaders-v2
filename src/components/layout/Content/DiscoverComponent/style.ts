@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
 export const DiscoverContainer = styled.div`
-    margin-top: 20px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction:column;
+    gap:1rem;
 `

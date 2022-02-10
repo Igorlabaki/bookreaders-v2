@@ -1,15 +1,17 @@
 import Link from "next/link";
+import { IconType } from "react-icons";
 import useFireBaseContext from "../../../../../../hook/useFirebaseContext";
 import {ItemContainer} from './style'
 
+
 interface ItemProps {
     text: string
-    svg?: JSX.Element
+    icon?: React.ReactNode
     href?: string
     onClick?: (event: any) => void
 }
 
-export function ItemComponent({text, href,svg, onClick}:ItemProps){
+export function ItemComponent({text, href,icon}:ItemProps){
 
     const {logout} = useFireBaseContext()
 
@@ -18,10 +20,10 @@ export function ItemComponent({text, href,svg, onClick}:ItemProps){
             <>
                 {href ? (
                 <Link href={href}>
-                    <p>{text}</p>
+                    <p>{icon}{text}</p>
                 </Link>
             ):
-                <p onClick={logout}>{text}</p>
+                <p onClick={logout}>{icon}{text}</p>
             }
             </>
         )
@@ -29,7 +31,6 @@ export function ItemComponent({text, href,svg, onClick}:ItemProps){
 
     return(
         <ItemContainer>
-            {svg}
             {handleItemMenu()}
         </ItemContainer>
     )

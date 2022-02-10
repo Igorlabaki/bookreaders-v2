@@ -43,7 +43,7 @@ export function Header(){
 
     return(
         <HeaderComponent>
-           <Link href="/home"><h1>BookReaders</h1></Link>
+           <Link href="/discover"><h1>BookReaders</h1></Link>
            <SearchInput/>
            <div>
                 {handleUserPhoto()}
