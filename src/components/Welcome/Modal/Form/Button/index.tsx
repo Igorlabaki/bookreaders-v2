@@ -10,7 +10,7 @@ interface ButtonProps {
     children            ?: JSX.Element
 }
 
-export default function Button({children,googleButton,registerButton,email,password}: ButtonProps) {
+export default function Button({children,googleButton,registerButton,loginButton,email,password}: ButtonProps) {
 
     const {loginGoogle,register,login} = useFireBaseContext()
 
@@ -26,16 +26,16 @@ export default function Button({children,googleButton,registerButton,email,passw
                         {children}
                     </ButtonContainer>
                 :
-                registerButton ?
+                loginButton ?
                     <ButtonContainer
-                    onClick={() => register(email,password)}
+                    onClick={() => login(email,password)}
                     >
                     <p>{'Confirm'}</p>
                     {children}
                     </ButtonContainer>      
                 :
                     <ButtonContainer
-                    onClick={() => login(email,password)}
+                    onClick={() => register(email,password)}
                     >
                     <p>{'Confirm'}</p>
                     {children}

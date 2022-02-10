@@ -37,7 +37,7 @@ export default function Form({title} : FormProps) {
         return (
             <>
                 { title === "Login" ?
-                    <Button loginButton password={passwordInput} email={emailInput}/>
+                    <Button loginButton={true} password={passwordInput} email={emailInput}/>
                 :
                     <Button registerButton password={passwordInput} email={emailInput}/>
                 }
@@ -54,7 +54,7 @@ export default function Form({title} : FormProps) {
                 <Input label="Password"         type="password" onChange={setpasswordInput}         value={passwordInput}        required/>
             </div>
             {renderText(title)}
-            {handleButtonsAuth}
+            {handleButtonsAuth()}
             <Button googleButton><FcGoogle fontSize={25}/></Button>
         </FormContainer>
     )
