@@ -29,11 +29,11 @@ export function Header(){
         return(
             <>
                 {isConfigModalOpen ? 
-                    <button onClick={handleOpenConfigModal }>
+                    <button onClick={handleCloseConfigModal}>
                         <IoIosArrowUp/>
                     </button>
                     :
-                    <button onClick={handleCloseConfigModal}>
+                    <button onClick={handleOpenConfigModal}>
                         <IoIosArrowDown/>
                     </button>
                 }
