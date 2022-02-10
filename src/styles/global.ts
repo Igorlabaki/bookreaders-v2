@@ -66,16 +66,23 @@ export const GlobalStyle = createGlobalStyle`
     ///////Modal Config
         .react-modal-config-overlay{
             background-color: transparent;
-            top: 50px;
-            right: 180px;
-            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .react-modal-config-content{
             width: 100%;
-            max-width: 576px;
+            max-width: 190px;
             background-color: white;
             padding: 0;
+            position: absolute;
+            top: 50px;
+            right: 180px;
             overflow: hidden;
             border-top-left-radius: 0.60rem;
             border-bottom-right-radius: 0.60rem;
