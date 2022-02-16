@@ -55,12 +55,13 @@ export function BookContextProvider({children}: ContextProvider){
         const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
                    .then(resp => resp.data)
         setBook(resp)
+        console.log(book)
     }
 
     async function  getBookByAuthor(author:string){
         const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes/${author}+inauthor`)
                    .then(resp => resp.data.items)
-        console.log(resp)
+        setAuthorList(resp)
     }
 
 
