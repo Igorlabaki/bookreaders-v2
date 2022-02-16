@@ -73,6 +73,7 @@ export const GlobalStyle = createGlobalStyle`
             display: flex;
             align-items: start;
             justify-content: end;
+            z-index: 20;
         }
 
         .react-modal-config-content{
@@ -111,6 +112,29 @@ export const GlobalStyle = createGlobalStyle`
             position: relative;
             border-radius: 0.60rem;
             box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        
+    /////Modal Search
+    .react-modal-search-overlay{
+            background-color: rgba(0,0,0,0.5);
+            position:absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .react-modal-search-content{
+            width: 100%;
+            max-width: 576px;
+            background-color: rgb(235, 229, 228);
+            padding: 1.5rem;
+            position: absolute;
+            border-radius: 0.60rem;
         }
         
     ///////////// Google Button Auth

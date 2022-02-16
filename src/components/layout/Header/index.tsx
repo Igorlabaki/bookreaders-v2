@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {HeaderComponent} from './style'
+import {ArrowButtonContainer, HeaderComponent} from './style'
 import { SearchInput } from './SearchInput'
 import {CgProfile} from 'react-icons/cg'
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
@@ -29,13 +29,13 @@ export function Header(){
         return(
             <>
                 {isConfigModalOpen ? 
-                    <button onClick={handleCloseConfigModal}>
+                    <ArrowButtonContainer onClick={handleCloseConfigModal}>
                         <IoIosArrowUp/>
-                    </button>
+                    </ArrowButtonContainer>
                     :
-                    <button onClick={handleOpenConfigModal}>
+                    <ArrowButtonContainer onClick={handleOpenConfigModal}>
                         <IoIosArrowDown/>
-                    </button>
+                    </ArrowButtonContainer>
                 }
             </>
          )

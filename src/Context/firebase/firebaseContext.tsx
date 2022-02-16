@@ -1,53 +1,78 @@
 import {createContext,ReactNode,useState} from 'react'
 import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
-import app from '../../service/firebase'
+import app, { db } from '../../service/firebase'
 import { useRouter } from 'next/router'
-
+import { collection, getDocs, query, where } from 'firebase/firestore'
 
 interface ContextProvider {
     children: ReactNode
 }
+
+interface user{
+    password:string,
+    email:string,
+    username:string
+}
+
 interface FirebaseContext{
-    user:   User | null,
-    login:  (email:string, password:string) => void,
-    register:  (email:string, password:string) => void,
-    loginGoogle:  () => void,
-    logout: () => void
+    user:           User | null,
+    users?:         user[],
+    error?:           string,
+    login:          (email:string, password:string) => void,
+    register:       (email:string, password:string) => void,
+    loginGoogle:    () => void,
+    logout:         () => void
+    getUsers:       () => void
 }
 
 export const FirebaseContext = createContext<FirebaseContext>({
-    user:  null,
-    login: () => {} ,
-    register: () => {} ,
-    loginGoogle:  () => {},
-    logout: () => {} 
+    user:           null,
+    login:          () => {},
+    register:       () => {},
+    loginGoogle:    () => {},
+    logout:         () => {}, 
+    getUsers:       () => {} 
 })
 
 const auth = getAuth(app)
 
 export function FireBaseContextProvider({children}: ContextProvider){
     
-    const [user, setuser] = useState<User | null>(null);
-    const router = useRouter()
+    const usersCollectionRef                = collection(db,"users")
+    const [user, setuser]                   = useState<User | null>(null);
+    const [users, setusers]                 = useState([]);
+    const [error,setError]                  = useState(null)
+    const router                            = useRouter()
+
+    function showError(msg,time = 3000){
+        setError(msg)
+        setTimeout(() => setError(null),time )
+      }
+    
 
     const login = async (email:string, password:string) => {
         try {
              await signInWithEmailAndPassword(auth, email,password)
              setuser(auth.currentUser)
+             setError("")
              router.push('/discover')
-             console.log(user.email)
         } catch (error) {
-             console.error(error)
+            console.log()
+            showError("Email or password are worg.")
         }
     }
 
     const register = async (email:string, password:string) => {
         try {
-             await createUserWithEmailAndPassword(auth, email,password)
-             setuser(auth.currentUser)
-             router.push('/discover')
+            if(password.length >= 6){
+                await createUserWithEmailAndPassword(auth, email,password)
+                setuser(auth.currentUser)
+            }
+            else{
+                showError('Password must be at least 6 characters.')
+            }
         } catch (error) {
-             console.error(error)
+            showError('Email already exists!')
         }
     }
 
@@ -60,6 +85,11 @@ export function FireBaseContextProvider({children}: ContextProvider){
         } catch (error) {
                 console.error(error)
         }
+   }
+
+   const getUsers = async () => {
+       const data = await getDocs(usersCollectionRef)
+       setusers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
    }
 
    const logout = async () => {
@@ -77,7 +107,10 @@ export function FireBaseContextProvider({children}: ContextProvider){
             loginGoogle,
             logout,
             register,
-            user
+            error,
+            user,
+            users,
+            getUsers
         }}>
             {children}
         </FirebaseContext.Provider>

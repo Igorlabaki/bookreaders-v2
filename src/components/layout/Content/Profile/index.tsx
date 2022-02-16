@@ -1,5 +1,6 @@
+import { useEffect } from "react";
+import useBookContext from "../../../../hook/useBookContext";
 import { BoxComponent } from "../util/Box";
-import { BoxContainer } from "../util/Box/style";
 import { ProfileContainer } from "./style";
 
 export function ProfileComponent(){

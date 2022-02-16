@@ -13,22 +13,16 @@ export const HeaderComponent = styled.div`
 
     div{
         display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     p{
         margin-right: 10px;
     }
+`
 
-    button{
-        cursor: pointer;
-        border: 0;
-        background-color: transparent;
-    }
-
-    img{
-        width:3rem;
-        border-radius:50%;
-    }
+export const ArrowButtonContainer = styled.div`
+    margin-top: 10px;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
 `

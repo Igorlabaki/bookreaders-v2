@@ -18,7 +18,7 @@ export function SliderComponent (){
                 autoplay={{
                     delay: 2000,
                 }}
-                style={{width: '100%',height:'300px'}
+                style={{width: '100%',height:'290px',zIndex:0}
             }
             >
                 <SwiperSlide>

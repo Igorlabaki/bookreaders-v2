@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
     background-color: transparent;
-
     h1{
         color: rgba(29, 78, 216);
         font-size: 1.5rem;
@@ -27,12 +26,6 @@ export const FormContainer = styled.form`
         }
     }
 
-    form{
-        display: flex;
-        flex-direction: column;
-        margin-top: 20px;
-    }
-
     .redirect-text{
         margin: 10px 5px;
         font-size: 1.05rem;
@@ -50,4 +43,16 @@ export const FormContainer = styled.form`
             }
         }
     }
+`
+
+export const ErrorContainer = styled.div`
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    color:rgb(232, 51, 51);;
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: 0.60rem;
+    margin-bottom:1rem;
+    background-color: #ff9999;
 `

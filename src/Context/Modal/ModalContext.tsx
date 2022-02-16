@@ -20,6 +20,10 @@ interface ModalContext{
     handleOpenPhotoModal   ?:() => void,
     handleClosePhotoModal  ?:() => void,
 
+    isSearchModalOpen       : boolean,
+    handleOpenSearchModal   ?:() => void,
+    handleCloseSearchModal  ?:() => void,
+
     renderText              ?:(title:string) => void
 }
 
@@ -27,7 +31,8 @@ const initialState: ModalContext = {
     isLoginModalOpen        : false,
     isRegisterModalOpen     : false,
     isConfigModalOpen       : false,
-    isPhotoModalOpen        : false
+    isPhotoModalOpen        : false,
+    isSearchModalOpen       : false,
 }
 
 export const ModalContext = createContext<ModalContext>(initialState)
@@ -38,6 +43,7 @@ export function ModalContextProvider( {children}: ModalContextProvider){
     const [isRegisterModalOpen,     setisRegisterModalOpen]     = useState(Boolean);
     const [isConfigModalOpen,       setisConfigModalOpen]       = useState(Boolean);
     const [isPhotoModalOpen,        setisPhotoModalOpen]        = useState(Boolean);
+    const [isSearchModalOpen,       setisSearchModalOpen]       = useState(Boolean);
 
     
     function handleOpenLoginModal(){
@@ -69,6 +75,14 @@ export function ModalContextProvider( {children}: ModalContextProvider){
     }
 
     function handleClosePhotoModal(){
+        setisPhotoModalOpen(false)
+    }
+
+    function handleOpenSearchModal(){
+        setisPhotoModalOpen(true)
+    }
+
+    function handleCloseSearchModal(){
         setisPhotoModalOpen(false)
     }
 
@@ -122,6 +136,10 @@ export function ModalContextProvider( {children}: ModalContextProvider){
             isPhotoModalOpen,
             handleClosePhotoModal,
             handleOpenPhotoModal,
+
+            isSearchModalOpen,
+            handleOpenSearchModal,   
+            handleCloseSearchModal,
             
             renderText
         }}>

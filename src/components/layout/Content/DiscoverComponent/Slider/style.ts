@@ -6,11 +6,11 @@ export const SwiperContainer = styled.div`
 export const SliderContainer = styled.div`
     width:100%;
     border-radius:0.60rem;
-    overflow: hidden;
+    overflow: auto;
     object-fit:fill;
    
     img{
-        height: 100%
+        height: 100%;
         width: 100%;
     }
 `

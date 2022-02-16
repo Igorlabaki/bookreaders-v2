@@ -4,6 +4,9 @@ export const ProfileContainer = styled.div`
     width: 100%;
     padding: 0 1rem;
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
 
     textarea{
         width: 100%;

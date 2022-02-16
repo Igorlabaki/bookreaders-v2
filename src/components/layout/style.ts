@@ -12,5 +12,6 @@ export const MainContainer = styled.div`
     justify-content:start;
     align-items:start;
     height: 100vh;
-    margin-top:20px
+    margin-top:20px;
 `
+

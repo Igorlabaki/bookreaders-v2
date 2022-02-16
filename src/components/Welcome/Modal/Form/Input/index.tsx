@@ -8,14 +8,14 @@ interface InputProps{
     noRender?: boolean
 }
 
-export default function Input(props: InputProps) {
-    return props.noRender ? null : (
+export default function Input({label,type,onChange,value,required,noRender}: InputProps) {
+    return noRender ? null : (
       <InputContainer>
-        <label>{props.label}:</label>
-        <input type={props.type ?? 'text'}
-            value={props.value}
-            required={props.required}   
-            onChange={e => props.onChange?.(e.target.value)}>
+        <label>{label}:</label>
+        <input type={type ?? 'text'}
+            value={value}
+            required={required}   
+            onChange={e => onChange?.(e.target.value)}>
         </input>
       </InputContainer>
     )

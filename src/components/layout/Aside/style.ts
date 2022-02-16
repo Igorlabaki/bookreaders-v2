@@ -7,7 +7,7 @@ export const ContainerAside = styled.div`
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    gap:2rem;
+    gap:1rem;
 
     img{
         width: 150px;

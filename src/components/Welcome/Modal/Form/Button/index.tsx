@@ -8,6 +8,7 @@ interface ButtonProps {
     registerButton      ?: boolean
     loginButton         ?: boolean
     children            ?: JSX.Element
+    onCLick             ?:() => void
 }
 
 export default function Button({children,googleButton,registerButton,loginButton,email,password}: ButtonProps) {
@@ -38,7 +39,7 @@ export default function Button({children,googleButton,registerButton,loginButton
                     onClick={() => register(email,password)}
                     >
                     <p>{'Confirm'}</p>
-                    {children}
+                    {children}   
                     </ButtonContainer>    
             }
             </>

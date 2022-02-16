@@ -6,6 +6,7 @@ export const NavContainer = styled.div`
     font-size: 1.25rem;
     --tw-text-opacity: 1;
     border: 1px solid rgba(107, 114, 128, var(--tw-text-opacity));
-    border-radius: 0.45rem;
+    border-top-left-radius: 0.60rem;
+    border-top-right-radius: 0.60rem;
     overflow: auto;
 `
