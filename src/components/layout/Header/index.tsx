@@ -6,6 +6,7 @@ import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
 import useFireBaseContext from '../../../hook/useFirebaseContext'
 import useModalContext from '../../../hook/useModalContext'
 import ModalComponent from './Modal'
+import { FaRegBell } from 'react-icons/fa'
 
 export function Header(){
 
@@ -18,7 +19,7 @@ export function Header(){
                 { user?.photoURL ? 
                         <PhotoContainer src={user.photoURL} alt="user photo" />
                     :
-                        <CgProfile fontSize={40}/>
+                        <CgProfile fontSize={40} color={'var(--blue-button)'}/>
                 }
             </>
         )
@@ -42,7 +43,7 @@ export function Header(){
 
     return(
         <HeaderComponent>
-           <Link href="/discover"><LogoContainer src="/images/logo/bookreaderslogo2.png" alt="" /></Link>
+           <Link href="/discover"><LogoContainer src="/images/logo/logo-color.png" alt="" /></Link>
            <SearchInput/>
            <MenuContainer>
                 <p>{user?.displayName}</p>

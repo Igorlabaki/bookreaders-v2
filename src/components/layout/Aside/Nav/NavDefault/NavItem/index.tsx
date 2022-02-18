@@ -17,7 +17,7 @@ export function NavItem({text,icon,href}: NavItem) {
     const title = "/" + text.toLocaleLowerCase().trim()
 
     return (
-        <NavItemContainer className={`${asPath == title ? 'bg-blue-50' : ''}`}>
+        <NavItemContainer className={`${asPath == title ? 'pathNavActive' : ''}`}>
             {icon}
             <Link href={href}>
                 <p>{text}</p>

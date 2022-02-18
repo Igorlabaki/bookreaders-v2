@@ -1,8 +1,9 @@
 import {createContext,ReactNode,useState} from 'react'
-import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword} from 'firebase/auth'
+import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword, AuthErrorCodes} from 'firebase/auth'
 import app, { db } from '../../service/firebase'
 import { useRouter } from 'next/router'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs} from 'firebase/firestore'
+
 
 interface ContextProvider {
     children: ReactNode
@@ -57,8 +58,11 @@ export function FireBaseContextProvider({children}: ContextProvider){
              setError("")
              router.push('/discover')
         } catch (error) {
-            console.log()
-            showError("Email or password are worg.")
+            if(error.code == AuthErrorCodes.INVALID_PASSWORD){
+                showError('Password are wrong')
+            }else{
+                showError('Email not found!')
+            }
         }
     }
 

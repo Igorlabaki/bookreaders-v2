@@ -10,7 +10,7 @@ interface SearchProps{
 
 export function SearchComponent({id}: SearchProps){
 
-    const {getBook,book,getBookByAuthor} = useBookContext()
+    const {getBook,book} = useBookContext()
     const router = useRouter()
 
     useEffect(() => {

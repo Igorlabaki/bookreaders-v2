@@ -5,7 +5,7 @@ import useBookContext from "../../../../hook/useBookContext";
 import {useRouter} from 'next/router'
 
 export function SearchInput(){ 
-    const {books,getBooks}                      = useBookContext()
+    const {booksSearch,getBooks}                      = useBookContext()
 
     const [search, setSearch]                   = useState('')
     const [erro,setError]                       = useState('')
@@ -25,11 +25,11 @@ export function SearchInput(){
 
     
     function handleResultContainer(){
-        if(books.length > 0 && search != ""){
+        if(booksSearch.length > 0 && search != ""){
             return(
                 <ResultListContainer>
                 {
-                    books.map((book,i) => 
+                    booksSearch.map((book,i) => 
                         <BookContainer key={i} onClick={() =>{ 
                             router.push(`/search/id/${book.id}`)
                             setSearch('')

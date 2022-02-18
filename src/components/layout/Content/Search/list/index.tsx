@@ -13,7 +13,7 @@ interface SearchProps{
 
 export function SearchListComponent({search}: SearchProps){
 
-    const {getAllBooks,books,currentPage,booksPerPage,setCurrentPage} = useBookContext()
+    const {getAllBooks,booksList,currentPage,booksPerPage,setCurrentPage} = useBookContext()
     const router = useRouter()
     
     useEffect(() => {
@@ -22,7 +22,7 @@ export function SearchListComponent({search}: SearchProps){
     
     const indexOfLastBook   = currentPage       * booksPerPage
     const indexOfFirstPost  = indexOfLastBook   - booksPerPage
-    const currentBooks      = books.slice(indexOfFirstPost,indexOfLastBook)
+    const currentBooks      = booksList.slice(indexOfFirstPost,indexOfLastBook)
     
     return(
         <SearchContainer>

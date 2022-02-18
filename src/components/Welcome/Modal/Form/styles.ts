@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const FormContainer = styled.div`
     background-color: transparent;
     h1{
-        color: rgba(29, 78, 216);
+        color: var(--blue-button);
         font-size: 1.5rem;
         font-weight: 700;
         font-size: 2rem;

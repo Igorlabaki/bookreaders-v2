@@ -184,5 +184,11 @@ export const GlobalStyle = createGlobalStyle`
         background-color: #b3e0ff;
     }
 
+    ////////////////////////Nav active
+
+    .pathNavActive{
+        background-color: var(--blue-hover);
+    }
+
 `
 

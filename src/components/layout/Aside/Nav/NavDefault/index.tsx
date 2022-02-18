@@ -8,9 +8,9 @@ import { CgProfile } from 'react-icons/cg'
 export  function NavDefault() {
     return (
         <NavContainer>
-            <NavItem text="Profile"     href="/profile"     icon={<CgProfile/>}/>
             <NavItem text="Discover"    href="/discover"    icon={<BiWorld/>}/>
             <NavItem text="Bookshelfe"  href="/book-shelfe" icon={<GiBookshelf/>}/>
+            <NavItem text="Profile"     href="/profile"     icon={<CgProfile/>}/>
             <NavItem text="BookClub"    href="/book-club"   icon={<FaUserFriends/>}/>
         </NavContainer>
     )

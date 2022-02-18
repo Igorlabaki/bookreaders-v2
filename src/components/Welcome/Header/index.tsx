@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <Container>
-      <img src="/images/logo/logo.png" alt="logo" />
+      <img src="/images/logo/logo-white.png" alt="logo" />
       <div>
         <Button text="Login"    onClick={handleOpenLoginModal}/>
         <Button text="Register" onClick={handleOpenRegisterModal}/>

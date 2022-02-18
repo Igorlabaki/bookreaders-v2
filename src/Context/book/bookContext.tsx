@@ -25,7 +25,8 @@ interface book{
 
 interface BookContext{
     book:               book 
-    books?:             book[],
+    booksList?:         book[],
+    booksSearch?:       book[],
     loading?:           boolean,
     currentPage?:       number
     booksPerPage?:      number
@@ -42,7 +43,8 @@ export const BookContext = createContext<BookContext>({
 export function BookContextProvider({children}: ContextProvider){
    
     const [book, setBook]                       = useState<book | null>(null);
-    const [books, setBooks]                     = useState<book[]>([]);
+    const [booksList, setBooksList]             = useState<book[]>([]);
+    const [booksSearch, setBooksSearch]         = useState<book[]>([]);
     const [loading, setLoading]                 = useState<boolean>(false);
     const [currentPage, setCurrentPage]         = useState<number>(1);
     const [booksPerPage, setbooksPerPage]       = useState<number>(5);
@@ -51,15 +53,14 @@ export function BookContextProvider({children}: ContextProvider){
     async function  getBooks(bookSearch:any,maxResults = 10){
         const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${bookSearch}&key=AIzaSyCQPpX0QFUTs45EhUe1Ou5FNjEAjjvtYRQ&maxResults=${maxResults}`)
                    .then(resp => resp.data.items) 
-        setBooks(resp)
+        setBooksSearch(resp)
     }
 
     async function  getAllBooks(bookSearch:any){
         setLoading(true)
         const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${bookSearch}&key=AIzaSyCQPpX0QFUTs45EhUe1Ou5FNjEAjjvtYRQ&maxResults=40`)
                    .then(resp => resp.data.items) 
-        setBooks(resp)
-        console.log(books.length)
+        setBooksList(resp)
         setLoading(false)
     }
 
@@ -78,7 +79,8 @@ export function BookContextProvider({children}: ContextProvider){
     return(
         <BookContext.Provider value={{  
             book,
-            books,
+            booksList,
+            booksSearch,
             loading,
             currentPage,
             setCurrentPage,
