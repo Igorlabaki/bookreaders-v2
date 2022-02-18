@@ -20,6 +20,7 @@ export function SearchInput(){
         } catch (error) {
             setError('Nao encontramos nenhum livro')
         }
+        console.log(search)
     }, [search])
 
     
@@ -29,7 +30,11 @@ export function SearchInput(){
                 <ResultListContainer>
                 {
                     books.map((book,i) => 
-                        <BookContainer key={i} onClick={() => router.push(`/search/${book.id}`)}>       
+                        <BookContainer key={i} onClick={() =>{ 
+                            router.push(`/search/id/${book.id}`)
+                            setSearch('')
+                        }
+                        }>       
                             {
                                 book.volumeInfo.imageLinks ?
                                     <img src={book.volumeInfo.imageLinks?.thumbnail} alt="" />
@@ -44,7 +49,9 @@ export function SearchInput(){
                         </BookContainer>
                     )
                 }
-                <button>Se all</button>
+                <button onClick={() => {
+                    router.push(`/search/list/${search}`)
+                }}>Se all</button>
                 </ResultListContainer>
             )
         }else{
@@ -54,7 +61,7 @@ export function SearchInput(){
 
     return (
         <Container>
-            <SerachInputContainer>
+            <SerachInputContainer action={`/search/list/${search}`}>
                 <button type="submit">
                     <FiSearch fontSize={20} color="white"/>
                 </button>

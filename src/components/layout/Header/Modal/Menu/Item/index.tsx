@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IconType } from "react-icons";
 import useFireBaseContext from "../../../../../../hook/useFirebaseContext";
+import useModalContext from "../../../../../../hook/useModalContext";
 import {ItemContainer} from './style'
 
 
@@ -13,7 +14,8 @@ interface ItemProps {
 
 export function ItemComponent({text, href,icon}:ItemProps){
 
-    const {logout} = useFireBaseContext()
+    const {logout}  = useFireBaseContext()
+    const {handleCloseConfigModal}        = useModalContext()
 
     function handleItemMenu(){
         return(
@@ -23,7 +25,9 @@ export function ItemComponent({text, href,icon}:ItemProps){
                     <p>{icon}{text}</p>
                 </Link>
             ):
-                <p onClick={logout}>{icon}{text}</p>
+                <p onClick={
+                    logout
+                }>{icon}{text}</p>
             }
             </>
         )

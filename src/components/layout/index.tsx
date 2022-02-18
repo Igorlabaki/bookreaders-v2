@@ -13,7 +13,6 @@ export function Layout({children} : LayoutProps){
     const { asPath } = useRouter()
 
     function handleAsideProfile(){
-        console.log(asPath)
         if(asPath == '/profile'){
            return  <Aside profileMode={true}/>
         }else{

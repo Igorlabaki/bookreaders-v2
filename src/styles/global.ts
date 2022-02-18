@@ -3,7 +3,7 @@ import {createGlobalStyle} from 'styled-components'
 export const GlobalStyle = createGlobalStyle` 
 
     :root{
-        --blue-button:       rgba(29, 78, 216);
+        --blue-button:       rgba(29, 53, 87);
         --blue-hover:        #cce0ff;
         --dark-gray:         hsl(0, 0%, 59%);
     }
@@ -65,7 +65,7 @@ export const GlobalStyle = createGlobalStyle`
 
     ///////Modal Config
         .react-modal-config-overlay{
-            position:fixed;
+            position:absolute !important;
             top: 0;
             left: 0;
             bottom: 0;
@@ -83,7 +83,7 @@ export const GlobalStyle = createGlobalStyle`
             padding: 0;
             top:3.5rem;
             right: 11rem;
-            position: absolute;
+            position: absolute !important;
             overflow: hidden;
             border-top-left-radius: 0.60rem;
             border-bottom-right-radius: 0.60rem;
@@ -146,7 +146,7 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
 
         :hover{
-            background-color:#ff4d4d
+            filter: brightness(1.4);
         }
     }
 
@@ -178,6 +178,11 @@ export const GlobalStyle = createGlobalStyle`
         background:#FFBA08 ;
     }
   
+    //////////////////////Pagination
+
+    .currentPage{
+        background-color: #b3e0ff;
+    }
 
 `
 

@@ -33,7 +33,7 @@ export const FormContainer = styled.div`
         button{
             border:0;
             background-color: transparent;
-            color: rgba(29, 78, 216);
+            color: var(--blue-button);
             font-size: 1.05rem;
             padding-left: 5px;
             transition: font-weight 0.25s;

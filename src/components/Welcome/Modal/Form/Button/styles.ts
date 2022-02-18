@@ -11,9 +11,10 @@ export const ButtonContainer = styled.button`
     background-color: var(--blue-button);
     transition: background-color 400ms;
     margin-bottom: 5px;
+    transition: filter 0.3s;
     
     :hover{
-        background-color:rgba(59, 130, 246);
+        filter: brightness(1.4);
     }
 
     p{

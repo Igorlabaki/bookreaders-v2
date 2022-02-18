@@ -5,7 +5,7 @@ import {FaUserFriends} from 'react-icons/fa'
 import {GiBookshelf} from 'react-icons/gi'
 import { CgProfile } from 'react-icons/cg'
 
-export  function Nav() {
+export  function NavDefault() {
     return (
         <NavContainer>
             <NavItem text="Profile"     href="/profile"     icon={<CgProfile/>}/>

@@ -20,16 +20,16 @@ export const SerachInputContainer = styled.form`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(29, 78, 216);
+        background-color: var(--blue-button);
         border-bottom-left-radius: 0.25rem;
         border-top-left-radius: 0.25rem;
         height: 100%;
         padding:10px;
-        transition: background-color 0.2s;
+        transition: filter 0.3s;
         cursor: pointer;
 
         :hover{
-            filter: brightness(1.2);
+            filter: brightness(1.3);
         }
     }
 
@@ -63,6 +63,7 @@ export const ResultListContainer = styled.div`
     border-bottom-left-radius: 0.6rem;
     border-bottom-right-radius: 0.6rem;
     z-index: 20;
+    
 
     button{
         padding:0.5rem;

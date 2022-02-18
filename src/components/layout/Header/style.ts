@@ -20,9 +20,25 @@ export const HeaderComponent = styled.div`
     }
 `
 
+export const LogoContainer = styled.img`
+   cursor: pointer;
+    width: 200px;
+`
+
 export const ArrowButtonContainer = styled.div`
     margin-top: 10px;
     cursor: pointer;
     border: 0;
     background-color: transparent;
+`
+
+export const PhotoContainer = styled.img`
+    width: 60px;
+    border-radius: 50%;
+`
+
+export const MenuContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `

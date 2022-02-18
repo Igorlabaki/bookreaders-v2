@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {ArrowButtonContainer, HeaderComponent} from './style'
+import {ArrowButtonContainer, HeaderComponent, LogoContainer, MenuContainer, PhotoContainer} from './style'
 import { SearchInput } from './SearchInput'
 import {CgProfile} from 'react-icons/cg'
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
@@ -15,9 +15,8 @@ export function Header(){
     function handleUserPhoto(){
         return(
             <>
-                <p>{user?.displayName}</p>
                 { user?.photoURL ? 
-                        <img src={user.photoURL} alt="user photo" />
+                        <PhotoContainer src={user.photoURL} alt="user photo" />
                     :
                         <CgProfile fontSize={40}/>
                 }
@@ -43,13 +42,14 @@ export function Header(){
 
     return(
         <HeaderComponent>
-           <Link href="/discover"><h1>BookReaders</h1></Link>
+           <Link href="/discover"><LogoContainer src="/images/logo/bookreaderslogo2.png" alt="" /></Link>
            <SearchInput/>
-           <div>
+           <MenuContainer>
+                <p>{user?.displayName}</p>
                 {handleUserPhoto()}
                 {handleDropDownMenu()}
                 <ModalComponent/>
-           </div>
+           </MenuContainer>
         </HeaderComponent>
     )
 }
