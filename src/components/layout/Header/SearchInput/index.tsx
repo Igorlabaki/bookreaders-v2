@@ -1,4 +1,4 @@
-import { BookContainer, Container, ResultListContainer, SerachInputContainer } from "./style";
+import { BookContainer, Container, ErrorContainer, ResultListContainer, SerachInputContainer } from "./style";
 import {FiSearch} from "react-icons/fi"
 import { useEffect, useState } from "react";
 import useBookContext from "../../../../hook/useBookContext";
@@ -8,7 +8,7 @@ export function SearchInput(){
     const {booksSearch,getBooks}                      = useBookContext()
 
     const [search, setSearch]                   = useState('')
-    const [erro,setError]                       = useState('')
+    const [error,setError]                       = useState('Sorry we didnt find any book!')
 
     const router = useRouter()
     
@@ -25,7 +25,7 @@ export function SearchInput(){
 
     
     function handleResultContainer(){
-        if(booksSearch.length > 0 && search != ""){
+        if(booksSearch && search != ""){
             return(
                 <ResultListContainer>
                 {
@@ -51,18 +51,23 @@ export function SearchInput(){
                 }
                 <button onClick={() => {
                     router.push(`/search/list/${search}`)
+                    setSearch('')
                 }}>Se all</button>
                 </ResultListContainer>
             )
-        }else{
-            return ""
+        }else if(search != ""){
+            return (
+                <ErrorContainer>
+                    <p>{error}</p>
+                </ErrorContainer>
+            )
         }
     }
 
     return (
         <Container>
             <SerachInputContainer action={`/search/list/${search}`}>
-                <button type="submit">
+                <button type="submit" onClick={() => setSearch('')}>
                     <FiSearch fontSize={20} color="white"/>
                 </button>
                 <input type="text"  placeholder="Find your book..." value={search}  onChange={e => setSearch(e.target.value)} />

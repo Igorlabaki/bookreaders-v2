@@ -112,3 +112,23 @@ export const BookContainer = styled.div`
         gap: 0.5rem;
     }
 `
+
+
+export const ErrorContainer = styled.div`
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: absolute;
+    top:2.7rem;
+    margin-left: 8%;
+    width: 92%;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    max-height: 500px;
+    overflow: auto;
+    border-bottom-left-radius: 0.6rem;
+    border-bottom-right-radius: 0.6rem;
+    z-index: 20;
+    padding: 2rem;
+    background-color: white;
+`

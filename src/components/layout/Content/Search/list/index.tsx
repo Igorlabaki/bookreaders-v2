@@ -18,7 +18,8 @@ export function SearchListComponent({search}: SearchProps){
     
     useEffect(() => {
         getAllBooks(search.list)
-    }, [])
+        console.log(booksList)
+    }, [search.list])
     
     const indexOfLastBook   = currentPage       * booksPerPage
     const indexOfFirstPost  = indexOfLastBook   - booksPerPage
