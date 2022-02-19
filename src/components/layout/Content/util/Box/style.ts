@@ -9,6 +9,8 @@ export const BoxContainer = styled.div`
 `
 
 export const HeaderBox = styled.div`
+    font-size: 1.1rem;
+    font-weight: 700;
     background-color: rgba(229, 231, 235,1);
     width: 100%;
     padding:1rem;

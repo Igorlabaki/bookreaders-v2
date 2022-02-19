@@ -5,7 +5,6 @@ import { IoIosArrowBack,IoIosArrowForward} from 'react-icons/io';
 export function PaginationComponent(){
 
     const {booksList,setCurrentPage,booksPerPage,currentPage} = useBookContext()
-
     const totalBooks    = booksList.length
     const pageNumbers   = []
     const totalPages    =  totalBooks/booksPerPage

@@ -38,7 +38,6 @@ export function SearchListComponent({search}: SearchProps){
 
                     }
                     <TextContainer>
-                        <h3>{book.volumeInfo.title}</h3>
                         <h5>{book.volumeInfo.subtitle}</h5>
                             <p><strong>Author:</strong>&nbsp;{book.volumeInfo.authors?.at(0)}</p>
                             <p><strong>Category:</strong>&nbsp;{book.volumeInfo?.categories?.at(0)}</p>

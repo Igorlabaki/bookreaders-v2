@@ -20,7 +20,6 @@ export function SearchInput(){
         } catch (error) {
             setError('Nao encontramos nenhum livro')
         }
-        console.log(search)
     }, [search])
 
     
