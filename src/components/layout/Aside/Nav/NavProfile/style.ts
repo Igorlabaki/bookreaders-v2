@@ -5,7 +5,7 @@ export const PhotoContainer = styled.img`
     justify-content: center;
     align-items: center;
     width: 60% !important;
-    height: 200px !important;
+    height: 182px !important;
     border-radius: 0.8rem !important;
     margin-left: 3rem;
     cursor: pointer;
@@ -37,6 +37,15 @@ export const InfoContainer = styled.div`
         display: flex;
         justify-content: center;
         gap: 1rem;
+
+        span{
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem;
+        }
     }
     
     p{

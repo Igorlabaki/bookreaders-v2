@@ -30,9 +30,9 @@ export function NavProfile(){
             <PhotoModalComponent/>
             <InfoContainer>
                 <div>
-                    <ImBooks        fontSize={30} color={'rgb(75, 94, 78)'}     />
-                    <MdLibraryBooks fontSize={30} color={'rgb(133, 135, 248)'}  />
-                    <BsTrophyFill   fontSize={27} color={'rgb(212, 157, 45)'}/>
+                    <span><ImBooks        fontSize={30} color={'rgb(155, 178, 243)'}     /></span>
+                    <span><MdLibraryBooks fontSize={30} color={'rgb(155, 178, 243)'}  /></span>
+                    <span><BsTrophyFill   fontSize={27} color={'rgb(155, 178, 243)'}/></span> 
                 </div>
             </InfoContainer>
         </NavProfileContainer>

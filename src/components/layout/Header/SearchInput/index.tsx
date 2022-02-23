@@ -67,7 +67,7 @@ export function SearchInput(){
         <Container>
             <SerachInputContainer action={`/search/list/${search}`}>
                 <button type="submit" onClick={() => setSearch('')}>
-                    <FiSearch fontSize={20} color="white"/>
+                    <FiSearch fontSize={20} color="wheat"/>
                 </button>
                 <input type="text"  placeholder="Find your book..." value={search}  onChange={e => setSearch(e.target.value)} />
             </SerachInputContainer>

@@ -29,6 +29,7 @@ export const ProfileContainer = styled.div`
         border-radius: 0.80rem;
         transition: filter 0.3s;
         width: 100px;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
         :hover{
             filter: brightness(1.4);
         }
