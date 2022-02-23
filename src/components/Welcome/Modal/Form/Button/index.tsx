@@ -4,6 +4,7 @@ import { ButtonContainer } from "./styles";
 interface ButtonProps {
     email               ?: string
     password            ?: string
+    displayName         ?: string
     googleButton        ?: boolean
     registerButton      ?: boolean
     loginButton         ?: boolean
@@ -11,7 +12,7 @@ interface ButtonProps {
     onCLick             ?:() => void
 }
 
-export default function Button({children,googleButton,registerButton,loginButton,email,password}: ButtonProps) {
+export default function Button({children,googleButton,registerButton,loginButton,email,password,displayName}: ButtonProps) {
 
     const {loginGoogle,register,login} = useFireBaseContext()
 
@@ -29,14 +30,16 @@ export default function Button({children,googleButton,registerButton,loginButton
                 :
                 loginButton ?
                     <ButtonContainer
-                    onClick={() => login(email,password)}
+                    onClick={() => 
+                        login(email,password)
+                    }
                     >
                     <p>{'Confirm'}</p>
                     {children}
                     </ButtonContainer>      
                 :
                     <ButtonContainer
-                    onClick={() => register(email,password)}
+                    onClick={() => register(email,password,displayName)}
                     >
                     <p>{'Confirm'}</p>
                     {children}   

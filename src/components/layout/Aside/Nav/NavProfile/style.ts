@@ -19,4 +19,21 @@ export const PhotoContainer = styled.div`
 `
 
 export const NavProfileContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
+
+export const InfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 0.3rem;
+
+    p{
+        display: flex;
+        gap: 0.4rem;
+    }
 `

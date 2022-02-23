@@ -19,6 +19,7 @@ export default function ModalComponent() {
                 onRequestClose={handleCloseConfigModal}
                 overlayClassName="react-modal-config-overlay"
                 className="react-modal-config-content"
+                ariaHideApp={false}
             >
                 <MenuComponent>
                     <>

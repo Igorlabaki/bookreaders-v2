@@ -10,14 +10,14 @@ import { FaRegBell } from 'react-icons/fa'
 
 export function Header(){
 
-    const {user} = useFireBaseContext()
+    const {userAuth} = useFireBaseContext()
     const {handleOpenConfigModal,handleCloseConfigModal, isConfigModalOpen} = useModalContext()
 
     function handleUserPhoto(){
         return(
             <>
-                { user?.photoURL ? 
-                        <PhotoContainer src={user.photoURL} alt="user photo" />
+                { userAuth?.photoURL ? 
+                        <PhotoContainer src={userAuth.photoURL} alt="user photo" />
                     :
                         <CgProfile fontSize={40} color={'var(--blue-button)'}/>
                 }
@@ -46,7 +46,7 @@ export function Header(){
            <Link href="/discover"><LogoContainer src="/images/logo/logo-color.png" alt="" /></Link>
            <SearchInput/>
            <MenuContainer>
-                <p>{user?.displayName}</p>
+                <p>{userAuth?.displayName}</p>
                 {handleUserPhoto()}
                 {handleDropDownMenu()}
                 <ModalComponent/>

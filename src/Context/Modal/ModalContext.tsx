@@ -110,7 +110,6 @@ export function ModalContextProvider( {children}: ModalContextProvider){
                 e.preventDefault() 
                 handleCloseRegisterModal()
                 handleOpenLoginModal()
-                console.log(isLoginModalOpen)
             }}> Click here.</button>
             </p>
             </div>

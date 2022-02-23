@@ -1,11 +1,33 @@
 import Modal from 'react-modal';
-import { ModalContainer } from './style';
-import useModalContext from '../../../../hook/useModalContext';
+import useFireBaseContext   from '../../../../hook/useFirebaseContext';
+import useModalContext      from '../../../../hook/useModalContext';
+import { ButtonContainer, ModalContainer, UploadContainer } from './style';
+import { AiOutlineClose }   from 'react-icons/ai';
+import { PhotoContainer }   from '../Nav/NavProfile/style';
+import { CgProfile }        from 'react-icons/cg';
+import { MdAddAPhoto }      from 'react-icons/md';
 
 export default function PhotoModalComponent() {
 
     const {isPhotoModalOpen, handleClosePhotoModal} = useModalContext()
-    
+    const {userAuth} = useFireBaseContext()
+
+    function handleUserPhoto(){
+        return(
+            <PhotoContainer>
+                { userAuth?.photoURL ? 
+                    <>
+                        <img src={userAuth.photoURL} alt="user photo" />
+                    </>
+                    :
+                    <>
+                        <CgProfile fontSize={120}/>
+                    </>
+                }
+            </PhotoContainer>
+        )
+    }
+
     return (
         <ModalContainer>
             <Modal 
@@ -15,7 +37,30 @@ export default function PhotoModalComponent() {
                 className="react-modal-photo-content"
                 ariaHideApp={false}
             >
-             
+             <ButtonContainer  onClick={handleClosePhotoModal}><AiOutlineClose/></ButtonContainer>
+             <UploadContainer>
+                <h2>Upload photo</h2>
+                {handleUserPhoto()}
+                <form>
+                    <div>
+                        <span>
+                            <MdAddAPhoto fontSize={30} color={"rgba(29, 53, 87)"}/> 
+                            <p>Choose your photo</p> 
+                        </span>
+                        <input
+                        type="file" 
+                        onChange={(e) => console.log(e)}
+                        />
+                    </div>
+                    <button type='submit' onClick={
+                        (e)=> {
+                            e.preventDefault()
+                        }
+                    }>
+                        Confirm
+                    </button>
+                </form>
+             </UploadContainer>
             </Modal>
         </ModalContainer>
     )

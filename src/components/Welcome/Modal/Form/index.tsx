@@ -17,7 +17,7 @@ export default function Form({title} : FormProps) {
 
     const [passwordInput            , setpasswordInput]                         = useState("")
     const [emailInput               , setemailInput]                            = useState("")
-    const [userNameInput            , setuserNameInput]                        = useState("")
+    const [displayName              , setDisplayName]                           = useState("")
 
     function handleCloseModal(){
         return(
@@ -36,7 +36,7 @@ export default function Form({title} : FormProps) {
                 { title === "Login" ?
                     <Button loginButton={true} password={passwordInput} email={emailInput}  />
                 :
-                    <Button registerButton password={passwordInput} email={emailInput}  />
+                    <Button registerButton password={passwordInput} email={emailInput} displayName={displayName} />
                 }
             </>
         )
@@ -61,7 +61,7 @@ export default function Form({title} : FormProps) {
                         ""
                 }
                 <Input label="Email"            type="email"        onChange={setemailInput}                value={emailInput}           required/>
-                <Input label="Username"         type="text"         onChange={setuserNameInput}             value={userNameInput}        required noRender={title === 'Login'}/>
+                <Input label="Username"         type="text"         onChange={setDisplayName}               value={displayName}          required noRender={title === 'Login'}/>
                 <Input label="Password"         type="password"     onChange={setpasswordInput}             value={passwordInput}        required/>
             </div>
             {renderText(title)}
