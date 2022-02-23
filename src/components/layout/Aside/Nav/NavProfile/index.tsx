@@ -5,6 +5,7 @@ import { PhotoContainer,NavProfileContainer, InfoContainer } from "./style";
 import { CgProfile }    from "react-icons/cg";
 import { ImBooks }      from "react-icons/im";
 import { MdLibraryBooks }      from "react-icons/md";
+import { BsTrophyFill }      from "react-icons/bs";
 
 export function NavProfile(){
 
@@ -22,7 +23,7 @@ export function NavProfile(){
                     </>
                     :
                     <>
-                        <CgProfile fontSize={130}/>
+                        <CgProfile fontSize={130} color={'var(--blue-button)'}/>
                     </>
                 }
             </PhotoContainer>
@@ -34,10 +35,11 @@ export function NavProfile(){
             {handleUserPhoto()}
             <PhotoModalComponent/>
             <InfoContainer>
-                <p><strong>{user?.username}</strong></p>
+                <p>{user?.username}</p>
                 <div>
-                    <ImBooks fontSize={30}/>
-                    <MdLibraryBooks fontSize={30}/>
+                    <ImBooks fontSize={30} color={'rgb(75, 94, 78)'}/>
+                    <MdLibraryBooks fontSize={30} color={'rgb(133, 135, 248)'}/>
+                    <BsTrophyFill fontSize={27} color={'rgb(212, 157, 45)'}/>
                 </div>
             </InfoContainer>
         </NavProfileContainer>

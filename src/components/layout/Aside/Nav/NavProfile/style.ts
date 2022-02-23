@@ -31,8 +31,15 @@ export const InfoContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 0.3rem;
-    color: var(--blue-button);
+    font-size: 1.2rem;
+    font-weight: 700;
 
+    div{
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
     p{
         display: flex;
         gap: 0.4rem;
