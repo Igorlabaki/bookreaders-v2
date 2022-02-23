@@ -1,7 +1,7 @@
 import useFireBaseContext from "../../../../../hook/useFirebaseContext";
 import useModalContext from "../../../../../hook/useModalContext";
 import PhotoModalComponent from "../../Modal";
-import { PhotoContainer,NavProfileContainer, InfoContainer } from "./style";
+import { PhotoContainer,NavProfileContainer, InfoContainer, IconContainer } from "./style";
 import { CgProfile }    from "react-icons/cg";
 import { ImBooks }      from "react-icons/im";
 import { MdLibraryBooks }      from "react-icons/md";
@@ -18,7 +18,9 @@ export function NavProfile(){
             { userAuth?.photoURL ? 
                     <PhotoContainer src={userAuth.photoURL} alt="user photo" onClick={handleOpenPhotoModal}/>
                 :
-                    <CgProfile fontSize={40} color={'var(--blue-button)'}/>
+                <IconContainer onClick={handleOpenPhotoModal}>
+                    <CgProfile fontSize={178} color={'var(--blue-button)'}/>
+                </IconContainer>
             }
         </>
         )

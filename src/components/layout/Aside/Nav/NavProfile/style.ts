@@ -5,7 +5,7 @@ export const PhotoContainer = styled.img`
     justify-content: center;
     align-items: center;
     width: 60% !important;
-    height: 182px !important;
+    height: 180px !important;
     border-radius: 0.8rem !important;
     margin-left: 3rem;
     cursor: pointer;
@@ -52,4 +52,9 @@ export const InfoContainer = styled.div`
         display: flex;
         gap: 0.4rem;
     }
+`
+
+export const IconContainer = styled.div`
+    margin-left: 2.2rem;
+    cursor: pointer;
 `
