@@ -34,6 +34,7 @@ export const ArrowButtonContainer = styled.div`
 
 export const PhotoContainer = styled.img`
     width: 60px;
+    height: 60px;
     border-radius: 50%;
 `
 

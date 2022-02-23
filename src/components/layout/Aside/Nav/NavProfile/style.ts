@@ -6,15 +6,11 @@ export const PhotoContainer = styled.div`
     justify-content:center;
     align-items:center;
     gap:0.5rem;
-
-    button{
-        border: 0;
-        background-color:transparent;
-        font-size:1rem; 
-        :hover{
-            font-weight: 600;
-            color:rgba(29, 78, 216);
-        }
+    
+    img{
+        width:  150px;
+        height: 150px;
+        cursor: pointer;
     }
 `
 
@@ -30,7 +26,7 @@ export const InfoContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.8rem;
     font-size: 1.2rem;
     font-weight: 700;
 

@@ -10,14 +10,14 @@ import { MdAddAPhoto }      from 'react-icons/md';
 export default function PhotoModalComponent() {
 
     const {isPhotoModalOpen, handleClosePhotoModal} = useModalContext()
-    const {userAuth} = useFireBaseContext()
+    const {userAuth,uploadPhoto,changeAvatarHandler,avatar,avatarUrl} = useFireBaseContext()
 
     function handleUserPhoto(){
         return(
             <PhotoContainer>
                 { userAuth?.photoURL ? 
                     <>
-                        <img src={userAuth.photoURL} alt="user photo" />
+                        <img src={avatarUrl} alt="user photo" />
                     </>
                     :
                     <>
@@ -46,15 +46,20 @@ export default function PhotoModalComponent() {
                         <span>
                             <MdAddAPhoto fontSize={30} color={"rgba(29, 53, 87)"}/> 
                             <p>Choose your photo</p> 
+                            {
+                                avatar ? <p>(1)</p> : ""
+                            }
                         </span>
                         <input
                         type="file" 
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => changeAvatarHandler(e)}
                         />
                     </div>
                     <button type='submit' onClick={
                         (e)=> {
                             e.preventDefault()
+                            uploadPhoto()
+                            handleClosePhotoModal()
                         }
                     }>
                         Confirm

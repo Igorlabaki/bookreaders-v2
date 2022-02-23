@@ -1,25 +1,29 @@
+import { useRouter }            from 'next/router'
+import app, { db,storage}       from '../../service/firebase'
 import {createContext,ReactNode,useState} from 'react'
-import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword, AuthErrorCodes, updateProfile} from 'firebase/auth'
-import app, { db } from '../../service/firebase'
-import { useRouter } from 'next/router'
+import { ref, uploadBytes,getDownloadURL} from 'firebase/storage'
 import { collection, getDocs,getDoc, doc,setDoc,updateDoc, DocumentData} from 'firebase/firestore'
+import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword, AuthErrorCodes, updateProfile} from 'firebase/auth'
 
 interface ContextProvider {
     children: ReactNode
 }
 interface FirebaseContext{
-    userAuth:        User | null,
-    user?:           DocumentData, 
-    error?:          string,
-    isLoading?:      boolean,
-    login?:          (email:string, password:string) => void,
-    register?:       (email:string, password:string,userName:string) => void,
-    uploadPhoto?:    (photoUrl:File) => void, 
-    addBio?:         (bio: string) => void,
-    loginGoogle?:    () => void,
-    logout?:         () => void
-    getUsers?:       () => void
-    getUser?:       () => void
+    userAuth:               User | null,
+    user?:                  DocumentData, 
+    error?:                 string,
+    isLoading?:             boolean,
+    avatar?:                File
+    avatarUrl?:                string
+    login?:                 (email:string, password:string) => void,
+    register?:              (email:string, password:string,userName:string) => void,
+    uploadPhoto?:           () => void, 
+    changeAvatarHandler?:   (e:any) => void, 
+    addBio?:                (bio: string) => void,
+    loginGoogle?:           () => void,
+    logout?:                () => void
+    getUsers?:              () => void
+    getUser?:               () => void
 }
 
 export const FirebaseContext = createContext<FirebaseContext>({
@@ -36,7 +40,9 @@ export function FireBaseContextProvider({children}: ContextProvider){
     const [user, setUser]                   = useState<Object>(null);
     const [users, setusers]                 = useState([]);
     const [error,setError]                  = useState(null)
-    const [isLoading,setIsLoading]           = useState(false)
+    const [isLoading,setIsLoading]          = useState(false)
+    const [avatar, setAvatar]               = useState(null)
+    const [avatarUrl, setAvatarUrl]         = useState(null)
     const router                            = useRouter()
 
     function showError(msg,time = 3000){
@@ -90,6 +96,16 @@ export function FireBaseContextProvider({children}: ContextProvider){
    const loginGoogle = async () => {
         try {
             await signInWithPopup(auth, new GoogleAuthProvider()).then((response) => {
+                setUserAuth(response.user)
+                    const newUser =  doc(usersCollectionRef,response.user.uid)
+                    setDoc(newUser, {
+                        uid: response.user.uid,
+                        username: response.user.displayName,
+                        email: response.user.email,
+                        bio: "", 
+                        avatar: ""
+                    })
+                updateProfile(auth.currentUser, {displayName: response.user.displayName})
                 sessionStorage.setItem('Token', response.user.uid)
                 setUserAuth(auth.currentUser)
                 router.push('/discover')
@@ -122,11 +138,27 @@ export function FireBaseContextProvider({children}: ContextProvider){
         }
     }
 
-    const  uploadPhoto = async (file) =>{
+    const  uploadPhoto = () => {
+        const imageRef = ref(storage, `${userAuth.uid + 'avatar'}`)
+        const newUser =  doc(usersCollectionRef,userAuth.uid)
+        uploadBytes(imageRef,avatar).then( () => {
+            getDownloadURL(imageRef).then((url) => {
+                setAvatarUrl(url);
+                updateDoc(newUser, {
+                    avatar: url
+                })
+                updateProfile(auth.currentUser, {photoURL: url})
+            })
+
+        })
 
     }
 
-    const uploadHandler = async (event) => {}
+    const changeAvatarHandler = (e: any) => {
+        if(e.target.files[0]){
+            setAvatar(e.target.files[0])
+        }
+    }
 
     async function  addBio (newBio:string){
         setIsLoading(true)
@@ -149,11 +181,14 @@ export function FireBaseContextProvider({children}: ContextProvider){
             getUsers,
             getUser,
             uploadPhoto,
+            changeAvatarHandler,
             addBio,
             isLoading,
             error,
             userAuth,
-            user
+            user,
+            avatar,
+            avatarUrl
         }}>
             {children}
         </FirebaseContext.Provider>

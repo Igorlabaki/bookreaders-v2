@@ -18,12 +18,10 @@ export function NavProfile(){
                 { userAuth?.photoURL ? 
                     <>
                         <img src={userAuth.photoURL} alt="user photo" onClick={handleOpenPhotoModal}/>
-                        
-                        <button >Edit photo</button>
                     </>
                     :
                     <>
-                        <CgProfile fontSize={130} color={'var(--blue-button)'}/>
+                        <CgProfile fontSize={130} color={'var(--blue-button)'} onClick={handleOpenPhotoModal}/>
                     </>
                 }
             </PhotoContainer>
@@ -37,9 +35,9 @@ export function NavProfile(){
             <InfoContainer>
                 <p>{user?.username}</p>
                 <div>
-                    <ImBooks fontSize={30} color={'rgb(75, 94, 78)'}/>
-                    <MdLibraryBooks fontSize={30} color={'rgb(133, 135, 248)'}/>
-                    <BsTrophyFill fontSize={27} color={'rgb(212, 157, 45)'}/>
+                    <ImBooks        fontSize={30} color={'rgb(75, 94, 78)'}     />
+                    <MdLibraryBooks fontSize={30} color={'rgb(133, 135, 248)'}  />
+                    <BsTrophyFill   fontSize={27} color={'rgb(212, 157, 45)'}/>
                 </div>
             </InfoContainer>
         </NavProfileContainer>

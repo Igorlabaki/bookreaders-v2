@@ -1,5 +1,6 @@
 import { initializeApp,getApp,getApps,FirebaseApp } from "firebase/app";
 import {getFirestore} from "firebase/firestore"
+import { getStorage } from "firebase/storage";
 
 let app:FirebaseApp
 
@@ -22,4 +23,5 @@ if(getApps().length){
 
 export default app;
 
-export const db = getFirestore(app)
+export const db         = getFirestore(app)
+export const storage    = getStorage(app)
