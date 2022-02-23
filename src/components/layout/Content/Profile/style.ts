@@ -9,7 +9,7 @@ export const ProfileContainer = styled.div`
     
     textarea{
         width: 100%;
-        height: 100px;
+        height: 130px;
         background-color: rgba(229, 231, 235,1);
         font-size: 1rem;
         padding: 1rem;
@@ -54,7 +54,7 @@ export const BioTextContainer = styled.div`
     color: black;
     font-weight: 700;
     width: 100%;
-    height: 100px;
+    height: 130px;
     border-radius: 0.80rem;
     padding: 2em;
 `

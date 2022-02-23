@@ -1,9 +1,8 @@
 import Modal from 'react-modal';
 import useFireBaseContext   from '../../../../hook/useFirebaseContext';
 import useModalContext      from '../../../../hook/useModalContext';
-import { ButtonContainer, ModalContainer, UploadContainer } from './style';
+import { ButtonContainer, ModalContainer, PhotoContainer, UploadContainer } from './style';
 import { AiOutlineClose }   from 'react-icons/ai';
-import { PhotoContainer }   from '../Nav/NavProfile/style';
 import { CgProfile }        from 'react-icons/cg';
 import { MdAddAPhoto }      from 'react-icons/md';
 
@@ -14,17 +13,17 @@ export default function PhotoModalComponent() {
 
     function handleUserPhoto(){
         return(
-            <PhotoContainer>
+            <>
                 { userAuth?.photoURL ? 
                     <>
-                        <img src={avatarUrl} alt="user photo" />
+                        <PhotoContainer src={userAuth.photoURL} alt="user photo" />
                     </>
                     :
                     <>
                         <CgProfile fontSize={120}/>
                     </>
                 }
-            </PhotoContainer>
+            </>
         )
     }
 

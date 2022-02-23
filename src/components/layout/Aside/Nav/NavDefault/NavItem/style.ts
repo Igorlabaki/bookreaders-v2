@@ -7,12 +7,12 @@ export const NavItemContainer = styled.div`
     gap:1rem;
     cursor: pointer;
     line-height: 1.25rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     transition: background-color 0.3s;
     padding: 1.5rem;
 
     :hover{
-        background-color: var(--blue-hover);
+        background-color: aliceblue;
     }
 
     :first-child{
@@ -23,5 +23,6 @@ export const NavItemContainer = styled.div`
     :last-child{
         border-bottom-left-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
+        margin-bottom: 10px;
     }
 `

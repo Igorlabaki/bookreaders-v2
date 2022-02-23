@@ -14,17 +14,13 @@ export function NavProfile(){
 
     function handleUserPhoto(){
         return(
-            <PhotoContainer>
-                { userAuth?.photoURL ? 
-                    <>
-                        <img src={userAuth.photoURL} alt="user photo" onClick={handleOpenPhotoModal}/>
-                    </>
-                    :
-                    <>
-                        <CgProfile fontSize={130} color={'var(--blue-button)'} onClick={handleOpenPhotoModal}/>
-                    </>
-                }
-            </PhotoContainer>
+            <>
+            { userAuth?.photoURL ? 
+                    <PhotoContainer src={userAuth.photoURL} alt="user photo" onClick={handleOpenPhotoModal}/>
+                :
+                    <CgProfile fontSize={40} color={'var(--blue-button)'}/>
+            }
+        </>
         )
     }
 
@@ -33,7 +29,6 @@ export function NavProfile(){
             {handleUserPhoto()}
             <PhotoModalComponent/>
             <InfoContainer>
-                <p>{user?.username}</p>
                 <div>
                     <ImBooks        fontSize={30} color={'rgb(75, 94, 78)'}     />
                     <MdLibraryBooks fontSize={30} color={'rgb(133, 135, 248)'}  />

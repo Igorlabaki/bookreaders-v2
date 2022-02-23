@@ -97,3 +97,7 @@ export const UploadContainer = styled.div`
     }
 
 `
+
+export const PhotoContainer = styled.img`
+    height: 150px;
+`

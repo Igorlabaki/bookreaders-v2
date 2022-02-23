@@ -18,4 +18,5 @@ export const HeaderBox = styled.div`
 
 export const BodyBox = styled.div`
     padding: 1rem;
+    background-color: aliceblue;
 `

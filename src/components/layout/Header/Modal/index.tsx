@@ -23,7 +23,6 @@ export default function ModalComponent() {
             >
                 <MenuComponent>
                     <>
-                        <ItemComponent text="Profile" icon={<CgProfile  fontSize={25}/>}  href='/profile'/>
                         <ItemComponent text="Logout"  icon={<GrLogout   fontSize={20}/>} onClick={logout}/>
                     </>
                 </MenuComponent>
