@@ -1,7 +1,7 @@
-import PhotoModalComponent from "./Modal";
-import { NavDefault} from "./Nav/NavDefault";
-import { NavProfile } from "./Nav/NavProfile";
-import { ContainerAside } from "./style";
+import PhotoModalComponent  from "./Modal";
+import { NavDefault}        from "./Nav/NavDefault";
+import { NavProfile }       from "./Nav/NavProfile";
+import { ContainerAside }   from "./style";
 
 interface AsideProps{
     profileMode?:Boolean

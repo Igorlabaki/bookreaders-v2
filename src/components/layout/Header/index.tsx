@@ -6,11 +6,10 @@ import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
 import useFireBaseContext from '../../../hook/useFirebaseContext'
 import useModalContext from '../../../hook/useModalContext'
 import ModalComponent from './Modal'
-import { FaRegBell } from 'react-icons/fa'
 
 export function Header(){
 
-    const {userAuth} = useFireBaseContext()
+    const {userAuth,user} = useFireBaseContext()
     const {handleOpenConfigModal,handleCloseConfigModal, isConfigModalOpen} = useModalContext()
 
     function handleUserPhoto(){
@@ -46,7 +45,7 @@ export function Header(){
            <Link href="/discover"><LogoContainer src="/images/logo/logo-color.png" alt="" /></Link>
            <SearchInput/>
            <MenuContainer>
-                <p>{userAuth?.displayName}</p>
+                <p>{userAuth.displayName}</p>
                 {handleUserPhoto()}
                 {handleDropDownMenu()}
                 <ModalComponent/>

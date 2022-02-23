@@ -29,8 +29,9 @@ export const InfoContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     gap: 0.3rem;
+    color: var(--blue-button);
 
     p{
         display: flex;

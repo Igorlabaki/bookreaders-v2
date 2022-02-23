@@ -1,8 +1,10 @@
-import { CgProfile } from "react-icons/cg";
 import useFireBaseContext from "../../../../../hook/useFirebaseContext";
 import useModalContext from "../../../../../hook/useModalContext";
 import PhotoModalComponent from "../../Modal";
 import { PhotoContainer,NavProfileContainer, InfoContainer } from "./style";
+import { CgProfile }    from "react-icons/cg";
+import { ImBooks }      from "react-icons/im";
+import { MdLibraryBooks }      from "react-icons/md";
 
 export function NavProfile(){
 
@@ -14,14 +16,13 @@ export function NavProfile(){
             <PhotoContainer>
                 { userAuth?.photoURL ? 
                     <>
-                        <img src={userAuth.photoURL} alt="user photo" />
+                        <img src={userAuth.photoURL} alt="user photo" onClick={handleOpenPhotoModal}/>
                         
-                        <button onClick={handleOpenPhotoModal}>Edit photo</button>
+                        <button >Edit photo</button>
                     </>
                     :
                     <>
-                        <CgProfile fontSize={80}/>
-                        <button onClick={handleOpenPhotoModal}>Add photo</button>
+                        <CgProfile fontSize={130}/>
                     </>
                 }
             </PhotoContainer>
@@ -34,6 +35,10 @@ export function NavProfile(){
             <PhotoModalComponent/>
             <InfoContainer>
                 <p><strong>{user?.username}</strong></p>
+                <div>
+                    <ImBooks fontSize={30}/>
+                    <MdLibraryBooks fontSize={30}/>
+                </div>
             </InfoContainer>
         </NavProfileContainer>
     )

@@ -13,7 +13,7 @@ interface FirebaseContext{
     error?:          string,
     isLoading?:      boolean,
     login?:          (email:string, password:string) => void,
-    register?:       (email:string, password:string,username:string) => void,
+    register?:       (email:string, password:string,userName:string) => void,
     uploadPhoto?:    (photoUrl:File) => void, 
     addBio?:         (bio: string) => void,
     loginGoogle?:    () => void,
@@ -61,7 +61,7 @@ export function FireBaseContextProvider({children}: ContextProvider){
         }
     }
 
-    const register = async (email:string, password:string, username:string) => {
+    const register = async (email:string, password:string, userName:string) => {
         try {
             if(password.length >= 6){
                 await createUserWithEmailAndPassword(auth, email,password).then((response) => {
@@ -69,7 +69,7 @@ export function FireBaseContextProvider({children}: ContextProvider){
                     const newUser =  doc(usersCollectionRef,response.user.uid)
                     setDoc(newUser, {
                         uid: response.user.uid,
-                        username: response.user.displayName,
+                        username: userName,
                         email: response.user.email,
                         bio: "", 
                         avatar: ""
@@ -77,7 +77,7 @@ export function FireBaseContextProvider({children}: ContextProvider){
                     sessionStorage.setItem('Token',response.user.uid)
                     router.push('/discover')   
                 })
-                updateProfile(auth.currentUser, {displayName: username})
+                updateProfile(auth.currentUser, {displayName: userName})
             }
             else{
                 showError('Password must be at least 6 characters.')
