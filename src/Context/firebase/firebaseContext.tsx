@@ -8,21 +8,29 @@ import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmail
 interface ContextProvider {
     children: ReactNode
 }
+
+interface Post{
+    uid:    string
+    text:   string
+}
 interface FirebaseContext{
     userAuth:               User | null,
     user?:                  DocumentData, 
     error?:                 string,
     isLoading?:             boolean,
     avatar?:                File
-    avatarUrl?:                string
+    avatarUrl?:             string
+    posts?:                 any[]
     login?:                 (email:string, password:string) => void,
     register?:              (email:string, password:string,userName:string) => void,
     uploadPhoto?:           () => void, 
     changeAvatarHandler?:   (e:any) => void, 
     addBio?:                (bio: string) => void,
+    createPost?:            (post: object) => void,
     loginGoogle?:           () => void,
     logout?:                () => void
     getUsers?:              () => void
+    getPosts?:              () => void
     getUser?:               () => void
 }
 
@@ -36,13 +44,16 @@ const auth = getAuth(app)
 export function FireBaseContextProvider({children}: ContextProvider){
     
     const usersCollectionRef                = collection(db,"users")
+    const postsCollectionRef                = collection(db,"posts")
     const [userAuth, setUserAuth]           = useState<User | null>(null);
     const [user, setUser]                   = useState<Object>(null);
     const [users, setusers]                 = useState([]);
+    const [posts, setPosts]                 = useState([]);
     const [error,setError]                  = useState(null)
     const [isLoading,setIsLoading]          = useState(false)
     const [avatar, setAvatar]               = useState(null)
     const [avatarUrl, setAvatarUrl]         = useState(null)
+    const [postList, setPostList]           = useState([])
     const router                            = useRouter()
 
     function showError(msg,time = 3000){
@@ -78,7 +89,8 @@ export function FireBaseContextProvider({children}: ContextProvider){
                         username: userName,
                         email: response.user.email,
                         bio: "", 
-                        avatar: ""
+                        avatar: "",
+                        posts: []
                     })
                     sessionStorage.setItem('Token',response.user.uid)
                     router.push('/discover')   
@@ -99,11 +111,12 @@ export function FireBaseContextProvider({children}: ContextProvider){
                 setUserAuth(response.user)
                     const newUser =  doc(usersCollectionRef,response.user.uid)
                     setDoc(newUser, {
-                        uid: response.user.uid,
-                        username: response.user.displayName,
-                        email: response.user.email,
-                        bio: "", 
-                        avatar: ""
+                        uid:        response.user.uid,
+                        username:   response.user.displayName,
+                        email:      response.user.email,
+                        bio:        "", 
+                        avatar:     "",
+                        posts:      []
                     })
                 updateProfile(auth.currentUser, {displayName: response.user.displayName})
                 sessionStorage.setItem('Token', response.user.uid)
@@ -162,8 +175,8 @@ export function FireBaseContextProvider({children}: ContextProvider){
 
     async function  addBio (newBio:string){
         setIsLoading(true)
-        const newUser =  doc(usersCollectionRef,userAuth.uid)
-        updateDoc(newUser, {
+        const userUpdate =  doc(usersCollectionRef,userAuth.uid)
+        updateDoc(userUpdate, {
             bio: newBio
         })
        getDoc(doc(usersCollectionRef,userAuth.uid)).then( (user) =>{
@@ -172,6 +185,31 @@ export function FireBaseContextProvider({children}: ContextProvider){
         setTimeout(() => setIsLoading(false),2000 )
     }
 
+    async function  createPost (post: Post){
+        const newPost =  doc(postsCollectionRef)
+        setDoc(newPost, {
+            uid: userAuth.uid,
+            text: post.text
+        })
+        postList.push(post)
+        const userUpdate =  doc(usersCollectionRef,userAuth.uid)
+        updateDoc(userUpdate, {
+            posts: postList
+        })
+    }
+
+    async function  getPosts (){
+        const data = await getDocs(postsCollectionRef)
+        setPosts(data.docs.map((post) => ({...post.data(), id: userAuth.uid})))
+    }
+
+    async function  getUserPosts (){
+        const data = await getDocs(postsCollectionRef)
+        setPosts(data.docs.map((post) => ({...post.data(), id: userAuth.uid})))
+    }
+
+
+
     return(
         <FirebaseContext.Provider value={{
             login,
@@ -179,16 +217,19 @@ export function FireBaseContextProvider({children}: ContextProvider){
             logout,
             register,
             getUsers,
+            getPosts,
             getUser,
             uploadPhoto,
             changeAvatarHandler,
             addBio,
+            createPost,
             isLoading,
             error,
             userAuth,
             user,
             avatar,
-            avatarUrl
+            avatarUrl,
+            posts
         }}>
             {children}
         </FirebaseContext.Provider>

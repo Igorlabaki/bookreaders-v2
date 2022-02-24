@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useFireBaseContext from "../../../../hook/useFirebaseContext";
 import { BoxComponent } from "../util/Box";
+import { FeedComponent } from "./Feed";
 import { BioTextContainer, LoadingContainer, ProfileContainer } from "./style";
 
 export function ProfileComponent(){
@@ -9,7 +10,7 @@ export function ProfileComponent(){
     const [editType, setEditType]   = useState(false)
     const [count, setCount] = useState(-1);
 
-    const {addBio,isLoading,user,getUser,userAuth} = useFireBaseContext()
+    const {addBio,isLoading,user,getUser,userAuth,createPost} = useFireBaseContext()
 
     return(
         <ProfileContainer>
@@ -31,15 +32,16 @@ export function ProfileComponent(){
                         </>
                         :  
                         <>
-                            <textarea placeholder={user ? user.bio : "I Love Books..."} value={bio} onChange={(e) => setbio(e.target.value)}/>
+                            <textarea placeholder={user?.bio ? user.bio : "I Love Books..."} value={bio} onChange={(e) => setbio(e.target.value)}/>
                             <div>
-                                <button onClick={ (e) =>{e.preventDefault();addBio(bio);setEditType(false);setbio("")}}><p>Update</p> </button>
+                                <button onClick={ (e) =>{e.preventDefault();addBio(bio);createPost({text:bio, uid:user.uid});setEditType(false);setbio("");}}><p>Update</p> </button>
                                 <button onClick={ (e) =>{e.preventDefault();setEditType(false)}}><p>Cancel</p></button>
                             </div>
                         </>
                     }
                 </form>
             </BoxComponent>
+            <FeedComponent/>
         </ProfileContainer>
     )
 }
