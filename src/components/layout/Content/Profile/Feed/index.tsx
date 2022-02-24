@@ -5,10 +5,10 @@ import { PostContainer } from "./styles";
 
 export function FeedComponent(){
 
-    const {} = useFireBaseContext()
+    const {getUserPosts,userPosts} = useFireBaseContext()
 
     useEffect(() => {
-        
+        getUserPosts()
     }, [])
     
 
@@ -16,7 +16,17 @@ export function FeedComponent(){
         <>
             <BoxComponent title="My Posts">
                 {
-                   
+
+                   userPosts ? 
+                   userPosts.map((post,i) => {
+                    return(
+                        <PostContainer key={i}>
+                            <p>{post.text}</p>
+                        </PostContainer>
+                    )
+                   })
+                   :
+                   'Jorge'
                 }
             </BoxComponent>
         </>

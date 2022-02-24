@@ -2,7 +2,7 @@ import { useRouter }            from 'next/router'
 import app, { db,storage}       from '../../service/firebase'
 import {createContext,ReactNode,useState} from 'react'
 import { ref, uploadBytes,getDownloadURL} from 'firebase/storage'
-import { collection, getDocs,getDoc, doc,setDoc,updateDoc, DocumentData} from 'firebase/firestore'
+import { collection, getDocs,getDoc, doc,setDoc,updateDoc, DocumentData, query, where} from 'firebase/firestore'
 import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword, AuthErrorCodes, updateProfile} from 'firebase/auth'
 
 interface ContextProvider {
@@ -21,6 +21,7 @@ interface FirebaseContext{
     avatar?:                File
     avatarUrl?:             string
     posts?:                 any[]
+    userPosts?:             any[]
     login?:                 (email:string, password:string) => void,
     register?:              (email:string, password:string,userName:string) => void,
     uploadPhoto?:           () => void, 
@@ -30,6 +31,7 @@ interface FirebaseContext{
     loginGoogle?:           () => void,
     logout?:                () => void
     getUsers?:              () => void
+    getUserPosts?:          () => void
     getPosts?:              () => void
     getUser?:               () => void
 }
@@ -49,6 +51,7 @@ export function FireBaseContextProvider({children}: ContextProvider){
     const [user, setUser]                   = useState<Object>(null);
     const [users, setusers]                 = useState([]);
     const [posts, setPosts]                 = useState([]);
+    const [userPosts, setUserPosts]         = useState([]);
     const [error,setError]                  = useState(null)
     const [isLoading,setIsLoading]          = useState(false)
     const [avatar, setAvatar]               = useState(null)
@@ -90,7 +93,7 @@ export function FireBaseContextProvider({children}: ContextProvider){
                         email: response.user.email,
                         bio: "", 
                         avatar: "",
-                        posts: []
+                        posts: userPosts
                     })
                     sessionStorage.setItem('Token',response.user.uid)
                     router.push('/discover')   
@@ -191,11 +194,10 @@ export function FireBaseContextProvider({children}: ContextProvider){
             uid: userAuth.uid,
             text: post.text
         })
+        if(post.uid == userAuth.uid){
+            userPosts.push(post)
+        }
         postList.push(post)
-        const userUpdate =  doc(usersCollectionRef,userAuth.uid)
-        updateDoc(userUpdate, {
-            posts: postList
-        })
     }
 
     async function  getPosts (){
@@ -204,8 +206,10 @@ export function FireBaseContextProvider({children}: ContextProvider){
     }
 
     async function  getUserPosts (){
-        const data = await getDocs(postsCollectionRef)
-        setPosts(data.docs.map((post) => ({...post.data(), id: userAuth.uid})))
+        const postsUser = await query(postsCollectionRef, where("uid", "==", userAuth.uid));
+        const querySnapshot = await getDocs(postsUser);
+        setUserPosts(querySnapshot.docs.map((post) => ({...post.data(), id: userAuth.uid})))
+        
     }
 
 
@@ -218,6 +222,7 @@ export function FireBaseContextProvider({children}: ContextProvider){
             register,
             getUsers,
             getPosts,
+            getUserPosts,
             getUser,
             uploadPhoto,
             changeAvatarHandler,
@@ -229,7 +234,8 @@ export function FireBaseContextProvider({children}: ContextProvider){
             user,
             avatar,
             avatarUrl,
-            posts
+            posts,
+            userPosts
         }}>
             {children}
         </FirebaseContext.Provider>
