@@ -1,13 +1,37 @@
-import useBookContext from "../../../../../../hook/useBookContext"
+import useBookContext from "../../../../../hook/useBookContext"
 import { ButtonArrow, PaginationContainer } from "./style"
 import { IoIosArrowBack,IoIosArrowForward} from 'react-icons/io';
+import usePostsContext from "../../../../../hook/usePostsContext";
+import { useEffect, useState } from "react";
+import usePaginationContext from "../../../../../hook/usePaginationContext";
 
-export function PaginationComponent(){
+interface PaginationProps{
+    type:string
+}
 
-    const {booksList,setCurrentPage,booksPerPage,currentPage} = useBookContext()
-    const totalBooks    = booksList.length
-    const pageNumbers   = []
-    const totalPages    =  totalBooks/booksPerPage
+export function PaginationComponent({type}:PaginationProps){
+
+    const {booksList}                   = useBookContext()
+    const {posts,userPosts}             = usePostsContext()
+    const {currentPage,setCurrentPage}  = usePaginationContext()
+   
+    let total    = 0
+   
+    if(type.includes('books')){
+        total = booksList.length
+    
+    }
+    if(type.includes('userPost')){
+        total = userPosts.length
+        
+    }
+    if(type.includes('allPost')){
+        total = posts.length
+        
+    }   
+    
+    const pageNumbers   = [] 
+    const totalPages    =  total/5
 
    for(let i = 1; i <= Math.ceil(totalPages); i++){
         pageNumbers.push(i)
@@ -26,6 +50,8 @@ export function PaginationComponent(){
     }
     
     return (
+        <>
+       { totalPages > 1 ?  
         <PaginationContainer>
             {currentPage > 1 ? <ButtonArrow onClick={() => downPage()}><IoIosArrowBack fontSize={20}/></ButtonArrow> : ""}
             {
@@ -37,5 +63,9 @@ export function PaginationComponent(){
             }
             {currentPage < totalPages  ? <ButtonArrow onClick={() => addPage()}><IoIosArrowForward fontSize={20}/></ButtonArrow> : ""}
         </PaginationContainer>
+        :
+        "" 
+        }
+        </>
     )
 }

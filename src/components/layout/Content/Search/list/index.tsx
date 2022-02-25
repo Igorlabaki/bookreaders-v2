@@ -1,10 +1,11 @@
-import { BookContainer, SearchContainer, TextContainer, UserRatingContainer, UserReviewContainer } from "./style";
-import { useEffect } from "react";
+import { useEffect }            from "react";
+import { TiPlus }               from 'react-icons/ti';
+import { useRouter }            from "next/router";
+import { BoxComponent }         from "../../util/Box";
+import { PaginationComponent }  from "../../util/pagination";
+import { BookContainer, SearchContainer, TextContainer,UserReviewContainer } from "./style";
 import useBookContext from "../../../../../hook/useBookContext";
-import { BoxComponent } from "../../util/Box";
-import { TiPlus } from 'react-icons/ti';
-import { useRouter } from "next/router";
-import { PaginationComponent } from "./pagination";
+import usePaginationContext from "../../../../../hook/usePaginationContext";
 
 
 interface SearchProps{
@@ -13,7 +14,8 @@ interface SearchProps{
 
 export function SearchListComponent({search}: SearchProps){
 
-    const {getAllBooks,booksList,currentPage,booksPerPage,setCurrentPage} = useBookContext()
+    const {getAllBooks,booksList} = useBookContext()
+    const {currentPage, setCurrentPage, elementsPerPage} = usePaginationContext()
     const router = useRouter()
     
     useEffect(() => {
@@ -21,8 +23,8 @@ export function SearchListComponent({search}: SearchProps){
         console.log(booksList)
     }, [search.list])
     
-    const indexOfLastBook   = currentPage       * booksPerPage
-    const indexOfFirstPost  = indexOfLastBook   - booksPerPage
+    const indexOfLastBook   = currentPage       * elementsPerPage
+    const indexOfFirstPost  = indexOfLastBook       - elementsPerPage
     const currentBooks      = booksList.slice(indexOfFirstPost,indexOfLastBook)
     
     return(
@@ -56,7 +58,7 @@ export function SearchListComponent({search}: SearchProps){
                     </BookContainer>
                 </BoxComponent>
             )}
-            <PaginationComponent/>
+            <PaginationComponent type="books"/>
         </SearchContainer>
     )
 }

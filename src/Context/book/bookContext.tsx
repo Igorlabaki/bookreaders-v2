@@ -28,9 +28,9 @@ interface BookContext{
     booksList?:         book[],
     booksSearch?:       book[],
     loading?:           boolean,
-    currentPage?:       number
+    currentBookPage?:   number
     booksPerPage?:      number
-    setCurrentPage?:    Dispatch<SetStateAction<number>>
+    setCurrentBookPage?:Dispatch<SetStateAction<number>>
     getAllBooks?:       (bookSearch:any) => void
     getBooks?:          (bookSearch:any, maxResult?: number) => void
     getBook?:           (id:any) => void
@@ -46,8 +46,8 @@ export function BookContextProvider({children}: ContextProvider){
     const [booksList, setBooksList]             = useState<book[]>([]);
     const [booksSearch, setBooksSearch]         = useState<book[]>([]);
     const [loading, setLoading]                 = useState<boolean>(false);
-    const [currentPage, setCurrentPage]         = useState<number>(1);
-    const [booksPerPage, setbooksPerPage]       = useState<number>(5);
+    const [currentBookPage, setCurrentBookPage]         = useState<number>(1);
+    const [booksPerPage, setBooksPerPage]       = useState<number>(5);
     const [authorsList, setAuthorList]          = useState<book[]>([]);
 
     async function  getBooks(bookSearch:any,maxResults = 10){
@@ -82,8 +82,8 @@ export function BookContextProvider({children}: ContextProvider){
             booksList,
             booksSearch,
             loading,
-            currentPage,
-            setCurrentPage,
+            currentBookPage,
+            setCurrentBookPage,
             booksPerPage,
             getBook,
             getBooks,

@@ -8,10 +8,10 @@ import { CgProfile } from 'react-icons/cg'
 export  function NavDefault() {
     return (
         <NavContainer>
-            <NavItem text="Discover"    href="/discover"    icon={<BiWorld/>}/>
-            <NavItem text="Bookshelfe"  href="/book-shelfe" icon={<GiBookshelf/>}/>
-            <NavItem text="Profile"     href="/profile"     icon={<CgProfile/>}/>
-            <NavItem text="BookClub"    href="/book-club"   icon={<FaUserFriends/>}/>
+            <NavItem text="Discover"    href="/discover"    icon={<BiWorld fontSize={30}/>}/>
+            <NavItem text="Bookshelfe"  href="/book-shelfe" icon={<GiBookshelf  fontSize={30}/>}/>
+            <NavItem text="Profile"     href="/profile"     icon={<CgProfile  fontSize={30}/>}/>
+            <NavItem text="BookClub"    href="/book-club"   icon={<FaUserFriends  fontSize={30}/>}/>
         </NavContainer>
     )
   } 

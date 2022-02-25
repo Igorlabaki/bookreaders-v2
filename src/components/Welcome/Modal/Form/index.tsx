@@ -1,45 +1,70 @@
 import Input from './Input';
-import { useState } from 'react';
-import { ErrorContainer, FormContainer } from './styles';
-import {AiOutlineClose} from "react-icons/ai"
-import {FcGoogle} from "react-icons/fc"
-import useModalContext from '../../../../hook/useModalContext';
 import Button from './Button';
-import useFireBaseContext from '../../../../hook/useFirebaseContext';
+import { useState } from 'react';
+import {FcGoogle} from "react-icons/fc"
+import {AiOutlineClose} from "react-icons/ai"
+import { ErrorContainer, FormContainer } from './styles';
+import useAuthContext from '../../../../hook/useAuthContext';
+import useModalContext from '../../../../hook/useModalContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 interface FormProps{
     title:string
 }
 
 export default function Form({title} : FormProps) {
     
+    const {error} = useAuthContext()
     const {renderText,handleCloseLoginModal,handleCloseRegisterModal} = useModalContext()
-    const {error} = useFireBaseContext()
-
+    
+    
     const [passwordInput            , setpasswordInput]                         = useState("")
     const [emailInput               , setemailInput]                            = useState("")
     const [displayName              , setDisplayName]                           = useState("")
+    
+    const loginForm         = title.includes("Login")
+    const RegisterForm      = title.includes("Register")
+    
+    const notify = () => toast(error);
 
     function handleCloseModal(){
-        return(
-            <>
-                {title === "Login" ? 
-               <button className='close-button' onClick={handleCloseLoginModal}><AiOutlineClose/></button>
-               :
-               <button className='close-button' onClick={handleCloseRegisterModal}><AiOutlineClose/></button>
-                }
-            </>
-        )
+        if(loginForm){
+            return (
+                <button className='close-button' onClick={handleCloseLoginModal}><AiOutlineClose/></button>
+            )
+        }else{
+            return (
+                <button className='close-button' onClick={handleCloseRegisterModal}><AiOutlineClose/></button>
+            )
+        }
     }
+
     function handleButtonsAuth(){
-        return (
-            <>
-                { title === "Login" ?
-                    <Button loginButton={true} password={passwordInput} email={emailInput}  />
-                :
-                    <Button registerButton password={passwordInput} email={emailInput} displayName={displayName} />
-                }
-            </>
+        if(loginForm){
+            return (
+                <Button loginButton={true} password={passwordInput} email={emailInput}  />
+            )
+        }else{
+            return (
+                <Button registerButton password={passwordInput} email={emailInput} displayName={displayName} />
+            )
+        }
+    }
+
+    function handleError(){
+       if(error && loginForm){
+        return(
+            <ErrorContainer>
+                <p>{error}</p>
+            </ErrorContainer>
         )
+       }else if(error && RegisterForm){
+        return(
+            <ErrorContainer>
+                <p>{error}</p>
+            </ErrorContainer>
+        )
+       }
     }
 
     return (
@@ -47,25 +72,24 @@ export default function Form({title} : FormProps) {
             {handleCloseModal()}
             <h1>{title}</h1>
             <div>
-                {
-                    error && title == 'Login'? 
-                        <ErrorContainer>
-                            <p>{error}</p>
-                        </ErrorContainer>
-                    :
-                    error && title == 'Register'? 
-                        <ErrorContainer>
-                            <p>{error}</p>
-                        </ErrorContainer>
-                    :
-                        ""
-                }
+                {handleError()}
                 <Input label="Email"            type="email"        onChange={setemailInput}                value={emailInput}           required/>
-                <Input label="Username"         type="text"         onChange={setDisplayName}               value={displayName}          required noRender={title === 'Login'}/>
+                <Input label="Username"         type="text"         onChange={setDisplayName}               value={displayName}          required noRender={loginForm}/>
                 <Input label="Password"         type="password"     onChange={setpasswordInput}             value={passwordInput}        required/>
             </div>
             {renderText(title)}
             {handleButtonsAuth()}
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                />
             <Button googleButton><FcGoogle fontSize={25}/></Button>
         </FormContainer>
     )

@@ -1,15 +1,18 @@
-import Modal from 'react-modal';
-import useFireBaseContext   from '../../../../hook/useFirebaseContext';
-import useModalContext      from '../../../../hook/useModalContext';
-import { ButtonContainer, ModalContainer, PhotoContainer, UploadContainer } from './style';
+import Modal                from 'react-modal';
 import { AiOutlineClose }   from 'react-icons/ai';
 import { CgProfile }        from 'react-icons/cg';
 import { MdAddAPhoto }      from 'react-icons/md';
+import { ButtonContainer, ModalContainer, PhotoContainer, UploadContainer } from './style';
+import useAuthContext       from '../../../../hook/useAuthContext';
+import useModalContext      from '../../../../hook/useModalContext';
+import useUpdateUserContext from '../../../../hook/useUpdateUserContext';
+import { LoadComponent } from '../../Content/util/Loading';
 
 export default function PhotoModalComponent() {
 
+    const {userAuth}                                = useAuthContext()
     const {isPhotoModalOpen, handleClosePhotoModal} = useModalContext()
-    const {userAuth,uploadPhoto,changeAvatarHandler,avatar,avatarUrl} = useFireBaseContext()
+    const {uploadPhoto,changeAvatarHandler,avatar,isLoading}  = useUpdateUserContext()
 
     function handleUserPhoto(){
         return(
@@ -58,7 +61,6 @@ export default function PhotoModalComponent() {
                         (e)=> {
                             e.preventDefault()
                             uploadPhoto()
-                            handleClosePhotoModal()
                         }
                     }>
                         Confirm

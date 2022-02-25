@@ -1,14 +1,15 @@
+import {useRouter}              from 'next/router'
+import {FiSearch}               from "react-icons/fi"
+import { useEffect, useState }  from "react";
 import { BookContainer, Container, ErrorContainer, ResultListContainer, SerachInputContainer } from "./style";
-import {FiSearch} from "react-icons/fi"
-import { useEffect, useState } from "react";
 import useBookContext from "../../../../hook/useBookContext";
-import {useRouter} from 'next/router'
 
 export function SearchInput(){ 
-    const {booksSearch,getBooks}                      = useBookContext()
+
+    const {booksSearch,getBooks} = useBookContext()
 
     const [search, setSearch]                   = useState('')
-    const [error,setError]                       = useState('Sorry we didnt find any book!')
+    const [error,setError]                      = useState('Sorry we didnt find any book!')
 
     const router = useRouter()
     

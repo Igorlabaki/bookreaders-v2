@@ -9,7 +9,6 @@ interface AsideProps{
 
 export function Aside({profileMode}:AsideProps){
 
-
     return(
         <ContainerAside>
             {

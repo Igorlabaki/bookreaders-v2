@@ -4,7 +4,7 @@ import { LayoutContainer, MainContainer } from './style';
 import { ReactNode, useEffect } from "react";
 import { useRouter } from 'next/router'
 import useModalContext from "../../hook/useModalContext";
-import useFireBaseContext from "../../hook/useFirebaseContext";
+import useAuthContext from "../../hook/useAuthContext";
 
 interface LayoutProps{
     children: ReactNode;
@@ -13,7 +13,7 @@ interface LayoutProps{
 export function Layout({children} : LayoutProps){
 
     const { asPath } = useRouter()
-    const { userAuth,getUser,user} = useFireBaseContext()
+    const { userAuth,getUser,user} = useAuthContext()
     const {handleOpenLoginModal} = useModalContext()
     const router = useRouter()
     

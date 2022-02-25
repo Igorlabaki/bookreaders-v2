@@ -1,8 +1,8 @@
-import { BookContainer, TextContainer, SearchContainer } from "./style";
-import { useEffect } from "react";
-import useBookContext from "../../../../../hook/useBookContext";
+import { useEffect }    from "react";
 import { BoxComponent } from "../../util/Box";
-import router, { useRouter } from 'next/router'
+import { useRouter }    from 'next/router'
+import { BookContainer, TextContainer, SearchContainer } from "./style";
+import useBookContext   from "../../../../../hook/useBookContext";
 
 interface SearchProps{
     id?:any
@@ -48,7 +48,7 @@ export function SearchComponent({id}: SearchProps){
             )
         }else{
             <BookContainer>
-                Erro
+                <p>Sorry Something wen wrong!</p>
             </BookContainer>
         }
     }

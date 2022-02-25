@@ -1,16 +1,15 @@
-import Modal from 'react-modal';
-import { ModalContainer } from './style';
-import useModalContext from '../../../../hook/useModalContext';
-import { ItemComponent } from './Menu/Item';
-import { MenuComponent } from './Menu';
-import useFireBaseContext from '../../../../hook/useFirebaseContext';
-import {GrLogout} from 'react-icons/gr'
-import {CgProfile} from 'react-icons/cg'
+import Modal                from 'react-modal';
+import { MenuComponent }    from './Menu';
+import {GrLogout}           from 'react-icons/gr'
+import { ModalContainer }   from './style';
+import { ItemComponent }    from './Menu/Item';
+import useAuthContext       from '../../../../hook/useAuthContext';
+import useModalContext      from '../../../../hook/useModalContext';
 
 export default function ModalComponent() {
 
+    const {logout} = useAuthContext()
     const {isConfigModalOpen, handleCloseConfigModal} = useModalContext()
-    const {logout} = useFireBaseContext()
 
     return (
         <ModalContainer>

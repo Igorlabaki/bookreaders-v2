@@ -4,10 +4,9 @@ export const PhotoContainer = styled.img`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60% !important;
+    width: 80% !important;
     height: 180px !important;
     border-radius: 0.8rem !important;
-    margin-left: 3rem;
     cursor: pointer;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2); 
 `
@@ -55,6 +54,11 @@ export const InfoContainer = styled.div`
 `
 
 export const IconContainer = styled.div`
-    margin-left: 2.2rem;
     cursor: pointer;
+`
+
+export const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `

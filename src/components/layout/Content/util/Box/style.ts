@@ -6,6 +6,7 @@ export const BoxContainer = styled.div`
     border-top-right-radius: 0.60rem;
     overflow:hidden;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
 `
 
 export const HeaderBox = styled.div`

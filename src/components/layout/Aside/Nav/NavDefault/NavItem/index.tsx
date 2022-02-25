@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
-import { IconType } from 'react-icons'
+import { useRouter } from 'next/router'
 import { NavItemContainer } from './style'
 
 interface NavItem {

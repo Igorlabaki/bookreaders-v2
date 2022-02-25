@@ -1,7 +1,7 @@
-import Modal from 'react-modal';
-import useModalContext from '../../../hook/useModalContext';
-import { ModalContainer } from './style';
 import Form from './Form';
+import Modal from 'react-modal';
+import { ModalContainer } from './style';
+import useModalContext from '../../../hook/useModalContext';
 
 export default function ModalComponent() {
 

@@ -1,47 +1,27 @@
-import { useEffect, useState } from "react";
-import useFireBaseContext from "../../../../hook/useFirebaseContext";
-import { BoxComponent } from "../util/Box";
-import { FeedComponent } from "./Feed";
-import { BioTextContainer, LoadingContainer, ProfileContainer } from "./style";
+import { ProfileContainer }     from "./style";
+import { InputPostComponent }   from "./inputPost";
+import { BoxComponent }         from "../util/Box";
+import { FeedComponent }        from "../util/Feed";
+import { LoadComponent }        from "../util/Loading";
+import { PostsContextProvider}  from "../../../../Context/firebase/postsContext";
+import usePostsContext          from "../../../../hook/usePostsContext"; 
 
 export function ProfileComponent(){
-
-    const [bio, setbio]             = useState('')
-    const [editType, setEditType]   = useState(false)
-    const [count, setCount] = useState(-1);
-
-    const {addBio,isLoading,user,getUser,userAuth,createPost} = useFireBaseContext()
-
+    
+    const {isLoading} = usePostsContext()
+  
     return(
-        <ProfileContainer>
-            <BoxComponent title="Bio">
-                <form action="POST">
-                    {
-                        isLoading === true ?
-                        <LoadingContainer>
-                            <img src="images/gif/load.gif" alt="" />
-                            <p>Loading...</p>
-                        </LoadingContainer>
-                        : 
-                        user?.bio && editType === false ? 
-                        <>
-                            <BioTextContainer>
-                                {user.bio}
-                            </BioTextContainer> 
-                            <button onClick={ (e) =>{e.preventDefault();setEditType(true)}}><p>Edit</p></button>
-                        </>
-                        :  
-                        <>
-                            <textarea placeholder={user?.bio ? user.bio : "I Love Books..."} value={bio} onChange={(e) => setbio(e.target.value)}/>
-                            <div>
-                                <button onClick={ (e) =>{e.preventDefault();addBio(bio);createPost({text:bio, uid:user.uid});setEditType(false);setbio("");}}><p>Update</p> </button>
-                                <button onClick={ (e) =>{e.preventDefault();setEditType(false)}}><p>Cancel</p></button>
-                            </div>
-                        </>
-                    }
-                </form>
-            </BoxComponent>
-            <FeedComponent/>
-        </ProfileContainer>
+        <PostsContextProvider>
+            <ProfileContainer>
+                <BoxComponent title="Post">
+                    <form action="POST">
+                        {
+                            <InputPostComponent/>
+                        }
+                    </form>
+                </BoxComponent>
+                <FeedComponent type={'userPost'}/>
+            </ProfileContainer>
+        </PostsContextProvider>
     )
 }

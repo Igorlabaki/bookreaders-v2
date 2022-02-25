@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import {ArrowButtonContainer, HeaderComponent, LogoContainer, MenuContainer, PhotoContainer} from './style'
-import { SearchInput } from './SearchInput'
-import {CgProfile} from 'react-icons/cg'
+import Link             from 'next/link'
+import ModalComponent   from './Modal'
+import useAuthContext   from '../../../hook/useAuthContext'
+import useModalContext  from '../../../hook/useModalContext'
+import {CgProfile}      from 'react-icons/cg'
+import { SearchInput }  from './SearchInput'
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
-import useFireBaseContext from '../../../hook/useFirebaseContext'
-import useModalContext from '../../../hook/useModalContext'
-import ModalComponent from './Modal'
+import {ArrowButtonContainer, HeaderComponent, LogoContainer, MenuContainer, PhotoContainer} from './style'
 
 export function Header(){
 
-    const {userAuth,user} = useFireBaseContext()
+    const {userAuth} = useAuthContext()
     const {handleOpenConfigModal,handleCloseConfigModal, isConfigModalOpen} = useModalContext()
 
     function handleUserPhoto(){
