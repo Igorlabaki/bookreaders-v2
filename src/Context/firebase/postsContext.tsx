@@ -14,6 +14,7 @@ interface Post{
     text:     string
     username: string,
     photoUrl: string,
+    bookTitle: string,
     postedAt: Date
 }
 
@@ -23,6 +24,7 @@ interface PostsContext{
     posts?:                 any[]
     userPosts?:             any[]
     createPost?:            (post: object) => void,
+    createBookPost?:        (post: object) => void,
     getUserPosts?:          () => void
     getPosts?:              () => void
     deletePost?:            (id:string) => void
@@ -38,9 +40,10 @@ export const PostsContext = createContext<PostsContext>({
 
 export function PostsContextProvider({children}: ContextProvider){
 
-    const {userAuth} = useAuthContext()
+    const {userAuth,getUser} = useAuthContext()
 
     const postsCollectionRef                = collection(db,"posts")
+    const usersCollectionRef                = collection(db,"users")
    
     const [posts, setPosts]                 = useState([]);
     const [userPosts, setUserPosts]         = useState([]); 
@@ -57,7 +60,10 @@ export function PostsContextProvider({children}: ContextProvider){
 
     async function  createPost (post: Post,){
         if(post.text != ""){
+            //setLoading
             setIsLoading(true)
+
+            //cria um post no banco de dados
             const newPost =  doc(postsCollectionRef)
             setDoc(newPost, {
                 uid:        userAuth.uid,
@@ -66,15 +72,58 @@ export function PostsContextProvider({children}: ContextProvider){
                 photoUrl:   post.photoUrl,
                 postedAt:   post.postedAt
             })
-            if(post.uid == userAuth.uid){
-                userPosts.push(post)
-            }
-            postList.push(newPost.id)
+
+            //Update no bando de dados empurrando o post
+            userPosts.push(post)
+            const newUser =  doc(usersCollectionRef,userAuth.uid)
+            updateDoc(newUser, {
+                posts: userPosts
+            })
+            
+            //Atualiza o usuario!
+            getUser()
+            
             setTimeout(() => setIsLoading(false),3000)
         }else{
             showError('',3000)
         }
     }
+
+
+
+
+    async function  createBookPost (post: Post,){
+        if(post.text != ""){
+            //setLoading
+            setIsLoading(true)
+
+            //cria um post no banco de dados
+            const newPost =  doc(postsCollectionRef)
+            setDoc(newPost, {
+                uid:        userAuth.uid,
+                username:   post.username,
+                text:       post.text,
+                photoUrl:   post.photoUrl,
+                postedAt:   post.postedAt,
+                bookTitle:  post.bookTitle
+            })
+
+            //Update no bando de dados empurrando o post
+            userPosts.push(post)
+            const newUser =  doc(usersCollectionRef,userAuth.uid)
+            updateDoc(newUser, {
+                posts: userPosts
+            })
+            
+            //Atualiza o usuario!
+            getUser()
+            
+            setTimeout(() => setIsLoading(false),3000)
+        }else{
+            showError('',3000)
+        }
+    }
+
 
     async function  getPosts (){
         const data = await getDocs(postsCollectionRef)
@@ -98,6 +147,7 @@ export function PostsContextProvider({children}: ContextProvider){
             getPosts,
             getUserPosts,
             createPost,
+            createBookPost,
             deletePost,
             setCurrentPostPage,
             currentPostPage,

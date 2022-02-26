@@ -5,10 +5,12 @@ import { FeedComponent }        from "../util/Feed";
 import { LoadComponent }        from "../util/Loading";
 import { PostsContextProvider}  from "../../../../Context/firebase/postsContext";
 import usePostsContext          from "../../../../hook/usePostsContext"; 
+import useAuthContext from "../../../../hook/useAuthContext";
 
 export function ProfileComponent(){
     
     const {isLoading} = usePostsContext()
+    const {user} = useAuthContext()
   
     return(
         <PostsContextProvider>
@@ -19,6 +21,15 @@ export function ProfileComponent(){
                             <InputPostComponent/>
                         }
                     </form>
+                </BoxComponent>
+                <BoxComponent title="My Books">
+                    {
+                        user?.books.map( (book) => {
+                            return(
+                                <p>{book.volumeInfo.title}</p>
+                            )
+                        })
+                    }
                 </BoxComponent>
                 <FeedComponent type={'userPost'}/>
             </ProfileContainer>

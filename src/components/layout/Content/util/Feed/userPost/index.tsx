@@ -2,14 +2,16 @@ import { useEffect } from 'react'
 import {HiOutlinePencilAlt} from 'react-icons/hi'
 import {CgProfile,CgTrash,} from 'react-icons/cg'
 import { PaginationComponent } from '../../pagination'
-import { Photo, PostBody, PostContainer } from './styles'
+import { Photo, PostBody, PostBookContainer, PostContainer } from './styles'
 import usePostsContext from "../../../../../../hook/usePostsContext"
 import usePaginationContext from '../../../../../../hook/usePaginationContext'
+import useAuthContext from '../../../../../../hook/useAuthContext'
 
 export function UserPostsComponent(){
 
     const {userPosts,deletePost,getUserPosts} = usePostsContext()
     const {currentPage,elementsPerPage} = usePaginationContext()
+    const {user} = useAuthContext()
 
     useEffect(() => {
         getUserPosts()
@@ -17,7 +19,7 @@ export function UserPostsComponent(){
 
     const indexOfLastBook   = currentPage * elementsPerPage
     const indexOfFirstPost  = indexOfLastBook- elementsPerPage
-    const currentPosts      = userPosts.slice(indexOfFirstPost,indexOfLastBook)
+    const currentPosts      = user.posts.slice(indexOfFirstPost,indexOfLastBook)
 
     return(
         <>
@@ -32,10 +34,11 @@ export function UserPostsComponent(){
                         <PostBody>
                            <p><strong>{post.username}</strong></p>
                             <p>
-                            <span>Posted at {post.postedAt}</span>
-                            <i onClick={() => deletePost(post.postId)}><CgTrash/></i>
-                            <i><HiOutlinePencilAlt/></i>
+                                <span>Posted at {post.postedAt}</span>
                             </p>
+                            <PostBookContainer>
+                                <p>{post.bookTitle}</p>
+                            </PostBookContainer>
                             <div>
                                 <p>{post.text}</p>
                             </div>

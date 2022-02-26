@@ -6,6 +6,10 @@ import { PaginationComponent }  from "../../util/pagination";
 import { BookContainer, SearchContainer, TextContainer,UserReviewContainer } from "./style";
 import useBookContext from "../../../../../hook/useBookContext";
 import usePaginationContext from "../../../../../hook/usePaginationContext";
+import useBookFirebaseContext from "../../../../../hook/useBooksFirebaseContext";
+import usePostsContext from "../../../../../hook/usePostsContext";
+import useAuthContext from "../../../../../hook/useAuthContext";
+import moment from "moment";
 
 
 interface SearchProps{
@@ -16,6 +20,9 @@ export function SearchListComponent({search}: SearchProps){
 
     const {getAllBooks,booksList} = useBookContext()
     const {currentPage, setCurrentPage, elementsPerPage} = usePaginationContext()
+    const {createBook} = useBookFirebaseContext()
+    const {createBookPost} = usePostsContext()
+    const {user} = useAuthContext()
     const router = useRouter()
     
     useEffect(() => {
@@ -53,7 +60,23 @@ export function SearchListComponent({search}: SearchProps){
                             {router.push(`/search/id/${book.id}`)
                             setCurrentPage(1)}
                         }>More details</p>
-                        <button><TiPlus/> <span>Add in your list</span> </button>
+                        <button 
+                            onClick={(e) => {
+                                e.preventDefault(); 
+                                createBook(book)
+                                createBookPost({
+                                    text: 'Nice Book!', 
+                                    uid:user.uid,
+                                    photoUrl:user.avatar,
+                                    username: user.username,
+                                    postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'), 
+                                    bookTitle: book.volumeInfo.title
+                                })
+                            }
+                        }
+                        >
+                            <TiPlus/> <span>Add in your list</span> 
+                        </button>
                     </UserReviewContainer>
                     </BookContainer>
                 </BoxComponent>

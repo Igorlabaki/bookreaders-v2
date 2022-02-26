@@ -23,8 +23,10 @@ export function Layout({children} : LayoutProps){
             router.push('/')
             handleOpenLoginModal()
         }
-        getUser()
-        console.log(user)
+        if(user == null){
+            getUser()
+            console.log(user)
+        }
     }, [])
     
 

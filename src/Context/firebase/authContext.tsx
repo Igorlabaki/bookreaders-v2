@@ -94,7 +94,8 @@ export function AuthContextProvider({children}: ContextProvider){
                         email: response.user.email,
                         bio: "", 
                         avatar: "",
-                        posts: []
+                        posts: [],
+                        books: []
                     })
                     sessionStorage.setItem('Token',response.user.uid)
                     router.push('/discover')   

@@ -46,3 +46,6 @@ export const PostBody = styled.div`
         font-weight: 700;
     }
 `
+
+export const PostBookContainer = styled.div`
+`
