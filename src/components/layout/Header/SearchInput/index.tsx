@@ -67,7 +67,7 @@ export function SearchInput(){
     return (
         <Container>
             <SerachInputContainer action={`/search/list/${search}`}>
-                <button type="submit" onClick={() => setSearch('')}>
+                <button type="submit" onClick={() => {router.push(`/search/list/${search}`); setSearch('')}}>
                     <FiSearch fontSize={20} color="wheat"/>
                 </button>
                 <input type="text"  placeholder="Find your book..." value={search}  onChange={e => setSearch(e.target.value)} />

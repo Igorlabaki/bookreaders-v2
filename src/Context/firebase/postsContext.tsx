@@ -16,6 +16,10 @@ interface Post{
     photoUrl: string,
     bookTitle: string,
     postedAt: Date
+    bookSearchInfo: string,
+    bookphotoUrl: string
+    bookAuthor: string
+    bookpageCount: number
 }
 
 interface PostsContext{
@@ -105,7 +109,11 @@ export function PostsContextProvider({children}: ContextProvider){
                 text:       post.text,
                 photoUrl:   post.photoUrl,
                 postedAt:   post.postedAt,
-                bookTitle:  post.bookTitle
+                bookTitle:  post.bookTitle,
+                bookSearchInfo: post.bookSearchInfo,
+                bookphotoUrl: post.bookphotoUrl,
+                bookAuthor: post.bookAuthor,
+                bookpageCount: post.bookpageCount
             })
 
             //Update no bando de dados empurrando o post

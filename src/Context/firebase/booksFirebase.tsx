@@ -23,8 +23,8 @@ interface Book{
         pageCount       ?: number,
         categories      ?: string[]
 
-        imageLinks:{
-            smallThaumbnail ?: string
+        imageLinks?:{
+            smallThumbnail ?: string
             thumbnail       ?: string
         }
     }
@@ -86,12 +86,12 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
                     pageCount       : book.volumeInfo?.pageCount|| "",
                     categories      : book.volumeInfo?.categories|| "",
                     imageLinks:{
-                        smallThaumbnail : book.volumeInfo?.imageLinks.smallThaumbnail|| "",
+                        smallThaumbnail : book.volumeInfo?.imageLinks.smallThumbnail|| "",
                         thumbnail       : book.volumeInfo?.imageLinks.thumbnail || ''
                     }
                 }
             })
-            bookList.push(book)
+            bookList.push()
             const userUpdate =  doc(usersCollectionRef,auth.currentUser.uid)
             updateDoc(userUpdate, {
                 books: bookList

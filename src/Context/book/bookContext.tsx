@@ -7,6 +7,9 @@ interface ContextProvider {
 
 interface book{
     id                   ?:string,
+    searchInfo:{
+        textSnippet ?:    string
+    }
     volumeInfo: {
         title           ?: string
         subtitle        ?: string
@@ -17,8 +20,8 @@ interface book{
         categories      ?: string[]
 
         imageLinks:{
-            smallThaumbnail : string
-            thumbnail       : string
+            smallThumbnail ?: string
+            thumbnail       ?: string
         }
     }
 }

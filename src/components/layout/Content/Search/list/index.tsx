@@ -70,7 +70,11 @@ export function SearchListComponent({search}: SearchProps){
                                     photoUrl:user.avatar,
                                     username: user.username,
                                     postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'), 
-                                    bookTitle: book.volumeInfo.title
+                                    bookTitle: book.volumeInfo.title,
+                                    bookSearchInfo: book.searchInfo.textSnippet,
+                                    bookphotoUrl: book.volumeInfo.imageLinks?.smallThumbnail,
+                                    bookAuthor: book.volumeInfo.authors[0],
+                                    bookpageCount: book.volumeInfo.pageCount
                                 })
                             }
                         }

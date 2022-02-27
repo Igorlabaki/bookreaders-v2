@@ -18,14 +18,11 @@ export function Layout({children} : LayoutProps){
     const router = useRouter()
     
     useEffect(() => {
+        getUser()
        const token  = sessionStorage.getItem('Token') 
         if(!userAuth || !token){
             router.push('/')
             handleOpenLoginModal()
-        }
-        if(user == null){
-            getUser()
-            console.log(user)
         }
     }, [])
     
