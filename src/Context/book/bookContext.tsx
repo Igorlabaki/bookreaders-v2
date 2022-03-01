@@ -76,6 +76,7 @@ export function BookContextProvider({children}: ContextProvider){
     async function  getBookByAuthor(author:string){
         const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes/${author}+inauthor`)
                    .then(resp => resp.data.items)
+        console.log(resp)
         setAuthorList(resp)
     }
 

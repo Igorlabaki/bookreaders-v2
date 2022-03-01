@@ -27,7 +27,7 @@ export default function ModalComponent() {
             ariaHideApp={false}
         >
             <ModalContainer>
-                <img src={book?.volumeInfo.imageLinks.thumbnail} alt="" />
+                <img src={book?.volumeInfo.imageLinks?.thumbnail} alt="" />
                 <div>
                     <h3>{book?.volumeInfo.title}</h3>
                     <p>What do you think about?</p>
@@ -41,9 +41,10 @@ export default function ModalComponent() {
                                     uid:user.uid,
                                     photoUrl:user.avatar,
                                     username: user.username,
-                                    postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'), 
+                                    postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                                    bookId:     book?.id, 
                                     bookTitle: book?.volumeInfo.title || "",
-                                    bookSearchInfo: book?.searchInfo?.textSnippet || "",
+                                    bookSearchInfo: book?.volumeInfo.description.slice(0,200) || "",
                                     bookphotoUrl: book?.volumeInfo?.imageLinks?.smallThumbnail|| "",
                                     bookAuthor: book?.volumeInfo?.authors[0] || "",
                                     bookpageCount: book?.volumeInfo?.pageCount

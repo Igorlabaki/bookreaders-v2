@@ -1,25 +1,24 @@
-import { useRouter }            from 'next/router'
-import app, { db,storage}       from '../../service/firebase'
+import { db}       from '../../service/firebase'
 import {createContext,Dispatch,ReactNode,SetStateAction,useState} from 'react'
-import { ref, uploadBytes,getDownloadURL} from 'firebase/storage'
-import { collection, getDocs,getDoc, doc,setDoc,updateDoc, DocumentData, query, where, deleteDoc,documentId} from 'firebase/firestore'
-import {User, getAuth,signInWithPopup,GoogleAuthProvider,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword, AuthErrorCodes, updateProfile} from 'firebase/auth'
+import { collection, getDocs,orderBy, doc,setDoc,updateDoc, query, where, deleteDoc,documentId, QuerySnapshot, getDoc} from 'firebase/firestore'
 import useAuthContext from '../../hook/useAuthContext'
 
 interface ContextProvider {
     children: ReactNode
 }
 interface Post{
+    postId:     string
     uid:      string
-    text:     string
-    username: string,
-    photoUrl: string,
-    bookTitle: string,
-    postedAt: Date
-    bookSearchInfo: string,
-    bookphotoUrl: string
-    bookAuthor: string
-    bookpageCount: number
+    text?:     string
+    username?: string,
+    photoUrl?: string,
+    bookTitle?: string,
+    postedAt?: Date
+    bookId?: string
+    bookSearchInfo?: string,
+    bookphotoUrl?: string
+    bookAuthor?: string
+    bookpageCount?: number
 }
 
 interface PostsContext{
@@ -48,7 +47,7 @@ export function PostsContextProvider({children}: ContextProvider){
 
     const postsCollectionRef                = collection(db,"posts")
     const usersCollectionRef                = collection(db,"users")
-   
+
     const [posts, setPosts]                 = useState([]);
     const [error,setError]                  = useState(null)
     const [userPosts, setUserPosts]         = useState([]); 
@@ -115,9 +114,6 @@ export function PostsContextProvider({children}: ContextProvider){
         }
     }
 
-
-
-
     async function  createBookPost (post: Post,){
         if(post.text != ""){
             //setLoading
@@ -126,11 +122,13 @@ export function PostsContextProvider({children}: ContextProvider){
             //cria um post no banco de dados
             const newPost =  doc(postsCollectionRef)
             setDoc(newPost, {
-                uid:        userAuth.uid,
+                postId:     newPost.id,
+                userId:     userAuth.uid,
                 username:   post.username,
                 text:       post.text,
                 photoUrl:   post.photoUrl,
                 postedAt:   post.postedAt,
+                bookId:     post.bookId,
                 bookTitle:  post.bookTitle,
                 bookSearchInfo: post.bookSearchInfo,
                 bookphotoUrl: post.bookphotoUrl,
@@ -138,9 +136,9 @@ export function PostsContextProvider({children}: ContextProvider){
                 bookpageCount: post.bookpageCount,
                 coments: [] 
             })
-
             //Update no bando de dados empurrando o post
             userPosts.push(post)
+            console.log(userPosts)
             const newUser =  doc(usersCollectionRef,userAuth.uid)
             updateDoc(newUser, {
                 posts: userPosts
@@ -162,15 +160,17 @@ export function PostsContextProvider({children}: ContextProvider){
     }
 
     async function  getUserPosts (){
-        const postsUser = await query(postsCollectionRef, where("uid", "==", userAuth.uid));
+        const postsUser = await query(postsCollectionRef, where("userId", "==", userAuth.uid));
         const querySnapshot = await getDocs(postsUser);
         setUserPosts(querySnapshot.docs.map((post) => ({...post.data(), id: userAuth.uid})))
         
     }
 
-    async function  deletePost (id: string){
-        const postUser = await query(postsCollectionRef, where(postsCollectionRef.id, "==", id));
-        
+    async function  deletePost (postId: string){
+        const post = await query(postsCollectionRef, where("postId", "==", postId));
+     
+        const postUser = await doc(postsCollectionRef, postId);
+        console.log(postUser)
     }
 
     return(
