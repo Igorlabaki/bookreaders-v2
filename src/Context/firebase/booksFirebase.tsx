@@ -11,7 +11,7 @@ interface ContextProvider {
 }
 interface Book{
     id                   ?:string,
-    searchInfo:{
+    searchInfo?:{
         textSnippet ?:    string
     }
     volumeInfo: {
@@ -68,6 +68,11 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
         }
     }
 
+    async function getBook (bookId: string){
+        const bookSelected =  doc(booksCollectionRef,bookId)
+        console.log(bookSelected)
+    }
+
     async function  createBook (book: Book){
         setIsLoading(true)
         if(book.id != ""){
@@ -75,7 +80,7 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
             setDoc(newBook, {
                 id:book.id,
                 searchInfo:{
-                    textSnippet :    book.searchInfo?.textSnippet
+                    textSnippet :    book.searchInfo?.textSnippet || ""
                 },
                 volumeInfo: {
                     title           : book.volumeInfo?.title || "",
@@ -91,7 +96,8 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
                     }
                 }
             })
-            bookList.push()
+
+            bookList.push(book)
             const userUpdate =  doc(usersCollectionRef,auth.currentUser.uid)
             updateDoc(userUpdate, {
                 books: bookList

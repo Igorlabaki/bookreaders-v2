@@ -9,20 +9,43 @@ import usePaginationContext from "../../../../../hook/usePaginationContext";
 import useBookFirebaseContext from "../../../../../hook/useBooksFirebaseContext";
 import usePostsContext from "../../../../../hook/usePostsContext";
 import useAuthContext from "../../../../../hook/useAuthContext";
-import moment from "moment";
+import useModalContext from "../../../../../hook/useModalContext";
+import ModalComponent from "./Modal";
 
 
 interface SearchProps{
     search?:any
 }
 
+interface book{
+    id                   ?:string,
+    searchInfo:{
+        textSnippet ?:    string
+    }
+    volumeInfo: {
+        title           ?: string
+        subtitle        ?: string
+        authors         ?: string[]
+        publishedDate   ?: string,
+        description     ?: string,
+        pageCount       ?: number,
+        categories      ?: string[]
+
+        imageLinks:{
+            smallThumbnail ?: string
+            thumbnail       ?: string
+        }
+    }
+}
+
 export function SearchListComponent({search}: SearchProps){
 
-    const {getAllBooks,booksList} = useBookContext()
+    const {getAllBooks,booksList,getBook} = useBookContext()
     const {currentPage, setCurrentPage, elementsPerPage} = usePaginationContext()
     const {createBook} = useBookFirebaseContext()
     const {createBookPost} = usePostsContext()
     const {user} = useAuthContext()
+    const {handleOpenPostBookModal} = useModalContext()
     const router = useRouter()
     
     useEffect(() => {
@@ -33,10 +56,12 @@ export function SearchListComponent({search}: SearchProps){
     const indexOfLastBook   = currentPage       * elementsPerPage
     const indexOfFirstPost  = indexOfLastBook       - elementsPerPage
     const currentBooks      = booksList.slice(indexOfFirstPost,indexOfLastBook)
+
+    console.log(currentBooks)
     
     return(
         <SearchContainer>
-            {currentBooks.map((book) => 
+            {currentBooks.map((book: book) => 
                 <BoxComponent title={book.volumeInfo.title} key={book.id}>
                     <BookContainer>
                     {
@@ -47,12 +72,12 @@ export function SearchListComponent({search}: SearchProps){
 
                     }
                     <TextContainer>
-                        <h5>{book.volumeInfo.subtitle}</h5>
-                            <p><strong>Author:</strong>&nbsp;{book.volumeInfo.authors?.at(0)}</p>
+                        <h5>{book.volumeInfo?.subtitle}</h5>
+                            <p><strong>Author:</strong>&nbsp;{book.volumeInfo?.authors?.at(0)}</p>
                             <p><strong>Category:</strong>&nbsp;{book.volumeInfo?.categories?.at(0)}</p>
                             <div>
-                                <p><strong>Published:<strong/></strong>&nbsp;{book.volumeInfo.publishedDate}</p>
-                                <p><strong>Pages:<strong/></strong>&nbsp;{book.volumeInfo.pageCount}</p>
+                                <p><strong>Published:<strong/></strong>&nbsp;{book.volumeInfo?.publishedDate}</p>
+                                <p><strong>Pages:<strong/></strong>&nbsp;{book.volumeInfo?.pageCount}</p>
                             </div>
                     </TextContainer>
                     <UserReviewContainer>
@@ -63,24 +88,14 @@ export function SearchListComponent({search}: SearchProps){
                         <button 
                             onClick={(e) => {
                                 e.preventDefault(); 
-                                createBook(book)
-                                createBookPost({
-                                    text: 'Nice Book!', 
-                                    uid:user.uid,
-                                    photoUrl:user.avatar,
-                                    username: user.username,
-                                    postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'), 
-                                    bookTitle: book.volumeInfo.title,
-                                    bookSearchInfo: book.searchInfo.textSnippet,
-                                    bookphotoUrl: book.volumeInfo.imageLinks?.smallThumbnail,
-                                    bookAuthor: book.volumeInfo.authors[0],
-                                    bookpageCount: book.volumeInfo.pageCount
-                                })
+                                getBook(book.id)
+                                handleOpenPostBookModal()
                             }
                         }
                         >
                             <TiPlus/> <span>Add in your list</span> 
                         </button>
+                        <ModalComponent/>
                     </UserReviewContainer>
                     </BookContainer>
                 </BoxComponent>

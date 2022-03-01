@@ -1,9 +1,9 @@
 import { useState }    from "react";
-import useAuthContext  from "../../../../../hook/useAuthContext";
-import usePostsContext from "../../../../../hook/usePostsContext";
+import useAuthContext  from "../../../../../../hook/useAuthContext";
+import usePostsContext from "../../../../../../hook/usePostsContext";
 import moment          from 'moment';
 import { InputPost } from "./styles";
-import { LoadComponent } from "../../util/Loading";
+import { LoadComponent } from "../../Loading";
 
 export function InputPostComponent(){
     
@@ -16,7 +16,7 @@ export function InputPostComponent(){
         <>
             <InputPost>
             <>
-            <textarea placeholder={user?.bio ? user.bio : "I Love Books..."} value={text} onChange={(e) => setText(e.target.value)}/>
+            <textarea placeholder={"I Love Books..."} value={text} onChange={(e) => setText(e.target.value)}/>
             <div>
                 <button 
                     onClick={ (e) =>{

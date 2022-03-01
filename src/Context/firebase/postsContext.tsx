@@ -50,8 +50,9 @@ export function PostsContextProvider({children}: ContextProvider){
     const usersCollectionRef                = collection(db,"users")
    
     const [posts, setPosts]                 = useState([]);
-    const [userPosts, setUserPosts]         = useState([]); 
     const [error,setError]                  = useState(null)
+    const [userPosts, setUserPosts]         = useState([]); 
+    const [comentsPosts, setComentsPosts]   = useState([]); 
     const [isLoading,setIsLoading]          = useState(false)
     const [currentPostPage, setCurrentPostPage] = useState<number>(1);
     const [postsPerPage, setPostsPerPage]   = useState<number>(5);
@@ -74,7 +75,8 @@ export function PostsContextProvider({children}: ContextProvider){
                 username:   post.username,
                 text:       post.text,
                 photoUrl:   post.photoUrl,
-                postedAt:   post.postedAt
+                postedAt:   post.postedAt,
+                coments: []
             })
 
             //Update no bando de dados empurrando o post
@@ -82,6 +84,26 @@ export function PostsContextProvider({children}: ContextProvider){
             const newUser =  doc(usersCollectionRef,userAuth.uid)
             updateDoc(newUser, {
                 posts: userPosts
+            })
+            
+            //Atualiza o usuario!
+            getUser()
+            
+            setTimeout(() => setIsLoading(false),3000)
+        }else{
+            showError('',3000)
+        }
+    }
+
+    async function  createComentPost (post: Post,){
+        if(post.text != ""){
+            //setLoading
+            setIsLoading(true)
+            //Update no bando de dados empurrando o post
+            comentsPosts.push(post)
+            const selectedPost =  doc(postsCollectionRef,userAuth.uid)
+            updateDoc(selectedPost, {
+                coments: comentsPosts
             })
             
             //Atualiza o usuario!
@@ -113,7 +135,8 @@ export function PostsContextProvider({children}: ContextProvider){
                 bookSearchInfo: post.bookSearchInfo,
                 bookphotoUrl: post.bookphotoUrl,
                 bookAuthor: post.bookAuthor,
-                bookpageCount: post.bookpageCount
+                bookpageCount: post.bookpageCount,
+                coments: [] 
             })
 
             //Update no bando de dados empurrando o post

@@ -13,25 +13,21 @@ export function PaginationComponent({type}:PaginationProps){
 
     const {booksList}                   = useBookContext()
     const {posts,userPosts}             = usePostsContext()
-    const {currentPage,setCurrentPage}  = usePaginationContext()
-   
-    let total    = 0
-   
+    const {currentPage,setCurrentPage,totalElements,setTotalElements,elementsPerPage}  = usePaginationContext()
+
     if(type.includes('books')){
-        total = booksList.length
-    
+        setTotalElements(booksList.length) 
     }
     if(type.includes('userPost')){
-        total = userPosts.length
-        
+        setTotalElements( userPosts.length) 
     }
+
     if(type.includes('allPost')){
-        total = posts.length
-        
+        setTotalElements( posts.length) 
     }   
     
     const pageNumbers   = [] 
-    const totalPages    =  total/5
+    const totalPages    =  totalElements/elementsPerPage
 
    for(let i = 1; i <= Math.ceil(totalPages); i++){
         pageNumbers.push(i)

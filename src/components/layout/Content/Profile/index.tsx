@@ -1,5 +1,5 @@
 import { ProfileContainer }     from "./style";
-import { InputPostComponent }   from "./inputPost";
+import { InputPostComponent }   from "../util/Feed/inputPost";
 import { BoxComponent }         from "../util/Box";
 import { FeedComponent }        from "../util/Feed";
 import { LoadComponent }        from "../util/Loading";
