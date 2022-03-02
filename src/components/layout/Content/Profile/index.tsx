@@ -7,6 +7,27 @@ import { PostsContextProvider}  from "../../../../Context/firebase/postsContext"
 import usePostsContext          from "../../../../hook/usePostsContext"; 
 import useAuthContext from "../../../../hook/useAuthContext";
 
+interface book{
+    id                   ?:string,
+    searchInfo:{
+        textSnippet ?:    string
+    }
+    volumeInfo: {
+        title           ?: string
+        subtitle        ?: string
+        authors         ?: string[]
+        publishedDate   ?: string,
+        description     ?: string,
+        pageCount       ?: number,
+        categories      ?: string[]
+
+        imageLinks:{
+            smallThumbnail ?: string
+            thumbnail       ?: string
+        }
+    }
+}
+
 export function ProfileComponent(){
     
     const {isLoading} = usePostsContext()
@@ -22,14 +43,8 @@ export function ProfileComponent(){
                         }
                     </form>
                 </BoxComponent>
-                <BoxComponent title="My Books">
-                    {
-                        user?.books.map( (book) => {
-                            return(
-                                <p>{book.volumeInfo.title}</p>
-                            )
-                        })
-                    }
+                <BoxComponent title="My Books Lists">
+                        
                 </BoxComponent>
                 <FeedComponent type={'userPost'}/>
             </ProfileContainer>

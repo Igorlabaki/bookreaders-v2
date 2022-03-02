@@ -1,7 +1,9 @@
 import { db}       from '../../service/firebase'
 import {createContext,Dispatch,ReactNode,SetStateAction,useState} from 'react'
-import { collection, getDocs,orderBy, doc,setDoc,updateDoc, query, where, deleteDoc,documentId, QuerySnapshot, getDoc} from 'firebase/firestore'
+import { collection, getDocs, doc,setDoc,updateDoc, query, where, getDoc} from 'firebase/firestore'
 import useAuthContext from '../../hook/useAuthContext'
+import { getDatabase, ref, onChildAdded, onChildChanged, onChildRemoved } from "firebase/database";
+
 
 interface ContextProvider {
     children: ReactNode
@@ -28,6 +30,8 @@ interface PostsContext{
     userPosts?:             any[]
     createPost?:            (post: object) => void,
     createBookPost?:        (post: object) => void,
+    createComentPost?:      (post: object) => void,
+    teste?:                 (postId: string) => void,   
     getUserPosts?:          () => void
     getPosts?:              () => void
     deletePost?:            (id:string) => void
@@ -45,22 +49,36 @@ export function PostsContextProvider({children}: ContextProvider){
 
     const {userAuth,getUser} = useAuthContext()
 
-    const postsCollectionRef                = collection(db,"posts")
-    const usersCollectionRef                = collection(db,"users")
+    const postsCollectionRef                    = collection(db,"posts")
+    const usersCollectionRef                    = collection(db,"users")
+    const commentsCollectionRef                 = collection(db,"comments")
 
     const [posts, setPosts]                 = useState([]);
+    const [post, setPost]                   = useState<Object>();
     const [error,setError]                  = useState(null)
     const [userPosts, setUserPosts]         = useState([]); 
-    const [comentsPosts, setComentsPosts]   = useState([]); 
     const [isLoading,setIsLoading]          = useState(false)
     const [currentPostPage, setCurrentPostPage] = useState<number>(1);
     const [postsPerPage, setPostsPerPage]   = useState<number>(5);
-    const [postList, setPostList]           = useState([])
 
     function showError(msg,time = 3000){
         setError(msg)
         setTimeout(() => setError(null),time )
     }
+
+    
+    async function  getUserPosts (){
+        const postsUser = await query(postsCollectionRef, where("userId", "==", userAuth.uid));
+        const querySnapshot = await getDocs(postsUser);
+        setUserPosts(querySnapshot.docs.map((post) => ({...post.data(), id: userAuth.uid})))
+    }
+
+    const getPost = async (postId:string) => {
+        getDoc(doc(postsCollectionRef,postId)).then( (user) =>{
+            console.log(user.data)
+            return setPost({...user.data()})
+        })
+   }
 
     async function  createPost (post: Post,){
         if(post.text != ""){
@@ -70,13 +88,15 @@ export function PostsContextProvider({children}: ContextProvider){
             //cria um post no banco de dados
             const newPost =  doc(postsCollectionRef)
             setDoc(newPost, {
-                uid:        userAuth.uid,
+                postId:     newPost.id,
+                userId:     userAuth.uid,
                 username:   post.username,
                 text:       post.text,
                 photoUrl:   post.photoUrl,
                 postedAt:   post.postedAt,
-                coments: []
+                comments: []
             })
+            
 
             //Update no bando de dados empurrando o post
             userPosts.push(post)
@@ -94,20 +114,34 @@ export function PostsContextProvider({children}: ContextProvider){
         }
     }
 
-    async function  createComentPost (post: Post,){
+    async function  createComentPost (post: Post){
         if(post.text != ""){
             //setLoading
             setIsLoading(true)
-            //Update no bando de dados empurrando o post
-            comentsPosts.push(post)
-            const selectedPost =  doc(postsCollectionRef,userAuth.uid)
-            updateDoc(selectedPost, {
-                coments: comentsPosts
+
+            const newComment =  doc(commentsCollectionRef)
+            setDoc(newComment, {
+                commenttId: newComment.id,
+                postId:     post.postId,
+                userId:     userAuth.uid,
+                username:   post.username,
+                text:       post.text,
+                photoUrl:   post.photoUrl,
+                postedAt:   post.postedAt,
             })
-            
-            //Atualiza o usuario!
-            getUser()
-            
+
+            const commentsList = []
+
+            const postsComments = await query(commentsCollectionRef, where("postId", "==", post.postId));
+            const querySnapshot = await getDocs(postsComments);
+            querySnapshot.docs.map((post) => (commentsList.push({...post.data(), id: userAuth.uid})))
+
+            const postSelected =  doc(postsCollectionRef,post.postId)
+            updateDoc(postSelected, {
+                comments: commentsList
+            })
+
+           
             setTimeout(() => setIsLoading(false),3000)
         }else{
             showError('',3000)
@@ -118,7 +152,7 @@ export function PostsContextProvider({children}: ContextProvider){
         if(post.text != ""){
             //setLoading
             setIsLoading(true)
-
+            
             //cria um post no banco de dados
             const newPost =  doc(postsCollectionRef)
             setDoc(newPost, {
@@ -134,11 +168,11 @@ export function PostsContextProvider({children}: ContextProvider){
                 bookphotoUrl: post.bookphotoUrl,
                 bookAuthor: post.bookAuthor,
                 bookpageCount: post.bookpageCount,
-                coments: [] 
+                comments: [] 
             })
+
             //Update no bando de dados empurrando o post
             userPosts.push(post)
-            console.log(userPosts)
             const newUser =  doc(usersCollectionRef,userAuth.uid)
             updateDoc(newUser, {
                 posts: userPosts
@@ -159,18 +193,14 @@ export function PostsContextProvider({children}: ContextProvider){
         setPosts(data.docs.map((post) => ({...post.data()})))
     }
 
-    async function  getUserPosts (){
-        const postsUser = await query(postsCollectionRef, where("userId", "==", userAuth.uid));
-        const querySnapshot = await getDocs(postsUser);
-        setUserPosts(querySnapshot.docs.map((post) => ({...post.data(), id: userAuth.uid})))
-        
-    }
 
     async function  deletePost (postId: string){
-        const post = await query(postsCollectionRef, where("postId", "==", postId));
-     
         const postUser = await doc(postsCollectionRef, postId);
         console.log(postUser)
+    }
+
+    async function teste(postId:string){
+     
     }
 
     return(
@@ -179,8 +209,10 @@ export function PostsContextProvider({children}: ContextProvider){
             getUserPosts,
             createPost,
             createBookPost,
+            createComentPost,
             deletePost,
             setCurrentPostPage,
+            teste,
             currentPostPage,
             postsPerPage,
             isLoading,

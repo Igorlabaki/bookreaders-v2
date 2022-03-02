@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {CgProfile} from 'react-icons/cg'
 import {IoIosArrowDown} from 'react-icons/io'
-import { PostContainer, Photo, PostHeader, PostBookContainer, PostContent, PostTextContainer, ButtonComent  } from './styles'
+import { PostContainer, Photo, PostHeader, PostBookContainer, PostContent, PostTextContainer, ButtonComent, ComentContainer, ComentBody  } from './styles'
 import usePostsContext from "../../../../../../hook/usePostsContext"
 import usePaginationContext from '../../../../../../hook/usePaginationContext'
 import useAuthContext from '../../../../../../hook/useAuthContext'
@@ -21,6 +21,7 @@ interface Post{
     bookAuthor: string
     bookpageCount: number
     bookphotoUrl: string
+    comments: []
 }
 
 interface PostComponent{
@@ -93,6 +94,21 @@ export function PostsComponent({type}: PostComponent){
                                     <p>{post.text}</p>
                                 </PostTextContainer>
                             }
+                            <p>Coments <IoIosArrowDown/></p>
+                            {post.comments ? post?.comments.map((comment:any,i) => 
+                                <ComentBody key={i}>
+                                    {comment?.photoUrl ? <Photo src={comment?.photoUrl} alt="avatar" /> : <CgProfile fontSize={60}/>}
+                                    <div>
+                                        <p>{comment.username}</p>
+                                        <ComentContainer >{comment.text}</ComentContainer> 
+                                    </div>
+                                </ComentBody>
+
+                            )
+                                : 
+                                ''
+                            }
+                        <InputPostComponent postId={post.postId}/>
                         </PostContent>
                     </PostContainer>
                     )

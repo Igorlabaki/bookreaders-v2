@@ -5,19 +5,39 @@ import moment          from 'moment';
 import { InputPost } from "./styles";
 import { LoadComponent } from "../../Loading";
 
-export function InputPostComponent(){
+interface InputPost{
+    postId?: string
+}
+
+export function InputPostComponent({postId}: InputPost){
     
     const {user}       = useAuthContext()
-    const {createPost,isLoading} = usePostsContext()
+    const {createPost,createComentPost} = usePostsContext()
 
     const [text, setText] = useState('')
 
-    return(
-        <>
-            <InputPost>
+    function handleButton(){
+        if(postId){
+            return(
+                <>
+                    <button onClick={(e) => 
+                    {e.preventDefault();
+                    createComentPost({
+                        text:text, 
+                        uid:user.uid,
+                        photoUrl:user.avatar,
+                        username: user.username,
+                        postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                        postId: postId
+                    });
+                    setText("")}
+                    }>
+                        Post
+                    </button>
+                </>
+            )
+        }else{
             <>
-            <textarea placeholder={"I Love Books..."} value={text} onChange={(e) => setText(e.target.value)}/>
-            <div>
                 <button 
                     onClick={ (e) =>{
                         e.preventDefault();
@@ -32,6 +52,17 @@ export function InputPostComponent(){
                     }>
                     <p>Post</p>
                 </button>
+            </>
+        }
+    }
+
+    return(
+        <>
+            <InputPost>
+            <>
+            <textarea placeholder={"I Love Books..."} value={text} onChange={(e) => setText(e.target.value)}/>
+            <div>
+                {handleButton()}
             </div>
             </>
             </InputPost>
