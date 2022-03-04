@@ -22,6 +22,10 @@ export const ModalContainer = styled.div`
         border: 0;
     }
 
+    img{
+        width: 300px;
+    }
+
     button{
         font-size: 1rem;
         display: flex;
@@ -39,4 +43,19 @@ export const ModalContainer = styled.div`
             filter: brightness(1.4);
         }
     }
+`
+
+export const ButtonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+`
+
+export const CheckBoxContainer = styled.div`
+    width: 100%;
+    display: flex !important;;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    align-items: flex-start;
 `

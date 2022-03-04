@@ -6,7 +6,6 @@ import { BoxComponent } from "../Content/util/Box";
 import PhotoModalComponent  from "./Modal";
 import { NavDefault}        from "./Nav/NavDefault";
 import { NavProfile }       from "./Nav/NavProfile";
-import { StaticsContainer } from "./Nav/NavProfile/style";
 import { ContainerAside }   from "./style";
 
 interface AsideProps{

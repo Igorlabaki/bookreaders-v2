@@ -4,9 +4,10 @@ import useBookContext from '../../../../../../hook/useBookContext';
 import useBookFirebaseContext from '../../../../../../hook/useBooksFirebaseContext';
 import useModalContext from '../../../../../../hook/useModalContext';
 import usePostsContext from '../../../../../../hook/usePostsContext';
-import { ModalContainer } from './styles';
+import { ButtonContainer, CheckBoxContainer, ModalContainer } from './styles';
 import moment from "moment";
 import { useState } from 'react';
+import { MdCheckBox } from 'react-icons/md';
 
 export default function ModalComponent() {
 
@@ -17,6 +18,8 @@ export default function ModalComponent() {
     const {book} = useBookContext()
 
     const [text, setText] = useState('')
+    const [read, setRead] = useState(Boolean)
+
 
     return (
         <Modal 
@@ -30,9 +33,18 @@ export default function ModalComponent() {
                 <img src={book?.volumeInfo.imageLinks?.thumbnail} alt="" />
                 <div>
                     <h3>{book?.volumeInfo.title}</h3>
+                    <CheckBoxContainer>
+                    <label>Wicth list ?</label>
+                    <select id="lists" name="lists">
+                        <option value="read">Read List</option>
+                        <option value="reading">Currently Reading List</option>
+                        <option value="wantRead">WantRead</option>
+                    </select>
+                    </CheckBoxContainer>
                     <p>What do you think about?</p>
                     <textarea placeholder={"Enter your review..."} value={text} onChange={(e) => setText(e.target.value)}></textarea>
-                    <button 
+                    <ButtonContainer>
+                        <button 
                             onClick={(e) => {
                                 e.preventDefault(); 
                                 createBook(book)
@@ -55,6 +67,7 @@ export default function ModalComponent() {
                         >
                             Post
                         </button>
+                    </ButtonContainer>
                 </div>
             </ModalContainer>
         </Modal>

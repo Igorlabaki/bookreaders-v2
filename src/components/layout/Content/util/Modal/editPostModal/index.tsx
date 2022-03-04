@@ -2,14 +2,14 @@ import { ReactNode } from "react";
 import { 
   ContainerExternal,
   ContainerInternal
-} from "./styles";
+} from "./style";
 
 interface propsNewModal {
   onClose: () => void;
   children: ReactNode;
 }
 
-export function Modal({onClose, children}: propsNewModal){
+export function ModalEditComponent({onClose, children}: propsNewModal){
 
   const handleOutsideClick = (e:any) => {
     if(e.target.id) onClose();

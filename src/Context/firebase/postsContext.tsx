@@ -1,12 +1,12 @@
 import { db}       from '../../service/firebase'
 import {createContext,Dispatch,ReactNode,SetStateAction,useState} from 'react'
-import { collection, getDocs, doc,setDoc,updateDoc, query, where, getDoc,orderBy} from 'firebase/firestore'
+import { collection, getDocs, doc,setDoc,updateDoc, query, where, getDoc,orderBy, deleteDoc} from 'firebase/firestore'
 import useAuthContext from '../../hook/useAuthContext'
 
 interface ContextProvider {
     children: ReactNode
 }
-interface Post{
+export interface Post{
     postId:     string
     uid:      string
     text?:     string
@@ -202,7 +202,8 @@ export function PostsContextProvider({children}: ContextProvider){
 
     async function  deletePost (postId: string){
         const postUser = await doc(postsCollectionRef, postId);
-        console.log(postUser)
+        deleteDoc(postUser)
+        getUserPosts()
     }
 
     async function teste(postId:string){

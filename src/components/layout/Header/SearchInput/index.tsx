@@ -1,6 +1,6 @@
 import {useRouter}              from 'next/router'
 import {FiSearch}               from "react-icons/fi"
-import { useEffect, useState }  from "react";
+import { ReactNode, useEffect, useState }  from "react";
 import { BookContainer, Container, ErrorContainer, ResultListContainer, SerachInputContainer } from "./style";
 import useBookContext from "../../../../hook/useBookContext";
 
@@ -10,7 +10,6 @@ export function SearchInput(){
 
     const [search, setSearch]                   = useState('')
     const [error,setError]                      = useState('Sorry we didnt find any book!')
-
     const router = useRouter()
     
     useEffect(() => {
@@ -22,7 +21,6 @@ export function SearchInput(){
             setError('Nao encontramos nenhum livro')
         }
     }, [search])
-
     
     function handleResultContainer(){
         if(booksSearch && search != ""){
@@ -72,7 +70,9 @@ export function SearchInput(){
                 </button>
                 <input type="text"  placeholder="Find your book..." value={search}  onChange={e => setSearch(e.target.value)} />
             </SerachInputContainer>
-            {handleResultContainer()}
+            <div>
+                {handleResultContainer()}
+            </div>
         </Container>
     )
 }

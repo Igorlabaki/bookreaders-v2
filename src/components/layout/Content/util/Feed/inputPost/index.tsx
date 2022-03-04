@@ -32,7 +32,7 @@ export function InputPostComponent({postId}: InputPost){
                     });
                     setText("")}
                     }>
-                        Post
+                        Comment
                     </button>
                 </>
             )

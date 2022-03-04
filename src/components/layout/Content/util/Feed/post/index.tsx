@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
-import {CgProfile} from 'react-icons/cg'
-import {IoIosArrowDown} from 'react-icons/io'
-import { PostContainer, Photo, PostHeader, PostBookContainer, PostContent, PostTextContainer, ButtonComent, ComentContainer, ComentBody  } from './styles'
+import { useEffect } from 'react'
+import { EditComponent } from './edit'
+import { BookComponent } from './book'
+import {CgProfile,} from 'react-icons/cg'
+import { CommentComponent } from './coment'
+import { InputPostComponent } from '../inputPost'
+import { useRouter }            from "next/router";
+import useAuthContext from '../../../../../../hook/useAuthContext'
 import usePostsContext from "../../../../../../hook/usePostsContext"
 import usePaginationContext from '../../../../../../hook/usePaginationContext'
 import  useBookFirebaseContext from '../../../../../../hook/useBooksFirebaseContext'
-import useAuthContext from '../../../../../../hook/useAuthContext'
-import { useRouter }            from "next/router";
-import { InputPostComponent } from '../inputPost'
-
+import { PostContainer, Photo, PostHeader,PostContent, PostTextContainer} from './styles'
 interface Post{
     postId:   string 
     userId:    string
@@ -24,11 +25,9 @@ interface Post{
     bookphotoUrl: string
     comments: []
 }
-
 interface PostComponent{
     type:string
 }
-
 
 export function PostsComponent({type}: PostComponent){
 
@@ -70,42 +69,16 @@ export function PostsComponent({type}: PostComponent){
                         <PostContent>
                             <PostHeader>
                                 <p onClick={() => router.push(`/user/${post.userId}`)}><strong>{post.username}</strong></p>
-                                <p><span>Posted at {post.postedAt}</span></p>
+                                <EditComponent userId={user.uid}  postUserId={post.userId} postedAt={post.postedAt} postId={post.postId}/>
                             </PostHeader>
                             {post.bookTitle ?
-                                <PostBookContainer>
-                                    {post.bookphotoUrl ?  <img src={post?.bookphotoUrl} onClick={() => router.push(`/search/id/${post.bookId}`)} alt="book-cover" /> : <img src='/images/photos/book-default.jpg' alt="book-cover" />  }
-                                    <div>
-                                        <h3>{post?.bookTitle}</h3>
-                                        <p>{`${post?.bookSearchInfo}...`}</p>
-                                        <span>
-                                            <p><strong>Author:&nbsp;</strong>{post.bookAuthor}</p>
-                                            <p><strong>Pages:&nbsp;</strong>{post.bookpageCount}</p>
-                                        </span>
-                                        <PostTextContainer>
-                                            <p>{post.text}</p>
-                                        </PostTextContainer>
-                                    </div>
-                                </PostBookContainer>
+                                <BookComponent  post={post}/>
                                 :
                                 <PostTextContainer>
                                     <p>{post.text}</p>
                                 </PostTextContainer>
                             }   
-                            <p>Coments <IoIosArrowDown/></p>
-                            {post.comments ? post?.comments.map((comment:any,i) => 
-                                <ComentBody key={i}>
-                                    {comment?.photoUrl ? <Photo src={comment?.photoUrl} alt="avatar" /> : <CgProfile fontSize={60}/>}
-                                    <div>
-                                        <p>{comment.username}</p>
-                                        <ComentContainer >{comment.text}</ComentContainer> 
-                                    </div>
-                                </ComentBody>
-
-                            )
-                                : 
-                                ''
-                            }
+                            {post.comments ? <CommentComponent postComments={post.comments}/> : null}
                         <InputPostComponent postId={post.postId}/>
                         </PostContent>
                     </PostContainer>
@@ -115,3 +88,4 @@ export function PostsComponent({type}: PostComponent){
         </>
     )
 }
+

@@ -18,26 +18,21 @@ export const ContainerInternal = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-
+    overflow:hidden;
+    
     background: white;
 
-    width: 240px;
-    top: 70px;
+    width: 140px;
+    top:    20px;
+    right:-42px ;
 
-    padding: 20px;
     border: none;
-    border-radius: 9px;
-    margin-left: 60px;
-    row-gap: 20px;
+    border-top-left-radius: 0.60rem;
+    border-bottom-left-radius: 0.60rem;
+    border-bottom-right-radius: 0.60rem;
+    margin-right: 57px;
 
-    position: fixed;
+    position: absolute;
     z-index: 300;
-    box-shadow: 2px 3px 5px var(--grey);
-
-    font-size: .85rem;
-
-    p{
-        color: var(--grey);
-    }
-
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 `

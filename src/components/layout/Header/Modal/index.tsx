@@ -1,33 +1,26 @@
-import Modal                from 'react-modal';
-import { MenuComponent }    from './Menu';
-import {GrLogout}           from 'react-icons/gr'
-import { ModalContainer }   from './style';
-import { ItemComponent }    from './Menu/Item';
-import useAuthContext       from '../../../../hook/useAuthContext';
-import useModalContext      from '../../../../hook/useModalContext';
+import { ReactNode } from "react";
+import { 
+  ContainerExternal,
+  ContainerInternal
+} from "./style";
 
-export default function ModalComponent() {
+interface propsNewModal {
+  onClose: () => void;
+  children: ReactNode;
+}
 
-    const {logout} = useAuthContext()
-    const {isConfigModalOpen, handleCloseConfigModal} = useModalContext()
+export function ModalComponent({onClose, children}: propsNewModal){
 
-    return (
-        <ModalContainer>
-            <Modal 
-                isOpen={isConfigModalOpen}  
-                onRequestClose={handleCloseConfigModal}
-                overlayClassName="react-modal-config-overlay"
-                className="react-modal-config-content"
-                ariaHideApp={false}
-            >
-                <MenuComponent>
-                    <>
-                        <ItemComponent text="Logout"  icon={<GrLogout   fontSize={20}/>} onClick={logout}/>
-                    </>
-                </MenuComponent>
-            </Modal>
-        </ModalContainer>
-    )
-    
-    
+  const handleOutsideClick = (e:any) => {
+    if(e.target.id) onClose();
+  }
+
+  return(
+    <>
+      <ContainerExternal id='modal' onClick={handleOutsideClick}/>
+      <ContainerInternal>
+        {children}     
+      </ContainerInternal>
+    </>
+  )
 }

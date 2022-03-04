@@ -187,13 +187,9 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
 
     }
      
-    async function teste(){
-        
+    async function teste(){  
         console.log(list)
-        
     }
-
-
 
     return(
         <BooksFirebaseContext.Provider value={{

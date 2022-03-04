@@ -1,16 +1,22 @@
 import Link             from 'next/link'
-import ModalComponent   from './Modal'
+
 import useAuthContext   from '../../../hook/useAuthContext'
 import useModalContext  from '../../../hook/useModalContext'
 import {CgProfile}      from 'react-icons/cg'
+import {GrLogout}      from 'react-icons/gr'
 import { SearchInput }  from './SearchInput'
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
 import {ArrowButtonContainer, HeaderComponent, LogoContainer, MenuContainer, PhotoContainer} from './style'
+import { useState } from 'react'
+import { ModalComponent } from '../Header/Modal'
+import { MenuComponent } from './Modal/Menu'
+import { ItemComponent } from './Modal/Menu/Item'
 
 export function Header(){
 
-    const {userAuth} = useAuthContext()
+    const {userAuth,logout  } = useAuthContext()
     const {handleOpenConfigModal,handleCloseConfigModal, isConfigModalOpen} = useModalContext()
+    const [modal, setModal] = useState(false)
 
     function handleUserPhoto(){
         return(
@@ -28,16 +34,24 @@ export function Header(){
         return(
             <>
                 {isConfigModalOpen ? 
-                    <ArrowButtonContainer onClick={handleCloseConfigModal}>
+                    <ArrowButtonContainer onClick={handleCloseModal}>
                         <IoIosArrowUp/>
                     </ArrowButtonContainer>
                     :
-                    <ArrowButtonContainer onClick={handleOpenConfigModal}>
+                    <ArrowButtonContainer onClick={handleOpenModal}>
                         <IoIosArrowDown/>
                     </ArrowButtonContainer>
                 }
             </>
          )
+    }
+
+    function handleOpenModal(){
+      setModal(true)
+    }
+  
+    function handleCloseModal(){
+      setModal(false)
     }
 
     return(
@@ -48,7 +62,18 @@ export function Header(){
                 <p>{userAuth.displayName}</p>
                 {handleUserPhoto()}
                 {handleDropDownMenu()}
-                <ModalComponent/>
+                {
+                    modal ? 
+                    <ModalComponent onClose={handleCloseModal} >  
+                        <MenuComponent>
+                            <>
+                                <ItemComponent text="Logout"  icon={<GrLogout   fontSize={20}/>} onClick={logout}/>
+                            </>
+                        </MenuComponent>
+                    </ModalComponent>
+                    :
+                    null
+                }
            </MenuContainer>
         </HeaderComponent>
     )
