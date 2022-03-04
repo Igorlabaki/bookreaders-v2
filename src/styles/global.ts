@@ -188,7 +188,7 @@ export const GlobalStyle = createGlobalStyle`
     ////////////////////////Nav active
 
     .pathNavActive{
-        background-color: aliceblue;
+        background-color: var(--blue-hover);
     }
 
 `

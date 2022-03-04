@@ -12,7 +12,7 @@ export const NavItemContainer = styled.div`
     padding: 1.33rem;
 
     :hover{
-        background-color: aliceblue;
+        background-color: var(--blue-hover);
     }
 
     :first-child{

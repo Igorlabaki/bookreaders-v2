@@ -1,53 +1,85 @@
-import { ProfileContainer }     from "./style";
-import { InputPostComponent }   from "../util/Feed/inputPost";
+import { BookContainer, MyBookContainer, PhotoContainer, ProfileContainer, StaticsContainer }     from "./style";
 import { BoxComponent }         from "../util/Box";
 import { FeedComponent }        from "../util/Feed";
 import { LoadComponent }        from "../util/Loading";
 import { PostsContextProvider}  from "../../../../Context/firebase/postsContext";
-import usePostsContext          from "../../../../hook/usePostsContext"; 
 import useAuthContext from "../../../../hook/useAuthContext";
+import { useEffect } from "react";
+import useBookFirebaseContext from "../../../../hook/useBooksFirebaseContext";
 
-interface book{
-    id                   ?:string,
-    searchInfo:{
-        textSnippet ?:    string
-    }
-    volumeInfo: {
-        title           ?: string
-        subtitle        ?: string
-        authors         ?: string[]
-        publishedDate   ?: string,
-        description     ?: string,
-        pageCount       ?: number,
-        categories      ?: string[]
-
-        imageLinks:{
-            smallThumbnail ?: string
-            thumbnail       ?: string
-        }
-    }
-}
 
 export function ProfileComponent(){
-    
-    const {isLoading} = usePostsContext()
+
+    const {getLongestBook,longestBook,getShortestBook,shortestBook,getAveragePages,pageRead,averagePages,getLastBookPosted,lastBookPosted} = useBookFirebaseContext()
     const {user} = useAuthContext()
+
+    useEffect(() => {
+        getLongestBook()
+        getShortestBook()
+        getAveragePages()
+        getAveragePages()
+        getLastBookPosted()
+    }, [])
+    
   
     return(
-        <PostsContextProvider>
             <ProfileContainer>
-                <BoxComponent title="Post">
-                    <form action="POST">
-                        {
-                            <InputPostComponent/>
+                <BoxComponent title="My Books">
+                    <MyBookContainer>
+                        {longestBook ? 
+                        <BookContainer>
+                            <PhotoContainer src={longestBook?.volumeInfo?.imageLinks?.thumbnail} alt="" />
+                            <div>
+                                <h2>Longest Book</h2>
+                                <p>({longestBook?.volumeInfo?.pageCount}&nbsp;pages)</p>
+                            </div>
+                        </BookContainer>
+                        :
+                        ""}
+                        {shortestBook ? 
+                        <BookContainer>
+                            <PhotoContainer src={shortestBook?.volumeInfo?.imageLinks?.thumbnail} alt="" />
+                            <div>
+                                <h2>Shortest Book</h2>
+                                <p>({shortestBook?.volumeInfo?.pageCount}&nbsp;pages)</p>
+                            </div>
+                        </BookContainer>
+                        :
+                        ''
                         }
-                    </form>
-                </BoxComponent>
-                <BoxComponent title="My Books Lists">
-                        
+                         {lastBookPosted ? 
+                        <BookContainer>
+                            <PhotoContainer src={lastBookPosted.bookphotoUrl} alt="" />
+                            <div>
+                                <h2>Last Book readed</h2>
+                            </div>
+                        </BookContainer>
+                        :
+                        ''
+                        }
+                        <BookContainer>
+                            <PhotoContainer src={'http://books.google.com/books/content?id=r2DogxOYJ3UC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE72jXM4lFtTz4oSG2obY9u7kbwQfE-bQ6_Qi4A5D0vH2rnGwem0fxWaM4NDxnfWRVF9JEh8B9-fMkb4OXyJtkVvNbjaTEtA27XoK8Upgbf65J8uAALUDCLcqc2wfvEiIP19PeTzp&source=gbs_api'} alt="" />
+                            <div>
+                                <h2>Currently reading</h2>
+                            </div>
+                        </BookContainer>
+                    </MyBookContainer>
+                    <StaticsContainer>
+                        <div>
+                            <h4>Books read:</h4>
+                            <p>{user?.books?.length}</p>
+                        </div>
+                        <div>
+                            <h4>Pages read:</h4>
+                            {pageRead ? <p>{pageRead}</p> : ''} 
+                        </div>
+                        <div>
+                            <h4>Page Average:</h4>
+                            {averagePages ? <p>{averagePages}</p> : ''} 
+                        </div>
+                    </StaticsContainer>
                 </BoxComponent>
                 <FeedComponent type={'userPost'}/>
             </ProfileContainer>
-        </PostsContextProvider>
     )
 }

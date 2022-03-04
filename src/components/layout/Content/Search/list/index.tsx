@@ -50,14 +50,11 @@ export function SearchListComponent({search}: SearchProps){
     
     useEffect(() => {
         getAllBooks(search.list)
-        console.log(booksList)
     }, [search.list])
     
     const indexOfLastBook   = currentPage       * elementsPerPage
     const indexOfFirstPost  = indexOfLastBook       - elementsPerPage
     const currentBooks      = booksList.slice(indexOfFirstPost,indexOfLastBook)
-
-    console.log(currentBooks)
     
     return(
         <SearchContainer>

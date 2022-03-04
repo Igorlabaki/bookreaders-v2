@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <AuthContextProvider>
       <UpdateUserContextProvider>
       	<BooksFirebaseContextProvider>
-        <PostsContextProvider>
+        <PostsContextProvider> 
         <PaginationContextProvider>
           <BookContextProvider>
             <ModalContextProvider>

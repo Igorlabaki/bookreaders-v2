@@ -3,14 +3,16 @@ import { CgProfile }        from "react-icons/cg";
 import { ImBooks }          from "react-icons/im";
 import { BsTrophyFill }     from "react-icons/bs";
 import { MdLibraryBooks }   from "react-icons/md";
-import { PhotoContainer,NavProfileContainer, InfoContainer, IconContainer, Container } from "./style";
+import { PhotoContainer,NavProfileContainer, InfoContainer, IconContainer, Container} from "./style";
 import useAuthContext from "../../../../../hook/useAuthContext";
 import useModalContext from "../../../../../hook/useModalContext";
+import useBookFirebaseContext from "../../../../../hook/useBooksFirebaseContext";
 
 export function NavProfile(){
 
-    const {userAuth} = useAuthContext()
+    const {userAuth,user} = useAuthContext()
     const {handleOpenPhotoModal} = useModalContext()
+    const {pageRead,averagePages} =     useBookFirebaseContext()
 
     function handleUserPhoto(){
         return(
@@ -27,16 +29,17 @@ export function NavProfile(){
     }
 
     return(
-        <NavProfileContainer>
-            {handleUserPhoto()}
-            <PhotoModalComponent/>
-            <InfoContainer>
-                <div>
-                    <span><ImBooks        fontSize={30} color={'rgb(155, 178, 243)'}     /></span>
-                    <span><MdLibraryBooks fontSize={30} color={'rgb(155, 178, 243)'}  /></span>
-                    <span><BsTrophyFill   fontSize={27} color={'rgb(155, 178, 243)'}/></span> 
-                </div>
-            </InfoContainer>
-        </NavProfileContainer>
+        <>
+            <NavProfileContainer>
+                {handleUserPhoto()}
+                <PhotoModalComponent/>
+                <InfoContainer>
+                    <ImBooks fontSize={30} color={'gray'}/>
+                    <MdLibraryBooks fontSize={28} color={'gray'}/>
+                    <BsTrophyFill fontSize={25} color={'gray'}/>
+                </InfoContainer>
+                <h4>{userAuth.displayName}</h4>
+            </NavProfileContainer>
+        </>
     )
 }

@@ -4,13 +4,14 @@ import {IoIosArrowDown} from 'react-icons/io'
 import { PostContainer, Photo, PostHeader, PostBookContainer, PostContent, PostTextContainer, ButtonComent, ComentContainer, ComentBody  } from './styles'
 import usePostsContext from "../../../../../../hook/usePostsContext"
 import usePaginationContext from '../../../../../../hook/usePaginationContext'
+import  useBookFirebaseContext from '../../../../../../hook/useBooksFirebaseContext'
 import useAuthContext from '../../../../../../hook/useAuthContext'
 import { useRouter }            from "next/router";
 import { InputPostComponent } from '../inputPost'
 
 interface Post{
     postId:   string 
-    uid:      string
+    userId:    string
     text:     string
     username: string,
     photoUrl: string,
@@ -31,21 +32,21 @@ interface PostComponent{
 
 export function PostsComponent({type}: PostComponent){
 
-    const {posts,getUserPosts,getPosts,userPosts,deletePost} = usePostsContext()
+    const {posts,getPosts,getUserPosts} = usePostsContext()
     const {currentPage,elementsPerPage,setCurrentPage} = usePaginationContext()
     const {user} = useAuthContext()
+    const {teste} =  useBookFirebaseContext()
 
     useEffect(() => {
+        setCurrentPage(1)
+        if(type.includes('allPost')){
+            getPosts()
+        }
         setCurrentPage(1)
         if(type.includes('userPost')){
             getUserPosts()
         }
-        if(type.includes('allPost')){
-            getPosts()
-        }
     }, [])
-
-    const [coment, setComent] = useState(false)
 
     const indexOfLastBook   = currentPage * elementsPerPage
     const indexOfFirstPost  = indexOfLastBook- elementsPerPage
@@ -54,24 +55,21 @@ export function PostsComponent({type}: PostComponent){
     let currentList = []
 
     if(type.includes('userPost')){
-        currentList = user.posts.slice(indexOfFirstPost,indexOfLastBook)
-        console.log(userPosts)
+        currentList = user?.posts.slice(indexOfFirstPost,indexOfLastBook)
     }
     if(type.includes('allPost')){
-        currentList = posts.slice(indexOfFirstPost,indexOfLastBook) 
+        currentList = posts?.slice(indexOfFirstPost,indexOfLastBook) 
     }
 
     return(
         <>
-            {currentList.map((post: Post,i) => {
-                {
-                    console.log(post)}
+            {currentList?.map((post: Post,i) => {
                 return(
                     <PostContainer key={i}>
                         {post.photoUrl ? <Photo src={post.photoUrl} alt="avatar" /> : <CgProfile fontSize={60}/>}
                         <PostContent>
                             <PostHeader>
-                                <p><strong>{post.username}</strong></p>
+                                <p onClick={() => router.push(`/user/${post.userId}`)}><strong>{post.username}</strong></p>
                                 <p><span>Posted at {post.postedAt}</span></p>
                             </PostHeader>
                             {post.bookTitle ?
@@ -93,7 +91,7 @@ export function PostsComponent({type}: PostComponent){
                                 <PostTextContainer>
                                     <p>{post.text}</p>
                                 </PostTextContainer>
-                            }
+                            }   
                             <p>Coments <IoIosArrowDown/></p>
                             {post.comments ? post?.comments.map((comment:any,i) => 
                                 <ComentBody key={i}>

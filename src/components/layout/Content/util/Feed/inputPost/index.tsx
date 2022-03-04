@@ -37,6 +37,7 @@ export function InputPostComponent({postId}: InputPost){
                 </>
             )
         }else{
+            return(
             <>
                 <button 
                     onClick={ (e) =>{
@@ -53,6 +54,7 @@ export function InputPostComponent({postId}: InputPost){
                     <p>Post</p>
                 </button>
             </>
+            )
         }
     }
 

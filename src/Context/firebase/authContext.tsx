@@ -141,7 +141,6 @@ export function AuthContextProvider({children}: ContextProvider){
 
    const getUser = async () => {
         getDoc(doc(usersCollectionRef,userAuth.uid)).then( (user) =>{
-            console.log(user.data)
             return setUser({...user.data()})
         })
    }
