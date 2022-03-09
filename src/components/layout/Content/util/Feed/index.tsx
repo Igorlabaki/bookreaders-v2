@@ -16,8 +16,6 @@ export function FeedComponent({type}:FeedProps){
         <>
             <BoxComponent title="Feed">
                 {
-                   isLoading ? <LoadComponent/> 
-                   :
                    <>
                     <PostsComponent type={type}/>
                     <PaginationComponent type={type}/>

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import {CgProfile} from 'react-icons/cg'
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io'
-import { CommentButton, Photo } from './styles'
+import { CommentButton, CommentEditContainer, CommentInfo, Photo } from './styles'
 import { ComentBody, ComentContainer } from './styles'
 import usePostsContext from '../../../../../../../hook/usePostsContext'
+import { EditComponent } from '../edit'
+import useAuthContext from '../../../../../../../hook/useAuthContext'
 
 interface EditProps{
    postComments: []
@@ -11,8 +13,9 @@ interface EditProps{
 
 export function CommentComponent({postComments}: EditProps){
 
-    const {getPosts,getUserPosts,deletePost} = usePostsContext()
-    const [comment, setComment] = useState(false)
+    const {getPosts,getUserPosts,deleteComment} = usePostsContext()
+    const {user} = useAuthContext()
+    const [comment, setComment] = useState(true)
 
     useEffect(() => {
         getPosts()
@@ -22,7 +25,7 @@ export function CommentComponent({postComments}: EditProps){
     return (
         <>
             <CommentButton onClick={() => setComment(!comment)}>
-                Coments 
+                Comments 
                 {comment ?  
                     <IoIosArrowUp/> 
                     : 
@@ -39,10 +42,13 @@ export function CommentComponent({postComments}: EditProps){
                             <>
                                 <ComentBody key={i}>
                                 {comment?.photoUrl ? <Photo src={comment.photoUrl} alt="avatar" /> : <CgProfile fontSize={60}/>}
-                                <div>
-                                    <p>{comment.username}</p>
+                                <CommentInfo>
+                                    <CommentEditContainer>
+                                        <p>{comment.username}</p>
+                                        <EditComponent userId={user?.uid}  elementUserId={comment.userId} elementId={comment.commenttId} postId={comment.postId} deleteElement={deleteComment} />
+                                    </CommentEditContainer>
                                     <ComentContainer >{comment.text}</ComentContainer> 
-                                </div>
+                                </CommentInfo>
                                 </ComentBody>
                             </>
                         )

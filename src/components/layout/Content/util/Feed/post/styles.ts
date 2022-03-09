@@ -44,3 +44,15 @@ export const PostTextContainer = styled.div`
     background-color: var(--blue-hover);
     font-weight: 700;
 `
+
+export const EditContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    div{
+        cursor: pointer;
+    }
+`

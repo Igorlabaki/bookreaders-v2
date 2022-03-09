@@ -26,7 +26,7 @@ export default function Button({children,googleButton,registerButton,loginButton
                     onClick={loginGoogle}
                     className="google-button"
                     >
-                        <p>Sing in with</p>
+                        <p>Sign in with</p>
                         {children}
                     </ButtonContainer>
                 :

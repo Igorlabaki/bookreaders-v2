@@ -109,6 +109,10 @@ export function AuthContextProvider({children}: ContextProvider){
            if(error.message.includes('email-already-in-use')){
                 showError('This email already in use.')
            }
+           if(error.message.includes('auth/invalid-email')){
+                showError('This email is invalid.')
+           }
+           console.log(error)
         }
     }
 
@@ -121,8 +125,9 @@ export function AuthContextProvider({children}: ContextProvider){
                         uid:        response.user.uid,
                         username:   response.user.displayName,
                         email:      response.user.email,
-                        avatar:     "",
-                        posts:      []
+                        avatar:     response.user.photoURL,
+                        posts:      [],
+                        books: []
                     })
                 updateProfile(auth.currentUser, {displayName: response.user.displayName})
                 sessionStorage.setItem('Token', response.user.uid)

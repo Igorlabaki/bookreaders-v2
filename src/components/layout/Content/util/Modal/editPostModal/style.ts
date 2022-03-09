@@ -23,7 +23,7 @@ export const ContainerInternal = styled.div`
     background: white;
 
     width: 140px;
-    top:    20px;
+    top:    10px;
     right:-42px ;
 
     border: none;

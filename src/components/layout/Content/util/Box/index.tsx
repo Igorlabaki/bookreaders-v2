@@ -10,7 +10,7 @@ export function BoxComponent({title,children}:BoxProps){
     return(
         <BoxContainer>
             <HeaderBox>
-                {title}
+                <h2>{title}</h2>
             </HeaderBox>
             <BodyBox>
                 {children}

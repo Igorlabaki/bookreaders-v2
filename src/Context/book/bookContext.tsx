@@ -29,13 +29,16 @@ interface book{
 interface BookContext{
     book:               book 
     booksList?:         book[],
-    booksSearch?:       book[],
+    booksSearch?:       book[], 
+    authorsList?:       book[],
     loading?:           boolean,
     currentBookPage?:   number
     booksPerPage?:      number
     setCurrentBookPage?:Dispatch<SetStateAction<number>>
+    setAuthorList?:Dispatch<SetStateAction<any>>
     getAllBooks?:       (bookSearch:any) => void
     getBooks?:          (bookSearch:any, maxResult?: number) => void
+    getBookByAuthor?:   (bookSearch:any, author?: string) => void
     getBook?:           (id:any) => void
 }
 
@@ -74,9 +77,15 @@ export function BookContextProvider({children}: ContextProvider){
     }
 
     async function  getBookByAuthor(author:string){
-        const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes/${author}+inauthor`)
-                   .then(resp => resp.data.items)
-        setAuthorList(resp)
+        setLoading(true)
+        const list = []
+        setAuthorList(list)
+        const authorTrim = author?.replace(' ' , '+')
+        const url = `q=a+inauthor:${authorTrim}`
+  
+        const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes?${url}&key=AIzaSyCQPpX0QFUTs45EhUe1Ou5FNjEAjjvtYRQ`)
+                   .then(resp => setAuthorList(resp.data.items))
+        setTimeout(() => setLoading(false), 2000)
     }
 
     return(
@@ -84,13 +93,16 @@ export function BookContextProvider({children}: ContextProvider){
             book,
             booksList,
             booksSearch,
+            authorsList,
             loading,
             currentBookPage,
             setCurrentBookPage,
+            getBookByAuthor,
             booksPerPage,
             getBook,
             getBooks,
             getAllBooks,
+            setAuthorList
         }}>
             {children}
         </BookContext.Provider>

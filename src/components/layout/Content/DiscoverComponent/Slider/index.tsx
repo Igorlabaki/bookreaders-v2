@@ -1,7 +1,7 @@
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import Image from "next/image"
 import { Swiper, SwiperSlide } from "swiper/react";
-import {SwiperContainer,SliderContainer} from "./style";
+import {SwiperContainer,SliderContainer, HeaderComponent, TextContainer, OverlayContainer} from "./style";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -23,12 +23,20 @@ export function SliderComponent (){
             >
                 <SwiperSlide>
                     <SliderContainer>
-                        <img src="/images/photos/banner.jpg" alt="img"/>
+                        <TextContainer>
+                            <OverlayContainer/>
+                            <HeaderComponent>
+                                <h3>Welcome to Book Readers</h3>
+                            </HeaderComponent>
+                                <p>Share your readings and comments, interact with your friends and rate the books you've read.</p>
+                                <p>Let’s keep the love of reading alive.</p>
+                        </TextContainer>
+                        <img src="/images/photos/j.jpg" alt="img"/>
                     </SliderContainer>
                 </SwiperSlide>  
                 <SwiperSlide>
                     <SliderContainer>
-                        <img src="/images/photos/j.jpg" alt="img"/>
+                        <img src="/images/photos/librarygirl.jpg" alt="img"/>
                     </SliderContainer>
                 </SwiperSlide>
             </Swiper>    

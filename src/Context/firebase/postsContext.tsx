@@ -2,6 +2,7 @@ import { db}       from '../../service/firebase'
 import {createContext,Dispatch,ReactNode,SetStateAction,useState} from 'react'
 import { collection, getDocs, doc,setDoc,updateDoc, query, where, getDoc,orderBy, deleteDoc} from 'firebase/firestore'
 import useAuthContext from '../../hook/useAuthContext'
+import { string } from 'yup'
 
 interface ContextProvider {
     children: ReactNode
@@ -32,7 +33,8 @@ interface PostsContext{
     teste?:                 (postId: string) => void,   
     getUserPosts?:          () => void
     getPosts?:              () => void
-    deletePost?:            (id:string) => void
+    deleteComment?:          (id:string,portId:string) => void
+    deletePost?:            (id:string, bookId:string) => void
 
     currentPostPage?:       number
     postsPerPage?:          number
@@ -200,10 +202,38 @@ export function PostsContextProvider({children}: ContextProvider){
 
 
 
-    async function  deletePost (postId: string){
-        const postUser = await doc(postsCollectionRef, postId);
-        deleteDoc(postUser)
-        getUserPosts()
+    async function  deletePost (postId: string, bookId: string){
+        setIsLoading(true)
+            const postUser = await doc(postsCollectionRef, postId);   
+            if(bookId){
+                const bookPosted = await doc(booksCollectionRef, bookId);
+                deleteDoc(bookPosted)
+            }
+            deleteDoc(postUser)
+            getUserPosts()
+        setTimeout(() => setIsLoading(false),3000)
+    }
+
+   async function  deleteComment (commentId: string,postId: string){
+        setIsLoading(true)
+            const commenttUser = await doc(commentsCollectionRef, commentId);
+            deleteDoc(commenttUser)
+            getCommentsList(postId)
+            getPosts()
+            getUserPosts()
+        setTimeout(() => setIsLoading(false),3000)
+    }
+
+    async function getCommentsList(postId:string){
+        const commentsList = []
+        const postsComments = await query(commentsCollectionRef,where("postId", "==", postId), orderBy('postedAt','asc'));
+        const querySnapshot = await getDocs(postsComments);
+        querySnapshot.docs.map((post) => (commentsList.push({...post.data(), id: userAuth.uid})))
+
+        const postSelected =  doc(postsCollectionRef,postId)
+        updateDoc(postSelected, {
+                comments: commentsList
+        })
     }
 
     async function teste(postId:string){
@@ -220,6 +250,7 @@ export function PostsContextProvider({children}: ContextProvider){
             setCurrentPostPage,
             teste,
             getUserPosts,
+            deleteComment,
             currentPostPage,
             postsPerPage,
             isLoading,

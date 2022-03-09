@@ -2,18 +2,20 @@ import { BookContainer, MyBookContainer, PhotoContainer, ProfileContainer, Stati
 import { BoxComponent }         from "../util/Box";
 import { FeedComponent }        from "../util/Feed";
 import { LoadComponent }        from "../util/Loading";
-import { PostsContextProvider}  from "../../../../Context/firebase/postsContext";
+import { PostsContext, PostsContextProvider}  from "../../../../Context/firebase/postsContext";
 import useAuthContext from "../../../../hook/useAuthContext";
 import { useEffect } from "react";
 import useBookFirebaseContext from "../../../../hook/useBooksFirebaseContext";
-
+import usePostsContext from "../../../../hook/usePostsContext";
 
 export function ProfileComponent(){
 
     const {getLongestBook,longestBook,getShortestBook,shortestBook,getAveragePages,pageRead,averagePages,getLastBookPosted,lastBookPosted} = useBookFirebaseContext()
     const {user} = useAuthContext()
+    const {getUserPosts} = usePostsContext()
 
     useEffect(() => {
+        getUserPosts()
         getLongestBook()
         getShortestBook()
         getAveragePages()

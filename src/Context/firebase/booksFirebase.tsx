@@ -73,7 +73,7 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
     const [longestBook,setlongestBook]      = useState<Book>()
     const [shortestBook,setShortestBook]    = useState<Book>()
     const [lastBookPosted,setLastBookPosted]= useState<Book>()
-    const [book,setBook]                    = useState<Object>()
+    const [book,setBook]                    = useState<any>()
 
 
     function showError(msg,time = 3000){
@@ -130,6 +130,18 @@ export function BooksFirebaseContextProvider({children}: ContextProvider){
         }else{
             showError('',3000)
         }
+    }
+
+    async function  getUserBookss (){
+        let list = []
+        const userBooks = await query(booksCollectionRef,where("userId", "==", userAuth.uid));
+        const querySnapshot = await getDocs(userBooks);
+        list = querySnapshot.docs.map((post) => ({...post.data(), id: userAuth.uid}))
+
+        const newUser =  doc(usersCollectionRef,userAuth.uid)
+        updateDoc(newUser, {
+            books: list
+        })
     }
 
     const getCountPages = () => {

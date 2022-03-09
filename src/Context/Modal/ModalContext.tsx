@@ -109,7 +109,7 @@ export function ModalContextProvider( {children}: ModalContextProvider){
                     e.preventDefault() 
                     handleCloseLoginModal()
                     handleOpenRegisterModal()
-                }}>Create a account here.
+                }}>Create an account here.
                 </button>
                 </p>
             </div>

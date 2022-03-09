@@ -9,7 +9,8 @@ import useAuthContext from '../../../../../../hook/useAuthContext'
 import usePostsContext from "../../../../../../hook/usePostsContext"
 import usePaginationContext from '../../../../../../hook/usePaginationContext'
 import  useBookFirebaseContext from '../../../../../../hook/useBooksFirebaseContext'
-import { PostContainer, Photo, PostHeader,PostContent, PostTextContainer} from './styles'
+import { PostContainer, Photo, PostHeader,PostContent, PostTextContainer, EditContainer} from './styles'
+import { LoadComponent } from '../../Loading'
 interface Post{
     postId:   string 
     userId:    string
@@ -31,7 +32,7 @@ interface PostComponent{
 
 export function PostsComponent({type}: PostComponent){
 
-    const {posts,getPosts,getUserPosts} = usePostsContext()
+    const {posts,getPosts,getUserPosts,deletePost,isLoading} = usePostsContext()
     const {currentPage,elementsPerPage,setCurrentPage} = usePaginationContext()
     const {user} = useAuthContext()
     const {teste} =  useBookFirebaseContext()
@@ -62,29 +63,40 @@ export function PostsComponent({type}: PostComponent){
 
     return(
         <>
-            {currentList?.map((post: Post,i) => {
-                return(
-                    <PostContainer key={i}>
+            <InputPostComponent/>
+            {isLoading ? <LoadComponent/> 
+            :
+            <>
+                {currentList?.map((post: Post,i) => {
+                    return(
+                        <PostContainer key={i}>
                         {post.photoUrl ? <Photo src={post.photoUrl} alt="avatar" /> : <CgProfile fontSize={60}/>}
                         <PostContent>
-                            <PostHeader>
-                                <p onClick={() => router.push(`/user/${post.userId}`)}><strong>{post.username}</strong></p>
-                                <EditComponent userId={user.uid}  postUserId={post.userId} postedAt={post.postedAt} postId={post.postId}/>
-                            </PostHeader>
-                            {post.bookTitle ?
-                                <BookComponent  post={post}/>
-                                :
-                                <PostTextContainer>
-                                    <p>{post.text}</p>
-                                </PostTextContainer>
-                            }   
-                            {post.comments ? <CommentComponent postComments={post.comments}/> : null}
-                        <InputPostComponent postId={post.postId}/>
-                        </PostContent>
-                    </PostContainer>
-                    )
-                }
-            )}
+                        <PostHeader>
+                        <p onClick={() => router.push(`/user/${post.userId}`)}><strong>{post.username}</strong></p>
+                        <EditContainer>
+                        <p><span>Posted at {post.postedAt}</span></p>
+                        <EditComponent userId={user?.uid}  elementUserId={post.userId} elementId={post.postId}  deleteElement={deletePost} />
+                        </EditContainer>
+                        </PostHeader>
+                        {post.bookTitle ?
+                            <BookComponent  post={post}/>
+                            :
+                            <PostTextContainer>
+                                        <p>{post.text}</p>
+                                    </PostTextContainer>
+                                }   
+                                {post.comments ? <CommentComponent postComments={post.comments}/> : null}
+                                <InputPostComponent postId={post.postId}/>
+                                </PostContent>
+                                </PostContainer>
+                                )
+                            }
+                        )
+                    }
+            </>
+        }
+     
         </>
     )
 }

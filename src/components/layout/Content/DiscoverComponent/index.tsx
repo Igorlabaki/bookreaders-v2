@@ -11,14 +11,7 @@ export function DiscoverComponent(){
 
     return(
         <DiscoverContainer>
-           <SliderComponent/>
-           <BoxComponent title="Post">
-                    <form action="POST">
-                        {
-                            <InputPostComponent/>
-                        }
-                    </form>
-            </BoxComponent>
+            <SliderComponent/>
             <FeedComponent type={'allPost'}/>
         </DiscoverContainer>
     )

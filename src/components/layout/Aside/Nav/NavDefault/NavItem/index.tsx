@@ -6,10 +6,10 @@ import { NavItemContainer } from './style'
 interface NavItem {
     text : string
     icon?: ReactNode
-    href : string
+    hrefprops : string
 }
 
-export function NavItem({text,icon,href}: NavItem) {
+export function NavItem({text,icon,hrefprops}: NavItem) {
 
     const { asPath } = useRouter()
 
@@ -18,7 +18,7 @@ export function NavItem({text,icon,href}: NavItem) {
     return (
         <NavItemContainer className={`${asPath == title ? 'pathNavActive' : ''}`}>
             {icon}
-            <Link href={href}>
+            <Link href={hrefprops}>
                 <p>{text}</p>
             </Link>
         </NavItemContainer>

@@ -1,20 +1,21 @@
 import { useState } from 'react'
-import {BsThreeDotsVertical,BsTrash} from 'react-icons/bs'
+import {BsThreeDots,BsTrash} from 'react-icons/bs'
 import {MdOutlineModeEditOutline} from 'react-icons/md'
 import usePostsContext from '../../../../../../../hook/usePostsContext'
 import { ModalEditComponent } from '../../../Modal/editPostModal'
 import { EditContainer, ItemEditContainer } from './styles'
 
 interface EditProps{
-    postId: string
-    postUserId: string
+    elementId: string
+    elementUserId: string
     userId: string
-    postedAt: Date
+    postId?:string
+    bookId?:string
+    deleteElement: (id: string, postId?: string) => void
 }
 
-export function EditComponent({postUserId,userId,postedAt,postId}: EditProps){
+export function EditComponent({elementId,userId,elementUserId,deleteElement,postId,bookId}: EditProps){
 
-    const {getPosts,getUserPosts,deletePost} = usePostsContext()
     const [modal, setModal] = useState(false)
 
     function handleOpenModal(){
@@ -25,24 +26,32 @@ export function EditComponent({postUserId,userId,postedAt,postId}: EditProps){
         setModal(false)
     }
     return (
-        <EditContainer>
-            <p><span>Posted at {postedAt}</span></p>
+        <>
             {
-                postUserId == userId ?
-                <BsThreeDotsVertical onClick={handleOpenModal}/> : null}
+                elementUserId == userId ?
+                <div><BsThreeDots onClick={handleOpenModal}/></div> : null}
                 {
                     modal ?
                     <ModalEditComponent onClose={handleCloseModal}>
-                        <ItemEditContainer onClick={() => deletePost(postId)}>
+                        <ItemEditContainer >
                             <i><MdOutlineModeEditOutline/></i>
                             <p> Edit</p>
                         </ItemEditContainer>
-                        <ItemEditContainer>
-                          <i><BsTrash/></i>
-                          <p>Delete</p>
-                        </ItemEditContainer>
+                        {
+                        postId ? 
+                            <ItemEditContainer onClick={() => deleteElement(elementId,postId)}>
+                                <i><BsTrash/></i>
+                                <p>Delete</p>
+                            </ItemEditContainer>
+                                :
+                            <ItemEditContainer onClick={() => deleteElement(elementId,bookId)}>
+                                <i><BsTrash/></i>
+                                <p>Delete</p>
+                            </ItemEditContainer>
+
+                        }
                     </ModalEditComponent> : null
                 }                      
-        </EditContainer>
+        </>
     )
 }

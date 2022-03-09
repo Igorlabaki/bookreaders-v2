@@ -43,7 +43,7 @@ export const GlobalStyle = createGlobalStyle`
 
     /////Modal Auth
         .react-modal-auth-overlay{
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.2);
             position:fixed;
             top: 0;
             left: 0;

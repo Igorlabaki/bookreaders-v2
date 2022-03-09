@@ -69,9 +69,10 @@ export function SearchListComponent({search}: SearchProps){
 
                     }
                     <TextContainer>
-                        <h5>{book.volumeInfo?.subtitle}</h5>
+                        <h3>{book.volumeInfo?.subtitle}</h3>
                             <p><strong>Author:</strong>&nbsp;{book.volumeInfo?.authors?.at(0)}</p>
                             <p><strong>Category:</strong>&nbsp;{book.volumeInfo?.categories?.at(0)}</p>
+                            <p>{book.volumeInfo?.description?.slice(0,500)}</p>
                             <div>
                                 <p><strong>Published:<strong/></strong>&nbsp;{book.volumeInfo?.publishedDate}</p>
                                 <p><strong>Pages:<strong/></strong>&nbsp;{book.volumeInfo?.pageCount}</p>

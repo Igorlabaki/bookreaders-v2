@@ -32,12 +32,13 @@ export const ComentBody = styled.div`
     display: flex;
     width: 100%;
     gap: 1rem;
-    div{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+`
+
+export const CommentInfo = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 `
 
 export const Photo = styled.img`
@@ -51,4 +52,14 @@ export const CommentButton = styled.div`
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
+`
+
+
+export const CommentEditContainer = styled.div`
+    display: flex !important;
+    flex-direction: row ;
+    width: 100% !important;
+    justify-content: space-between !important;
+    align-items: center;
+    position: relative;
 `
